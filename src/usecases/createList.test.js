@@ -34,11 +34,7 @@ describe('Create TO DO List', () => {
 
         it('Should Not Create List', async () => {
             // Given
-            const injection = {
-                ListRepository: class ListRepository {
-                    save(list) { return Ok(list) }
-                }
-            }
+            const injection = {}
             const user = aUser({ hasAccess: true })
             const req = { name: "" }
 

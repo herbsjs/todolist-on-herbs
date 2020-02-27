@@ -23,7 +23,7 @@ class DB {
     }
 
     async set(table, key, value) {
-        return this.memDB[this._key(table, key)] = value
+        return this.memDB[this._key(table, key)] = JSON.stringify(value)
     }
 }
 
