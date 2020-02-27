@@ -1,0 +1,19 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "todo list application sample using herbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "David Lojudice Sb",
+  "license": "MIT",
+  "dependencies": {
+    "buchu": "^1.0.2",
+    "gotu": "^1.0.4"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  }
+}
