@@ -14,7 +14,7 @@ describe('Create TO DO List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    save(list) { return list }
+                    save(list) { return Ok(list) }
                 }
             }
             const user = aUser({ hasAccess: true })
@@ -36,7 +36,7 @@ describe('Create TO DO List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    save(list) { return list }
+                    save(list) { return Ok(list) }
                 }
             }
             const user = aUser({ hasAccess: true })
@@ -48,7 +48,8 @@ describe('Create TO DO List', () => {
             const ret = await uc.run({ name: req.name })
 
             // Then
-            assert.ok(!ret.isOk)
+            assert.ok(ret.isErr)
+            assert.ok(ret.err.name[0] === "Name must be at least 3 characters")
         })
     })
 })

@@ -1,5 +1,4 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
-const { TodoList } = require('../entities/todoList')
 
 const dependency = {
     ListRepository: require('../repositories/listRepository')
@@ -7,7 +6,7 @@ const dependency = {
 
 module.exports.getLists = (injection) =>
 
-    usecase("Create TO DO List", {
+    usecase('Get Todo Lists', {
 
         request: { ids: Array },
 

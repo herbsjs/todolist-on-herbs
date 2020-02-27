@@ -13,6 +13,7 @@ module.exports =
         }
 
         async getByIDs(ids) {
+            // TODO: convert to entity explicitly
             const ret = await DB.getMany(this.table, ids)
             return Ok(ret)
         }

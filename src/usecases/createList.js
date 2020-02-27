@@ -7,7 +7,7 @@ const dependency = {
 
 module.exports.createList = (injection) =>
 
-    usecase("Create TO DO List", {
+    usecase('Create Todo List', {
 
         request: { name: String },
 
@@ -20,7 +20,7 @@ module.exports.createList = (injection) =>
             name: ctx.req.name
         })),
 
-        'Check if it is valid list': step((ctx) => ctx.list.isValid() ? Ok() : Err(list.errors)),
+        'Check if it is valid list': step((ctx) => ctx.list.isValid() ? Ok() : Err(ctx.list.errors)),
 
         'Save list': step(async (ctx) => {
             const listRepo = new ctx.di.ListRepository(injection)

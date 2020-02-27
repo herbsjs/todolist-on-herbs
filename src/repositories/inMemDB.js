@@ -17,7 +17,7 @@ class DB {
     async getMany(table, keys) {
         const ret = []
         for (const key of keys) {
-            ret.push(this.get(table, key))
+            ret.push(await this.get(table, key))
         }
         return ret
     }
