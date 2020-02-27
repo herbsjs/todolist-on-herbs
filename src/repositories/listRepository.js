@@ -11,4 +11,9 @@ module.exports =
             const ret = await DB.set(this.table, list.id, list)
             return Ok(ret)
         }
+
+        async getByIDs(ids) {
+            const ret = await DB.getMany(this.table, ids)
+            return Ok(ret)
+        }
     }

@@ -14,6 +14,14 @@ class DB {
         return this.memDB[this._key(table, key)]
     }
 
+    async getMany(table, keys) {
+        const ret = []
+        for (const key of keys) {
+            ret.push(this.get(table, key))
+        }
+        return ret
+    }
+
     async set(table, key, value) {
         return this.memDB[this._key(table, key)] = value
     }
