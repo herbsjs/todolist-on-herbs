@@ -16,8 +16,8 @@ describe('Update Todo List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    getByIDs(ids) { return Ok([new TodoList()]) }
-                    save(list) { return Ok(list) }
+                    async getByIDs(ids) { return Ok([new TodoList()]) }
+                    async save(list) { return Ok(list) }
                 }
             }
             const user = aUser({ hasAccess: true })
@@ -36,7 +36,7 @@ describe('Update Todo List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    getByIDs(ids) { return Ok([]) }
+                    async getByIDs(ids) { return Ok([]) }
                 }
             }
             const user = aUser({ hasAccess: true })

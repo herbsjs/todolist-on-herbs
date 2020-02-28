@@ -14,7 +14,7 @@ describe('Get Todo Lists', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    getByIDs(ids) { return Ok([]) }
+                    async getByIDs(ids) { return Ok([]) }
                 }
             }
             const user = aUser({ hasAccess: true })

@@ -14,7 +14,7 @@ describe('Create TO DO List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    save(list) { return Ok(list) }
+                    async save(list) { return Ok(list) }
                 }
             }
             const user = aUser({ hasAccess: true })
