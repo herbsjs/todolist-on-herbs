@@ -1,0 +1,5 @@
+mutation{
+  createList(name: "List One") {
+    name,id
+  }
+}
