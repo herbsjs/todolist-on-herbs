@@ -1,0 +1,47 @@
+const { combineResolvers } = require('graphql-resolvers');
+const {
+  AuthenticationError,
+  UserInputError,
+} = require('apollo-server-express');
+const { getLists } = require('../../../usecases/getLists');
+const { createList } = require('../../../usecases/createList');
+
+function aUser({ hasAccess }) {
+  return { canCreateList: hasAccess };
+}
+
+const resolvers = {
+  Query: {
+    lists: async (parent, args) => {
+      const uc = getLists();
+      //TODO: authorize user
+      const user = aUser({ hasAccess: true });
+      uc.authorize(user);
+      const response = await uc.run({ ids: args.ids });
+      if (response.isOk) {
+        return response.ok.value;
+      } else {
+        logger.error(`error: ${response.err.message}`, new Error(response.err));
+        throw new Error(response.err.message);
+      }
+    },
+  },
+  Mutation: {
+    createList: async (parent, args) => {
+      const uc = createList();
+      //TODO: authorize user
+      const user = aUser({ hasAccess: true });
+      uc.authorize(user);
+      const response = await uc.run({ name: args.name });
+
+      if (response.isOk) {
+        return response.ok.value;
+      } else {
+        logger.error(`error: ${response.err.message}`, new Error(response.err));
+        throw new Error(response.err.message);
+      }
+    },
+  },
+};
+
+module.exports = resolvers;
