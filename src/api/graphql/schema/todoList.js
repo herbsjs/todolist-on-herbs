@@ -6,15 +6,11 @@ module.exports = gql`
   }
 
   extend type Mutation {
-  
-  createList(
-      name: String!
-    ): TodoList!
-  
+    createList(name: String!): TodoList!
   }
-  
+
   type TodoList {
-    id: String,
+    id: String
     name: String
   }
 `;
