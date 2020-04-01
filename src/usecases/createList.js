@@ -1,9 +1,9 @@
-const { Ok, Err, usecase, step, ifElse } = require('buchu');
-const { TodoList } = require('../entities/todoList');
+const { Ok, Err, usecase, step, ifElse } = require('buchu')
+const { TodoList } = require('../entities/todoList')
 
 const dependency = {
   ListRepository: require('../repositories/listRepository'),
-};
+}
 
 module.exports.createList = injection =>
   usecase('Create Todo List', {
@@ -26,7 +26,7 @@ module.exports.createList = injection =>
     ),
 
     'Save list': step(async ctx => {
-      const listRepo = new ctx.di.ListRepository(injection);
-      return (ctx.ret = await listRepo.save(ctx.list));
+      const listRepo = new ctx.di.ListRepository(injection)
+      return (ctx.ret = await listRepo.save(ctx.list))
     }),
-  });
+  })
