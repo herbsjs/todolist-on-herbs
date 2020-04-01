@@ -1,21 +1,19 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
 
 const dependency = {
-    ListRepository: require('../repositories/listRepository')
+  ListRepository: require('../repositories/listRepository'),
 }
 
-module.exports.getLists = (injection) =>
+module.exports.getLists = injection =>
+  usecase('Get Todo Lists', {
+    request: { ids: Array },
 
-    usecase('Get Todo Lists', {
+    authorize: user => (user.canCreateList ? Ok() : Err()),
 
-        request: { ids: Array },
+    setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-        authorize: (user) => user.canCreateList ? Ok() : Err(),
-
-        setup: (ctx) => ctx.di = Object.assign({}, dependency, injection),
-
-        'Get lists': step(async (ctx) => {
-            const listRepo = new ctx.di.ListRepository(injection)
-            return ctx.ret = await listRepo.getByIDs(ctx.req.ids)
-        }),
-    })
+    'Get lists': step(async ctx => {
+      const listRepo = new ctx.di.ListRepository(injection)
+      return (ctx.ret = await listRepo.getByIDs(ctx.req.ids))
+    }),
+  })

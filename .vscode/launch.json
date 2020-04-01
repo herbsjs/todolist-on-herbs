@@ -7,6 +7,16 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Graphql Server",
+            "program": "${workspaceFolder}/src/api/server.js",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Main.js Launch",
             "program": "${workspaceFolder}/main.js",
             "skipFiles": [
