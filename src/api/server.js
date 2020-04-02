@@ -33,12 +33,12 @@ class ServerAPI {
     server.applyMiddleware({ app: this.app, path: '/graphql' })
   }
 
-  init() {
-    return this.app.listen({ port: Settings.web.httpPort }, this.banner)
-  }
-
   banner() {
     console.log(`🚀 Server UP and Running in port: ${Settings.web.httpPort}`)
+  }
+
+  init() {
+    return this.app.listen({ port: Settings.web.httpPort }, this.banner)
   }
 }
 
