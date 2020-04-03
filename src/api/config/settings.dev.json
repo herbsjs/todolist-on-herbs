@@ -1,0 +1,6 @@
+{
+  "environment": "development",
+  "web": {
+    "httpPort": 4000
+  }
+}

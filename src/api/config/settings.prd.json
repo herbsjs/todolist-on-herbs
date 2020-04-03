@@ -1,0 +1,6 @@
+{
+  "environment": "production",
+  "web": {
+    "httpPort": 443
+  }
+}
