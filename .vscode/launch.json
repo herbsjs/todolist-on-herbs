@@ -13,17 +13,7 @@
                 "${workspaceFolder}/node_modules/**/*.js",
                 "<node_internals>/**/*.js"
             ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Main.js Launch",
-            "program": "${workspaceFolder}/main.js",
-            "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-                "<node_internals>/**/*.js"
-            ]
-        },
+        },        
         {
             "type": "node",
             "request": "launch",

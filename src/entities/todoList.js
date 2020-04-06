@@ -7,8 +7,7 @@ module.exports.TodoList =
             validation: {
                 presence: true,
                 length: {
-                    minimum: 3,
-                    message: "must be at least 3 characters"
+                    minimum: 3
                 }
             }
         })
