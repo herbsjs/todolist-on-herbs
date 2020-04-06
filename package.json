@@ -1,10 +1,12 @@
 {
   "name": "todolist",
-  "version": "1.0.0",
-  "description": "todo list application sample using herbs",
+  "version": "1.0.1",
+  "description": "A sample Todo List graphQL API using Herbs using Buchu, Gotu,Suma and Graphql with Apollo Server Express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive src/**/*.test.js --timeout 10000",
+    "coverage": "nyc mocha src/**/*.test.js",
+    "start": "node src/api/server.js"
   },
   "keywords": [],
   "author": "David Lojudice Sb",

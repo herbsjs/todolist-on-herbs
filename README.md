@@ -8,7 +8,7 @@ A sample Todo List graphQL API using Herbs using [Buchu](https://github.com/herb
     $ npm install
 
 ### Run
-    $ node .\src\api\server.js
+    $ npm start
 
   You should receive this message => 🚀 Server UP and Running in port: 4000    
 
