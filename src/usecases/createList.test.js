@@ -45,7 +45,7 @@ describe('Create TO DO List', () => {
 
             // Then
             assert.ok(ret.isErr)
-            assert.ok(ret.err.name[0] === "Name must be at least 3 characters")
+            assert.deepEqual(ret.err, { name: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
         })
     })
 })

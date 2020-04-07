@@ -4,11 +4,6 @@ module.exports.TodoList =
     entity('To Do List', {
         id: field(Number),
         name: field(String, {
-            validation: {
-                presence: true,
-                length: {
-                    minimum: 3
-                }
-            }
+            validation: { presence: true, length: { minimum: 3 } }
         })
     })

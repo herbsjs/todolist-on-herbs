@@ -4,10 +4,6 @@ const assert = require('assert')
 
 describe('Get Todo Lists', () => {
 
-    function aUser({ hasAccess }) {
-        return { canCreateList: hasAccess }
-    }
-
     describe('Get Lists', () => {
 
         it('All', async () => {
@@ -17,7 +13,7 @@ describe('Get Todo Lists', () => {
                     async getByIDs(ids) { return Ok([]) }
                 }
             }
-            const user = aUser({ hasAccess: true })
+            const user = { canGetLists: true }
             const req = { ids: [] }
 
             // When

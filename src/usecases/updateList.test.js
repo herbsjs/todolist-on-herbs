@@ -6,10 +6,6 @@ const { TodoList } = require('../entities/todoList')
 
 describe('Update Todo List', () => {
 
-    function aUser({ hasAccess }) {
-        return { canCreateList: hasAccess }
-    }
-
     describe('Update Lists', () => {
 
         it('Should Update List', async () => {
@@ -20,7 +16,7 @@ describe('Update Todo List', () => {
                     async save(list) { return Ok(list) }
                 }
             }
-            const user = aUser({ hasAccess: true })
+            const user = { canCreateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When
@@ -39,7 +35,7 @@ describe('Update Todo List', () => {
                     async getByIDs(ids) { return Ok([]) }
                 }
             }
-            const user = aUser({ hasAccess: true })
+            const user = { canCreateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When

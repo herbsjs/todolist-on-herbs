@@ -1,7 +1,5 @@
 const { gql } = require('apollo-server-express')
 
-const todoListSchema = require('./todoList')
-
 const linkSchema = gql`
   scalar Date
 
@@ -14,4 +12,13 @@ const linkSchema = gql`
   }
 `
 
-module.exports = [linkSchema, todoListSchema]
+module.exports = [linkSchema,
+  // types 
+  require('./type/todoLists'),
+
+  // queries
+  require('./query/getLists'),
+
+  // mutations
+  require('./mutation/createList'),
+]

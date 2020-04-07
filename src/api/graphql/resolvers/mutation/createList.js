@@ -1,22 +1,19 @@
-const { createList } = require('../../../../usecases/createList')
+const { UserInputError } = require('apollo-server-express')
 
-function aUser({ hasAccess }) {
-  return { canCreateList: hasAccess }
+const dependency = {
+  createList: require('../../../../usecases/createList').createList,
 }
 
 const resolvers = {
   Mutation: {
     createList: async (parent, args) => {
-      const uc = createList()
-      // TODO: authorize user
-      const user = aUser({ hasAccess: true })
-      uc.authorize(user)
+      const di = Object.assign({}, dependency, args.injection)
+      const uc = di.createList(args.injection)
+      const hasAccess = uc.authorize({ canCreateList: true }) // TODO: authorize user
       const response = await uc.run({ name: args.name })
 
-      if (response.isOk) {
-        return response.ok.value
-      }
-      throw new Error(response.err.message)
+      if (response.isErr) throw new UserInputError(null, { invalidArgs: response.err })
+      return response.ok
     }
   }
 }

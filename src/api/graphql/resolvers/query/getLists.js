@@ -1,28 +1,23 @@
 const {
-  AuthenticationError,
   UserInputError,
 } = require('apollo-server-express')
-const { getLists } = require('../../../../usecases/getLists')
 
-function aUser({ hasAccess }) {
-  return { canCreateList: hasAccess }
+const dependency = {
+  getLists: require('../../../../usecases/getLists').getLists,
 }
 
 const resolvers = {
   Query: {
     getLists: async (parent, args) => {
-      const uc = getLists()
-      //TODO: authorize user
-      const user = aUser({ hasAccess: true })
-      uc.authorize(user)
+      const di = Object.assign({}, dependency, args.injection)
+      const uc = di.getLists(args.injection)
+      const hasAccess = uc.authorize({ canGetLists: true }) // TODO: authorize user
       const response = await uc.run({ ids: args.ids })
-      if (response.isOk) {
-        return response.ok.value
-      } else {
-        throw new Error(response.err.message)
-      }
-    },
-  },
+
+      if (response.isErr) throw new UserInputError(null, { invalidArgs: response.err })
+      return response.ok
+    }
+  }
 }
 
 module.exports = resolvers

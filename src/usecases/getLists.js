@@ -8,7 +8,7 @@ module.exports.getLists = injection =>
   usecase('Get Todo Lists', {
     request: { ids: Array },
 
-    authorize: user => (user.canCreateList ? Ok() : Err()),
+    authorize: user => (user.canGetLists ? Ok() : Err()),
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
