@@ -3,7 +3,7 @@ const {
 } = require('apollo-server-express')
 
 const dependency = {
-  getLists: require('../../../../usecases/getLists').getLists,
+  getLists: require('../../../../../domain/usecases/getLists').getLists,
 }
 
 const resolvers = {

@@ -1,7 +1,7 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
 
 const dependency = {
-  ListRepository: require('../repositories/listRepository'),
+  ListRepository: require('../../infra/repositories/listRepository'),
 }
 
 module.exports.getLists = injection =>

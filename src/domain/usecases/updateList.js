@@ -1,8 +1,8 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
-const { TodoList } = require('../entities/todoList')
+const { TodoList } = require('../../domain/entities/todoList')
 
 const dependency = {
-  ListRepository: require('../repositories/listRepository'),
+  ListRepository: require('../../infra/repositories/listRepository'),
 }
 
 module.exports.updateList = injection =>

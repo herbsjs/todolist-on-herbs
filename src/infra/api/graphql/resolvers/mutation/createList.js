@@ -1,7 +1,7 @@
 const { UserInputError } = require('apollo-server-express')
 
 const dependency = {
-  createList: require('../../../../usecases/createList').createList,
+  createList: require('../../../../../domain/usecases/createList').createList,
 }
 
 const resolvers = {

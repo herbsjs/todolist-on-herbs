@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Graphql Server",
-            "program": "${workspaceFolder}/src/api/server.js",
+            "program": "${workspaceFolder}/src/infra/api/server.js",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
                 "<node_internals>/**/*.js"
