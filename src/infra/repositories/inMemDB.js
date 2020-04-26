@@ -25,6 +25,21 @@ class DB {
     async set(table, key, value) {
         return this.memDB[this._key(table, key)] = JSON.stringify(value)
     }
+
+    async deleteMany(table, keys) {
+        const dbKeys = keys.map(key => this._key(table, key));
+        const filterKeys = key => !dbKeys.includes(key);
+        const createItem = (obj, key) => {
+            obj[key] = this.memDB[key]
+            return obj
+        }
+        
+        this.memDB = Object.keys(this.memDB)
+            .filter(filterKeys)
+            .reduce(createItem, {});
+
+        return this.memDB;
+    }
 }
 
 module.exports = new DB()

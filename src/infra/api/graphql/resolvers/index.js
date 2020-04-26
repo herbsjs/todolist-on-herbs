@@ -1,6 +1,7 @@
 const { GraphQLDateTime } = require('graphql-iso-date')
 
 const createListResolver  = require('./mutation/createList')
+const deleteListResolver  = require('./mutation/deleteList')
 const getListsResolver  = require('./query/getLists')
 
 const customScalarResolver = {
@@ -10,5 +11,6 @@ const customScalarResolver = {
 module.exports = [
   customScalarResolver,
   createListResolver,
-  getListsResolver
+  deleteListResolver,
+  getListsResolver,
 ]
