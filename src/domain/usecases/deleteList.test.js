@@ -1,6 +1,8 @@
 const { deleteList } = require('./deleteList')
 const { Ok, Err } = require('buchu')
 const assert = require('assert')
+const { TodoList } = require('../entities/todoList')
+
 
 describe('Delete Todo Lists', () => {
 
@@ -32,6 +34,7 @@ describe('Delete Todo Lists', () => {
             const injection = {
                 ListRepository: class ListRepository {
                     async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: 'todo-list-1' })]) }
+                    async deleteByIDs(ids) { return Err(`List not found - ID: "2"`) }
                 }
             }
             const user = { canDeteleList: true }

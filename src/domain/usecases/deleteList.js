@@ -22,7 +22,7 @@ module.exports.deleteList = injection =>
       return Err(`List not found - ID: "${ctx.req.id}"`)
     }),
 
-    'Delete list': step(ctx => {
+    'Delete list': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)
       const ret = await listRepo.deleteByIDs([ctx.req.id])
       if (ret.isErr) return ret
