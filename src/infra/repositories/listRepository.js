@@ -21,4 +21,14 @@ module.exports = class ListRepository {
     }
     return Ok(listArray)
   }
+
+  async deleteByIDs(ids) {
+    const ret = await DB.deleteMany(this.table, ids)
+    const listArray = []
+    for (var i = 0, len = ret.length; i < len; i++) {
+      if (ret[i] === undefined) continue
+      listArray.push(TodoList.fromJSON(ret[i]))
+    }
+    return Ok(listArray)
+  }
 }
