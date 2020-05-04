@@ -12,11 +12,11 @@ describe('Update Todo List', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    async getByIDs(ids) { return Ok([new TodoList()]) }
+                    async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: "Previous Name"})]) }
                     async save(list) { return Ok(list) }
                 }
             }
-            const user = { canCreateList: true }
+            const user = { canUpdateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When
@@ -35,7 +35,7 @@ describe('Update Todo List', () => {
                     async getByIDs(ids) { return Ok([]) }
                 }
             }
-            const user = { canCreateList: true }
+            const user = { canUpdateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When

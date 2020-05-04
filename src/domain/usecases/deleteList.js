@@ -5,15 +5,15 @@ const dependency = {
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
-module.exports.updateList = injection =>
-  usecase('Update Todo List', {
-    request: { id: Number, name: String },
+module.exports.deleteList = injection =>
+  usecase('Delete Todo List', {
+    request: { id: Number },
 
-    authorize: user => (user.canUpdateList ? Ok() : Err()),
+    authorize: user => (user.canDeteleList ? Ok() : Err()),
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    'Retrieve list': step(async ctx => {
+    'Check if it is valid list': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)
       const ret = await listRepo.getByIDs([ctx.req.id])
       if (ret.isErr) return ret
@@ -22,14 +22,12 @@ module.exports.updateList = injection =>
       return Err(`List not found - ID: "${ctx.req.id}"`)
     }),
 
-    'Check if it is valid list': step(ctx => {
-      const list = ctx.list
-      list.name = ctx.req.name
-      return list.isValid() ? Ok() : Err(list.errors)
-    }),
-
-    'Update list': step(async ctx => {
+    'Delete list': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await listRepo.save(ctx.list))
-    }),
+      const ret = await listRepo.deleteByIDs([ctx.req.id])
+      if (ret.isErr) return ret
+      const allLists = (ctx.list = ret.ok)
+      return (ctx.ret = allLists)
+    })
+
   })
