@@ -1,11 +1,11 @@
-const { ItemList } = require('./itemList')
+const { Item } = require('./item')
 const assert = require('assert')
 
-describe('Item List', () => {
-  describe('Valid List', () => {
-    it('Should be a Valid item list', async () => {
+describe('Item ', () => {
+  describe('Valid Item', () => {
+    it('Should be a Valid item', async () => {
       // Given
-      const aItemList = new ItemList()
+      const aItemList = new Item()
 
       // When
       aItemList.description = 'My first Item List'
@@ -17,9 +17,9 @@ describe('Item List', () => {
     })
   }),
     describe('Invalid List', () => {
-      it('Should not be a Valid item list', async () => {
+      it('Should not be a Valid item', async () => {
         // Given
-        const aItemList = new ItemList()
+        const aItemList = new Item()
 
         // When
         aItemList.description = undefined

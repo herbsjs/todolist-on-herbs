@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --recursive src/**/*.test.js --timeout 10000",
     "coverage": "nyc mocha src/**/*.test.js",
-    "start": "node src/api/server.js"
+    "start": "node src/infra/api/server.js"
   },
   "keywords": [],
   "author": "David Lojudice Sb",

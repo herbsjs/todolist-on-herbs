@@ -1,23 +1,26 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
-const { ItemList } = require('../entities/itemList')
+const { Item } = require('../entities/item')
 
 const dependency = {
+  ItemRepository: require('../../infra/repositories/ItemRepository'),
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
-module.exports.createItemList = (injection) =>
-  usecase('Create Item List', {
+module.exports.createItem = (injection) =>
+  usecase('Create Item', {
     request: { idList: Number, description: String },
 
-    authorize: (user) => (user.canAddItemList ? Ok() : Err()),
+    authorize: (user) => (user.canAddItem ? Ok() : Err()),
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
     'Create item': step(
       (ctx) =>
-        (ctx.item = ItemList.fromJSON({
+        (ctx.item = Item.fromJSON({
+          id: Math.floor(Math.random() * 100000),
           description: ctx.req.description,
-          isDone: false
+          isDone: false,
+          idList: ctx.req.idList,
         }))
     ),
 
@@ -27,26 +30,33 @@ module.exports.createItemList = (injection) =>
 
     'Check if list exist': step(async (ctx) => {
       const listRepo = new ctx.di.ListRepository(injection)
-      const ret = await listRepo.getByIDs([ctx.req.idList])
-      if (ret.isErr) return ret
-      const list = (ctx.list = ret.ok[0])
+      const ret = await listRepo.getByIDs(ctx.req.idList)
+      const list = (ctx.List = ret.ok[0])
       if (!list) return Err(`List not found - ID: "${ctx.req.idList}"`)
 
       return Ok()
     }),
 
-    'Get the last position value': step((ctx) => {
-      const lastItem = ctx.list.items.reduce((prev, cur) => {
+    'Get the last position value': step(async (ctx) => {
+      const itensRepo = new ctx.di.ItemRepository(injection)
+      const itensList = (await itensRepo.geItemByListID(ctx.req.idList)).ok
+
+      if (!itensList.length){
+        ctx.item.position = 1
+        return Ok()
+      }
+
+      const lastItem = itensList.reduce((prev, cur) => {
         return prev ? (cur.position > prev.position ? cur : prev) : cur
       }, undefined)
 
       if (lastItem) ctx.item.position = lastItem.position + 1
-      else ctx.item.position = 1
+
       return Ok()
     }),
 
     'Save list': step(async (ctx) => {
-      const itemRepo = new ctx.di.ListRepository(injection)
+      const itemRepo = new ctx.di.ItemRepository(injection)
       return (ctx.ret = await itemRepo.save(ctx.item))
     }),
   })
