@@ -2,7 +2,7 @@ const { createItem } = require('./createItem')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
-describe('Create TO DO Item on List', () => {
+describe('Create TO DO Item', () => {
   function aUser({ hasAccess }) {
     return { canAddItem: hasAccess }
   }
@@ -100,7 +100,7 @@ describe('Create TO DO Item on List', () => {
       })
   })
 
-  describe('Invalid Name List', () => {
+  describe('Invalid Item', () => {
     it('Should Not Create Item on invalid list', async () => {
       // Given
       const injection = {
