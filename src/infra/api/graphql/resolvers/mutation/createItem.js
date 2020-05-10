@@ -1,0 +1,25 @@
+const { UserInputError } = require('apollo-server-express')
+
+const dependency = {
+  createItem: require('../../../../../domain/usecases/createItem').createItem
+}
+
+const resolvers = {
+  Mutation: {
+    createItem: async (parent, args) => {
+      const di = Object.assign({}, dependency, args.injection)
+      const uc = di.createItem(args.injection)
+      const hasAccess = uc.authorize({ canAddItem: true }) // TODO: authorize user
+      const response = await uc.run({
+        description: args.description,
+        idList: args.idList
+      })
+
+      if (response.isErr)
+        throw new UserInputError(null, { invalidArgs: response.err })
+      return response.ok
+    },
+  },
+}
+
+module.exports = resolvers

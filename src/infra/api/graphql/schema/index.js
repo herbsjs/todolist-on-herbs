@@ -13,12 +13,15 @@ const linkSchema = gql`
 `
 
 module.exports = [linkSchema,
-  // types 
+  // types
   require('./type/todoLists'),
+  require('./type/item'),
 
   // queries
   require('./query/getLists'),
 
   // mutations
   require('./mutation/createList'),
+  require('./mutation/createItem'),
+  require('./mutation/updateItem'),
 ]
