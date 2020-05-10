@@ -2,7 +2,7 @@ const { Ok, Err, usecase, step, ifElse } = require('buchu')
 const { Item } = require('../entities/item')
 
 const dependency = {
-  ItemRepository: require('../../infra/repositories/ItemRepository'),
+  ItemRepository: require('../../infra/repositories/itemRepository'),
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
