@@ -23,12 +23,7 @@ module.exports = class ItemListRepositoy {
   }
 
   async getItemByID(id) {
-    const ret = await DB.getMany(this.table, id)
-    let item = undefined
-    for (var i = 0, len = ret.length; i < len; i++) {
-      if (ret[i] === undefined ) continue
-      item = Item.fromJSON(ret[i])
-    }
-    return Ok(item)
+    const ret = await DB.get(this.table, id)
+    return Ok(Item.fromJSON(ret))
   }
 }
