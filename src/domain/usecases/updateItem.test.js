@@ -2,7 +2,7 @@ const { Ok, Err } = require('buchu')
 const assert = require('assert')
 
 const { Item } = require('../entities/item')
-const { updateItemList } = require('./updateItem')
+const { updateItem } = require('./updateItem')
 
 describe('Update To Do items', () => {
   function aUser({ hasAccess }) {
@@ -57,7 +57,7 @@ describe('Update To Do items', () => {
       }
 
       // When
-      const uc = updateItemList(injection)
+      const uc = updateItem(injection)
       uc.authorize(user)
       const ret = await uc.run(req)
 
@@ -73,7 +73,7 @@ describe('Update To Do items', () => {
         }
 
         // When
-        const uc = updateItemList(injection)
+        const uc = updateItem(injection)
         uc.authorize(user)
         const ret = await uc.run(req)
 
@@ -90,7 +90,7 @@ describe('Update To Do items', () => {
         }
 
         // When
-        const uc = updateItemList(injection)
+        const uc = updateItem(injection)
         uc.authorize(user)
         const ret = await uc.run(req)
 
@@ -107,7 +107,7 @@ describe('Update To Do items', () => {
         }
 
         // When
-        const uc = updateItemList(injection)
+        const uc = updateItem(injection)
         uc.authorize(user)
         const ret = await uc.run(req)
 

@@ -30,7 +30,7 @@ module.exports.createItem = (injection) =>
 
     'Check if list exist': step(async (ctx) => {
       const listRepo = new ctx.di.ListRepository(injection)
-      const ret = await listRepo.getByIDs(ctx.req.idList)
+      const ret = await listRepo.getByIDs([ctx.req.idList])
       const list = (ctx.List = ret.ok[0])
       if (!list) return Err(`List not found - ID: "${ctx.req.idList}"`)
 

@@ -5,11 +5,10 @@ const dependency = {
   ItemListRepository: require('../../infra/repositories/itemRepository'),
 }
 
-module.exports.updateItemList = (injection) =>
+module.exports.updateItem = (injection) =>
   usecase('update Item', {
     request: {
       id: Number,
-      idList: Number,
       description: String,
       isDone: Boolean,
       position: Number
@@ -44,7 +43,7 @@ module.exports.updateItemList = (injection) =>
 
     'Check if is necessary update tasks positions': ifElse({
       'Check if position as been changed': step((ctx) => {
-        if (ctx.req.position) {
+        if (ctx.req.position !== ctx.ret.updatedItem.position) {
           return Ok(true)
         } else {
           return Ok(false)
@@ -71,7 +70,7 @@ module.exports.updateItemList = (injection) =>
 
       'Save updated item': step(async (ctx) => {
         const listRepo = new ctx.di.ItemListRepository(injection)
-        return (ctx.ret = await listRepo.save(ctx.req.updatedItem))
+        return (ctx.ret = await listRepo.save(ctx.ret.updatedItem))
       })
     })
   })
