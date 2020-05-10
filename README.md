@@ -77,6 +77,7 @@ mutation{
       position,
     }
 }
+```
 
 To get the list and just run a POST http://localhost:{yourport}/graphql passing an array of ID's
 
