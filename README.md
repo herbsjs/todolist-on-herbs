@@ -63,6 +63,7 @@ mutation{
   }
 }
 ```
+
 To update item just run a POST http://localhost:{yourport}/graphql
 
 ```graphql
