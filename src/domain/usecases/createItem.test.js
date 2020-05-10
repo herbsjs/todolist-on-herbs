@@ -2,24 +2,18 @@ const { createItem } = require('./createItem')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
-describe('Create Item on List', () => {
+describe('Create TO DO Item on List', () => {
   function aUser({ hasAccess }) {
     return { canAddItem: hasAccess }
   }
 
-  describe('Valid List', () => {
+  describe('Valid Item', () => {
     it('Should Add item on empty List ', async () => {
       // Given
       const injection = {
         ListRepository: class {
           async getByIDs(id) {
-            const lists = [
-              { name: 'List One', id: 65676 },
-              { name: 'Second One', id: 65677 },
-              { name: 'Third One', id: 65678 },
-            ]
-
-            return Ok(lists.filter(list => list.id === id))
+            return Ok([{ name: 'List One', id: 65676 }])
           }
         },
         ItemRepository: class {
@@ -27,11 +21,7 @@ describe('Create Item on List', () => {
             return Ok(list)
           }
           async geItemByListID(id) {
-            const baseList = []
-
-            const filteredList = baseList.filter((item) => item.idList === id)
-
-            return Ok(filteredList)
+            return Ok([])
           }
         },
       }
@@ -54,13 +44,7 @@ describe('Create Item on List', () => {
         const injection = {
           ListRepository: class {
             async getByIDs(id) {
-              const lists = [
-                { name: 'List list', id: 65676 },
-                { name: 'Second list', id: 65677 },
-                { name: 'Third list', id: 65678 },
-              ]
-
-              return Ok(lists.filter(list => list.id === id))
+              return Ok([{ name: 'List list', id: 65676 }])
             }
           },
           ItemRepository: class {
@@ -92,7 +76,9 @@ describe('Create Item on List', () => {
                 },
               ]
 
-              const filteredList = baseList.filter((item) => item.idList === id)
+              const filteredList = baseList.filter(
+                (item) => item.idList === id
+              )
 
               return Ok(filteredList)
             }
@@ -120,11 +106,7 @@ describe('Create Item on List', () => {
       const injection = {
         ListRepository: class {
           async getByIDs(id) {
-            const lists = [
-              { name: 'List list', id: 65676 },
-            ]
-
-            return Ok(lists.filter(list => list.id === id))
+            return Ok([])
           }
         },
         ItemRepository: class {
@@ -132,19 +114,15 @@ describe('Create Item on List', () => {
             return Ok(list)
           }
           async geItemByListID(id) {
-            const baseList = [
+            return Ok([
               {
                 id: 11110,
                 idList: 65676,
                 description: 'First item on list',
                 position: 1,
                 isDone: false,
-              }
-            ]
-
-            const filteredList = baseList.filter((item) => item.idList === id)
-
-            return Ok(filteredList)
+              },
+            ])
           }
         },
       }
@@ -161,6 +139,37 @@ describe('Create Item on List', () => {
 
       // Then
       assert.ok(ret.isErr)
-    })
+    }),
+      it('Should Not Create invalid Item', async () => {
+        // Given
+        const injection = {
+          ListRepository: class {
+            async getByIDs(id) {
+              return Ok([{ name: 'List list', id: 65676 }])
+            }
+          },
+          ItemRepository: class {
+            async save(list) {
+              return Ok(list)
+            }
+            async geItemByListID(id) {
+              return Ok([])
+            }
+          },
+        }
+        const user = aUser({ hasAccess: true })
+        const req = { idList: 65676 }
+
+        // When
+        const uc = createItem(injection)
+        uc.authorize(user)
+        const ret = await uc.run({
+          idList: req.idList,
+          description: req.description,
+        })
+
+        // Then
+        assert.ok(ret.isErr)
+      })
   })
 })

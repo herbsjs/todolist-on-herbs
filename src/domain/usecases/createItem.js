@@ -25,7 +25,7 @@ module.exports.createItem = (injection) =>
     ),
 
     'Check if it is valid item': step((ctx) =>
-      ctx.item.isValid() ? Ok() : Err(ctx.list.errors)
+      ctx.item.isValid() ? Ok() : Err(ctx.item.errors)
     ),
 
     'Check if list exist': step(async (ctx) => {
