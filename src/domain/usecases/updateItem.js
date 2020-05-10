@@ -20,7 +20,11 @@ module.exports.updateItem = (injection) =>
 
     'Get old item': step(async (ctx) => {
       const itemListRepo = new ctx.di.ItemListRepository(injection)
-      ctx.req.oldItem = (await itemListRepo.getItemByID(ctx.req.id)).ok
+      const oldItem = (ctx.req.oldItem = (await itemListRepo.getItemByID(ctx.req.id)).ok)
+
+      if(!oldItem)
+        return Err(`Item not found - ID: "${ctx.req.id}"`)
+
       return Ok()
     }),
 
@@ -43,7 +47,7 @@ module.exports.updateItem = (injection) =>
 
     'Check if is necessary update tasks positions': ifElse({
       'Check if position as been changed': step((ctx) => {
-        if (ctx.req.position !== ctx.ret.updatedItem.position) {
+        if (ctx.req.position !== ctx.req.oldItem.position) {
           return Ok(true)
         } else {
           return Ok(false)
@@ -58,14 +62,14 @@ module.exports.updateItem = (injection) =>
         const itemEqualPosition = itemList.find(
           (item) =>
             item.position === ctx.req.position &&
-            item.position !== ctx.req.position
+            item.id !== ctx.req.id
         )
         if (itemEqualPosition) {
           itemEqualPosition.position = ctx.req.oldItem.position
           await listRepo.save(itemEqualPosition)
         }
 
-        return (ctx.ret = await listRepo.save(ctx.req.updatedItem))
+        return (ctx.ret = await listRepo.save(ctx.ret.updatedItem))
       }),
 
       'Save updated item': step(async (ctx) => {

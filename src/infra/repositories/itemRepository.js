@@ -24,6 +24,10 @@ module.exports = class ItemListRepositoy {
 
   async getItemByID(id) {
     const ret = await DB.get(this.table, id)
-    return Ok(Item.fromJSON(ret))
+
+    if(ret)
+      return Ok(Item.fromJSON(ret))
+
+    return Err('Not Found')
   }
 }

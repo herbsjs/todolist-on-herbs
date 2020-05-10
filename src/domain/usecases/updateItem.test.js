@@ -4,56 +4,53 @@ const assert = require('assert')
 const { Item } = require('../entities/item')
 const { updateItem } = require('./updateItem')
 
-describe('Update To Do items', () => {
+describe('Update To Do Item', () => {
   function aUser({ hasAccess }) {
     return { canAddItem: hasAccess }
   }
 
-  describe('Valid List', () => {
-    const defaultItemList = [
-      {
-        id: 11110,
-        idList: 65676,
-        description: 'New item description on list',
-        position: 1,
-        isDone: false,
-      },
-      {
-        id: 11112,
-        idList: 65676,
-        description: 'Second item on list',
-        position: 2,
-        isDone: false,
-      },
-    ]
-
-    const injection = {
-      ItemListRepository: class {
-        async save(list) {
-          return Ok(list)
-        }
-        async geItemByListID(id) {
-          const filteredList = defaultItemList.filter(
-            (item) => id.find((id) => id === item.idList) === item.idList
-          )
-          return Ok(filteredList)
-        }
-        async getItemByID(id) {
-          const filteredItem = defaultItemList.find(
-            (item) => item.id === id
-          )
-          return Ok(Item.fromJSON(filteredItem))
-        }
-      },
-    }
-    it('Should Update Item values ', async () => {
+  describe('Should update Valid Item', () => {
+    it('Should Update Item changing position ', async () => {
+      const injection = {
+        ItemListRepository: class {
+          async save(list) {
+            return Ok(list)
+          }
+          async geItemByListID(id) {
+            return Ok([
+              {
+                id: 11110,
+                idList: 65676,
+                description: 'First item on list',
+                position: 1,
+                isDone: false,
+              },
+              {
+                id: 11112,
+                idList: 65676,
+                description: 'Second item on list',
+                position: 2,
+                isDone: true,
+              },
+            ])
+          }
+          async getItemByID(id) {
+            return Ok({
+              id: 11110,
+              idList: 65676,
+              description: 'First item on list',
+              position: 1,
+              isDone: false,
+            })
+          }
+        },
+      }
       const user = aUser({ hasAccess: true })
       const req = {
         id: 11110,
-        idList: 65676,
         position: 2,
         isDone: true,
-        description: 'New item description',
+        description: 'New item in second position',
       }
 
       // When
@@ -64,55 +61,89 @@ describe('Update To Do items', () => {
       // Then
       assert.ok(ret.isOk)
     }),
-      it('Should done item', async () => {
-        const user = aUser({ hasAccess: true })
-        const req = {
-          id: 11110,
-          idList: 65676,
-          isDone: true,
-        }
+    it('Should Update Item not changing position ', async () => {
+      const injection = {
+        ItemListRepository: class {
+          async save(list) {
+            return Ok(list)
+          }
+          async geItemByListID(id) {
+            return Ok([
+              {
+                id: 11110,
+                idList: 65676,
+                description: 'First item on list',
+                position: 1,
+                isDone: false,
+              },
+              {
+                id: 11112,
+                idList: 65676,
+                description: 'Second item on list',
+                position: 2,
+                isDone: true,
+              },
+            ])
+          }
+          async getItemByID(id) {
+            return Ok({
+              id: 11110,
+              idList: 65676,
+              description: 'First item on list',
+              position: 1,
+              isDone: false,
+            })
+          }
+        },
+      }
+      const user = aUser({ hasAccess: true })
+      const req = {
+        id: 11110,
+        position: 1,
+        isDone: true,
+        description: 'New item on description',
+      }
 
-        // When
-        const uc = updateItem(injection)
-        uc.authorize(user)
-        const ret = await uc.run(req)
+      // When
+      const uc = updateItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
 
-        // Then
-        assert.ok(ret.isOk)
-      }),
-      it('Should update item position ', async () => {
+      // Then
+      assert.ok(ret.isOk)
+    })
+  }),
+  describe('Should not update Item', () => {
+    it('Should not update nonexistent Item ', async () => {
+      const injection = {
+        ItemListRepository: class {
+          async save(list) {
+            return Ok(list)
+          }
+          async geItemByListID(id) {
+            return Ok([])
+          }
+          async getItemByID(id) {
+            return Err('Not Found')
+          }
+        },
+      }
+      const user = aUser({ hasAccess: true })
+      const req = {
+        id: 11110,
+        position: 1,
+        isDone: true,
+        description: 'Updating not created item',
+      }
 
-        const user = aUser({ hasAccess: true })
-        const req = {
-          id: 11110,
-          idList: 65676,
-          position: 2,
-        }
+      // When
+      const uc = updateItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
 
-        // When
-        const uc = updateItem(injection)
-        uc.authorize(user)
-        const ret = await uc.run(req)
-
-        // Then
-        assert.ok(ret.isOk)
-      }),
-      it('Should update item description ', async () => {
-
-        const user = aUser({ hasAccess: true })
-        const req = {
-          id: 11110,
-          idList: 65676,
-          description: 'New item description',
-        }
-
-        // When
-        const uc = updateItem(injection)
-        uc.authorize(user)
-        const ret = await uc.run(req)
-
-        // Then
-        assert.ok(ret.isOk)
-      })
+      // Then
+      assert.ok(ret.isErr)
+      assert.equal(ret.err,"Item not found - ID: \"11110\"")
+    })
   })
 })
