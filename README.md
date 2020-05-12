@@ -60,6 +60,25 @@ query{
 }
 ```
 
+To update a list just run a POST http://localhost:{yourport}/graphql
+
+```graphql
+mutation{
+  updateList(id: "1", name: "List One") {
+    name,id
+  }
+}
+```
+
+To delete a list just run a POST http://localhost:{yourport}/graphql
+
+```graphql
+mutation{
+  deleteList(id: "1") {
+  }
+}
+```
+
   Additionally a [file](src/api/graphql/docs/herbs.postman_collection.json) was also added to the docs folder for import into the postman
 
 ### Environment

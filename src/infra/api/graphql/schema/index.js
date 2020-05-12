@@ -21,4 +21,6 @@ module.exports = [linkSchema,
 
   // mutations
   require('./mutation/createList'),
+  require('./mutation/deleteList'),
+  require('./mutation/updateList'),
 ]
