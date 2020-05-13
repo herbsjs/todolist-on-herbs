@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+body {
+  text-align: center;
+}
+h1 {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+li {
+  list-style: none;
+}
+.header {
+  text-align: center;
+  text-transform: uppercase;
+}
