@@ -1,4 +1,5 @@
-![Node.js CI](https://github.com/herbsjs/todolist-on-herbs/workflows/Node.js%20CI/badge.svg)
+![CI Build](https://github.com/herbsjs/todolist-on-herbs/workflows/Node.js%20CI/badge.svg) [![codecov](https://codecov.io/gh/herbsjs/todolist-on-herbs/branch/master/graph/badge.svg)](https://codecov.io/gh/herbsjs/todolist-on-herbs)
+
 
 # Todolist on Herbs
 A sample Todo List graphQL API using Herbs using [Buchu](https://github.com/herbsjs/buchu), [Gotu](https://github.com/herbsjs/gotu), [Suma](https://github.com/herbsjs/suma) and [Graphql](https://github.com/graphql/graphql-js) with [Apollo Server Express](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express)
