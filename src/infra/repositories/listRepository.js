@@ -9,11 +9,19 @@ module.exports = class ListRepository {
 
   async save(list) {
     const ret = await DB.set(this.table, list.id, list)
+
+    if(!ret)
+    return Err('Not Found')
+
     return Ok(TodoList.fromJSON(ret))
   }
 
   async getByIDs(ids) {
     const ret = await DB.getMany(this.table, ids)
+
+    if(!ret)
+      return Err('Not Found')
+
     const listArray = []
     for (var i = 0, len = ret.length; i < len; i++) {
       if (ret[i] === undefined) continue
