@@ -27,11 +27,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - working-directory: ${{ env.working-directory }}
     - run: npm run build --if-present
-    - working-directory: ${{ env.working-directory }}  
     - run: npm test
-    - working-directory: ${{ env.working-directory }}  
     - run: npx nyc --reporter=lcov npm test && npx codecov
     - working-directory: ${{ env.working-directory }}  
       env:
