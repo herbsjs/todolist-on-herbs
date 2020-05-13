@@ -12,6 +12,12 @@ on:
 jobs:
   build:
 
+    name: CI build Job
+    
+    defaults:
+      run:
+        working-directory: ./API
+        
     runs-on: ubuntu-latest
 
     strategy:
