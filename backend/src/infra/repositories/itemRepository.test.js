@@ -91,7 +91,7 @@ describe('Item Repository', () => {
       assert.ok(ret.isErr)
       assert.equal(ret.err, 'Not Found')
     }),
-    it.only('Should not get item by non existing List', async () => {
+    it('Should not get item by non existing List', async () => {
       // Given
       const item = undefined
       await new ItemRepository().save(item)
@@ -99,7 +99,7 @@ describe('Item Repository', () => {
       // When
       const repo = new ItemRepository()
 
-      const ret = await repo.geItemByListID(1)
+      const ret = await repo.geItemByListID(33)
 
       // Then
       assert.ok(ret.isErr)
