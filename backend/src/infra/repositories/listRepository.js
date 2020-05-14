@@ -8,12 +8,16 @@ module.exports = class ListRepository {
   }
 
   async save(list) {
-    const ret = await DB.set(this.table, list.id, list)
+    try{
+      const ret = await DB.set(this.table, list.id, list)
 
-    if(!ret)
-    return Err('Not Found')
+      if(!ret)
+      return Err('Not Saved')
 
-    return Ok(TodoList.fromJSON(ret))
+      return Ok(TodoList.fromJSON(ret))
+    }catch(__){
+      return Err('Not Saved')
+    }
   }
 
   async getByIDs(ids) {
@@ -27,6 +31,10 @@ module.exports = class ListRepository {
       if (ret[i] === undefined) continue
       listArray.push(TodoList.fromJSON(ret[i]))
     }
+
+    if(!listArray.length)
+      return Err('Not Found')
+
     return Ok(listArray)
   }
 }
