@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../../../core/redux/actions/Index'
 
-  function Form() {
-    return (
-    <>
-      <div className="form">
-        <input placeholder="to do..."/>
-        <button>Add</button>
-      </div>
-    </>
-    )
+const Form = ({ dispatch,client }) => {
+  let input
+
+  return (
+    <div>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          if (!input.value.trim()) return
+          dispatch(addTodo(input.value))
+          input.value = ''
+        }}>
+
+        <input ref={node => (input = node)} />
+        <button type="submit">Add Todo</button>
+      </form>
+    </div>
+  )
 }
 
-export default Form;
+export default connect(state => ({ client: state.client  }))(Form)

@@ -1,16 +1,29 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { connect } from 'react-redux';
 
-  function Formlist() {
-    return (
-    <>
-      <div>
-        <ul>
-          <li>Open an issue on herbs</li>
-        </ul>
-      </div>
-    </>
-    )
-}
+const FormList = ({todos}) => (
+  <aside>
+    <center>
+      <table>
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Lista</td>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            todos.map(todo => (
+              <tr key={todo.id}>
+                  <td>{todo.id}</td>
+                  <td>{todo.name}</td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+    </center>
+  </aside>
+);
 
-export default Formlist;
+export default connect(state => ({ todos: state.todos  })) (FormList);
