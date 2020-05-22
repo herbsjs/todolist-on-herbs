@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../../../core/redux/actions/Index'
 
-const Form = ({ dispatch,client }) => {
+const Form = ({ dispatch }) => {
   let input
 
   return (
@@ -22,4 +22,4 @@ const Form = ({ dispatch,client }) => {
   )
 }
 
-export default connect(state => ({ client: state.client  }))(Form)
+export default connect()(Form)
