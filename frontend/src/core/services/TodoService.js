@@ -2,7 +2,7 @@ import ApolloClient from 'apollo-boost';
 import environment from '../../config/Config';
 import { createList } from '../schema/mutations/CreateList'
 
-export const addTodoListApollo = (item, client2) => {
+export const addTodoListApollo = (item) => {
     const client = new ApolloClient({ uri: environment.apiSettings.baseUrl });
 
     return client
