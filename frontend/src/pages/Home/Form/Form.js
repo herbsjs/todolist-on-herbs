@@ -10,7 +10,7 @@ const Form = ({ dispatch }) => {
       <form
         onSubmit={e => {
           e.preventDefault()
-          if (!input.value.trim()) return
+          if (input.value.length < 3) return
           dispatch(addTodo(input.value))
           input.value = ''
         }}>
