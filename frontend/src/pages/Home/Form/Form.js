@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
-  function Form() {
-    return (
-    <>
-      <div className="form">
-        <input placeholder="to do..."/>
-        <button>Add</button>
-      </div>
-    </>
-    )
+const Form = ({ dispatch }) => {
+  let input
+
+  return (
+    <div>
+      <form>
+        <input ref={node => (input = node)} />
+        <button type="submit">Add Todo</button>
+      </form>
+    </div>
+  )
 }
 
-export default Form;
+export default connect()(Form)
