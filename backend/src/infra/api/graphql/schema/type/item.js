@@ -6,6 +6,6 @@ module.exports = gql`
     description: String
     isDone: Boolean
     position: Int
-    idList: Int
+    listId: Int
   }
 `

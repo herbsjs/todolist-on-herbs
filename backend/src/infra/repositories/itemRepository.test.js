@@ -8,7 +8,7 @@ describe('Item Repository', () => {
       // Given
       const item = {
         id: 1,
-        idList: 1,
+        listId: 1,
         description: 'First item on list',
         position: 1,
         isDone: false,
@@ -27,7 +27,7 @@ describe('Item Repository', () => {
       // Given
       await new ItemRepository().save({
         id: 1,
-        idList: 1,
+        listId: 1,
         description: 'First item on list',
         position: 1,
         isDone: false,
@@ -41,12 +41,12 @@ describe('Item Repository', () => {
       // Then
       assert.ok(ret.isOk)
     }),
-    it('Should get item by idList', async () => {
+    it('Should get item by listId', async () => {
       // Given
 
       await new ItemRepository().save({
         id: 1,
-        idList: 1,
+        listId: 1,
         description: 'First item on list',
         position: 1,
         isDone: false,

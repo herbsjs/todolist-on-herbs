@@ -2,13 +2,13 @@ const { Ok, Err, usecase, step, ifElse } = require('buchu')
 const { Item } = require('../entities/item')
 
 const dependency = {
-  ItemRepository: require('../../infra/repositories/itemRepository'),
+  ItemRepository: require('../../infra/repositories/ItemRepository'),
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
 module.exports.createItem = (injection) =>
   usecase('Create Item', {
-    request: { idList: Number, description: String },
+    request: { listId: Number, description: String },
 
     authorize: (user) => (user.canAddItem ? Ok() : Err()),
 
@@ -20,7 +20,7 @@ module.exports.createItem = (injection) =>
           id: Math.floor(Math.random() * 100000),
           description: ctx.req.description,
           isDone: false,
-          idList: ctx.req.idList,
+          listId: ctx.req.listId,
         }))
     ),
 
@@ -30,23 +30,27 @@ module.exports.createItem = (injection) =>
 
     'Check if list exist': step(async (ctx) => {
       const listRepo = new ctx.di.ListRepository(injection)
-      const ret = await listRepo.getByIDs([ctx.req.idList])
+      const ret = await listRepo.getByIDs([ctx.req.listId])
       const list = (ctx.List = ret.ok[0])
-      if (!list) return Err(`List not found - ID: "${ctx.req.idList}"`)
+      if (!list) return Err(`List not found - ID: "${ctx.req.listId}"`)
 
       return Ok()
     }),
 
-    'Get the last position value': step(async (ctx) => {
-      const itensRepo = new ctx.di.ItemRepository(injection)
-      const itensList = (await itensRepo.geItemByListID(ctx.req.idList)).ok
+    'Set item position as the last item on the list': step(async (ctx) => {
+      const itemRepo = new ctx.di.ItemRepository(injection)
+      const repoResult = await itemRepo.geItemByListID(ctx.req.listId)
 
-      if (!itensList.length){
+      if(repoResult.isErr) return repoResult
+
+      const items = repoResult.ok
+
+      if (!items.length){
         ctx.item.position = 1
         return Ok()
       }
 
-      const lastItem = itensList.reduce((prev, cur) => {
+      const lastItem = items.reduce((prev, cur) => {
         return prev ? (cur.position > prev.position ? cur : prev) : cur
       }, undefined)
 

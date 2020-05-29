@@ -8,7 +8,7 @@ describe('GraphQL - Mutations', () => {
     it('should create TO DO item', async () => {
       // Given
       const itemDescription = 'Item on list'
-      const itemIdList = 1022020
+      const itemlistId = 1022020
       const injection = {
         createItem: (injection) => {
           return {
@@ -21,7 +21,7 @@ describe('GraphQL - Mutations', () => {
                 description: itemDescription,
                 isDone: false,
                 position: 1,
-                idList: itemIdList,
+                listId: itemlistId,
               })
             },
           }
@@ -30,7 +30,7 @@ describe('GraphQL - Mutations', () => {
       const createItem = createItemGQL.Mutation.createItem
 
       // When
-      const ret = await createItem(null, { injection, description: itemDescription, idList: itemIdList })
+      const ret = await createItem(null, { injection, description: itemDescription, listId: itemlistId })
 
       // Then
       assert.deepEqual(ret.description, itemDescription)
@@ -39,7 +39,7 @@ describe('GraphQL - Mutations', () => {
     it('should not create a item', async () => {
       // Given
       const itemDescription = 'Item on list'
-      const itemIdList = 1022020
+      const itemlistId = 1022020
       const error = { errorTest: true }
       const injection = {
         createItem: (injection) => {
@@ -60,7 +60,7 @@ describe('GraphQL - Mutations', () => {
         await createItem(null, {
           injection,
           description: itemDescription,
-          idList: itemIdList,
+          listId: itemlistId,
         })
 
       // Then

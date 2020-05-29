@@ -12,7 +12,7 @@ const resolvers = {
       const hasAccess = uc.authorize({ canAddItem: true }) // TODO: authorize user
       const response = await uc.run({
         description: args.description,
-        idList: args.idList
+        listId: args.listId
       })
 
       if (response.isErr)

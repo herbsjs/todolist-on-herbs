@@ -27,7 +27,7 @@ module.exports = class ItemListRepositoy {
       const itemListArray = []
       for (var i = 0, len = ret.length; i < len; i++) {
         const item = ret[i]
-        if (item === undefined || JSON.parse(item).idList !== id) continue
+        if (item === undefined || JSON.parse(item).listId !== id) continue
         itemListArray.push(Item.fromJSON(item))
       }
 

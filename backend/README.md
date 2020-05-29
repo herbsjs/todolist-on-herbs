@@ -54,9 +54,9 @@ To add item on a list just run a POST http://localhost:{yourport}/graphql
 
 ```graphql
 mutation{
-	createItem(idList: 94585, description: "First Item"){
+	createItem(listId: 94585, description: "First Item"){
     id,
-    idList,
+    listId,
     isDone,
     description,
     position
@@ -71,7 +71,7 @@ mutation{
   updateItem(id: 96211, description: "Updated Item", position: 1, isDone:true)
     {
       id,
-      idList,
+      listId,
       isDone,
       description,
       position,

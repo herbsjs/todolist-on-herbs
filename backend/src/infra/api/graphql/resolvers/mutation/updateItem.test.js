@@ -8,7 +8,7 @@ describe('GraphQL - Mutations', () => {
     it('should update item', async () => {
       // Given
       const itemId = Math.random()
-      const itemIdList = 1022020
+      const itemlistId = 1022020
       const itemDescription = 'Item on list'
       const itemPosition = 1
       const itemIsDone = true
@@ -25,7 +25,7 @@ describe('GraphQL - Mutations', () => {
                 description: itemDescription,
                 isDone: itemIsDone,
                 position: itemPosition,
-                idList: itemIdList,
+                listId: itemlistId,
               })
             },
           }

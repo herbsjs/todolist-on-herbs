@@ -9,7 +9,7 @@ const resolvers = {
     updateItem: async (parent, args) => {
       const di = Object.assign({}, dependency, args.injection)
       const uc = di.updateItem(args.injection)
-      const hasAccess = uc.authorize({ canAddItem: true }) // TODO: authorize user
+      const hasAccess = uc.authorize({ canUpdateItem: true }) // TODO: authorize user
       const response = await uc.run({
         id: args.id,
         description: args.description,

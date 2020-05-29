@@ -26,13 +26,13 @@ describe('Create TO DO Item', () => {
         },
       }
       const user = aUser({ hasAccess: true })
-      const req = { description: 'First item on my list', idList: 65676 }
+      const req = { description: 'First item on my list', listId: 65676 }
 
       // When
       const uc = createItem(injection)
       uc.authorize(user)
       const ret = await uc.run({
-        idList: req.idList,
+        listId: req.listId,
         description: req.description,
       })
 
@@ -55,21 +55,21 @@ describe('Create TO DO Item', () => {
               const baseList = [
                 {
                   id: 11110,
-                  idList: 65676,
+                  listId: 65676,
                   description: 'First item on list',
                   position: 1,
                   isDone: false,
                 },
                 {
                   id: 11111,
-                  idList: 65676,
+                  listId: 65676,
                   description: 'Second item on list',
                   position: 2,
                   isDone: false,
                 },
                 {
                   id: 11112,
-                  idList: 65676,
+                  listId: 65676,
                   description: 'Third item on list',
                   position: 3,
                   isDone: false,
@@ -77,7 +77,7 @@ describe('Create TO DO Item', () => {
               ]
 
               const filteredList = baseList.filter(
-                (item) => item.idList === id
+                (item) => item.listId === id
               )
 
               return Ok(filteredList)
@@ -85,13 +85,13 @@ describe('Create TO DO Item', () => {
           },
         }
         const user = aUser({ hasAccess: true })
-        const req = { description: 'Fourth item on my list', idList: 65676 }
+        const req = { description: 'Fourth item on my list', listId: 65676 }
 
         // When
         const uc = createItem(injection)
         uc.authorize(user)
         const ret = await uc.run({
-          idList: req.idList,
+          listId: req.listId,
           description: req.description,
         })
 
@@ -117,7 +117,7 @@ describe('Create TO DO Item', () => {
             return Ok([
               {
                 id: 11110,
-                idList: 65676,
+                listId: 65676,
                 description: 'First item on list',
                 position: 1,
                 isDone: false,
@@ -127,13 +127,13 @@ describe('Create TO DO Item', () => {
         },
       }
       const user = aUser({ hasAccess: true })
-      const req = { description: 'Fist item on my list', idList: 65680 }
+      const req = { description: 'Fist item on my list', listId: 65680 }
 
       // When
       const uc = createItem(injection)
       uc.authorize(user)
       const ret = await uc.run({
-        idList: req.idList,
+        listId: req.listId,
         description: req.description,
       })
 
@@ -158,13 +158,13 @@ describe('Create TO DO Item', () => {
           },
         }
         const user = aUser({ hasAccess: true })
-        const req = { idList: 65676 }
+        const req = { listId: 65676 }
 
         // When
         const uc = createItem(injection)
         uc.authorize(user)
         const ret = await uc.run({
-          idList: req.idList,
+          listId: req.listId,
           description: req.description,
         })
 

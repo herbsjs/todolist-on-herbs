@@ -14,21 +14,21 @@ module.exports.updateItem = (injection) =>
       position: Number
     },
 
-    authorize: (user) => (user.canAddItem ? Ok() : Err()),
+    authorize: (user) => (user.canUpdateItem ? Ok() : Err()),
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
-    'Get old item': step(async (ctx) => {
-      const itemListRepo = new ctx.di.ItemListRepository(injection)
-      const oldItem = (ctx.req.oldItem = (await itemListRepo.getItemByID(ctx.req.id)).ok)
+    'Get the old item from the repository': step(async (ctx) => {
+      const itemRepo = new ctx.di.ItemListRepository(injection)
+      const repoResult = await itemRepo.getItemByID(ctx.req.id)
 
-      if(!oldItem)
-        return Err(`Item not found - ID: "${ctx.req.id}"`)
+      if(repoResult.isErr) return Err(`Item not found - ID: "${ctx.req.id}"`)
 
+      ctx.req.oldItem = repoResult.ok
       return Ok()
     }),
 
-    'Update item': step((ctx) => {
+    'Update item entity': step((ctx) => {
       const oldItem = Item.fromJSON({ ...ctx.req.oldItem })
 
       oldItem.position = ctx.req.position || oldItem.position
@@ -47,34 +47,30 @@ module.exports.updateItem = (injection) =>
 
     'Check if is necessary update tasks positions': ifElse({
       'Check if position as been changed': step((ctx) => {
-        if (ctx.req.position !== ctx.req.oldItem.position) {
-          return Ok(true)
-        } else {
-          return Ok(false)
-        }
+        return Ok(ctx.req.position !== ctx.req.oldItem.position)
       }),
 
-      'Rearrange positions and save itens': step(async (ctx) => {
-        const listRepo = new ctx.di.ItemListRepository(injection)
-        const ret = await listRepo.geItemByListID([ctx.req.idList])
+      'Rearrange positions and save itens on repository': step(async (ctx) => {
+        const itemRepo = new ctx.di.ItemListRepository(injection)
+        const ret = await itemRepo.geItemByListID([ctx.req.listId])
         const itemList = ret.ok
 
-        const itemEqualPosition = itemList.find(
+        const itemToMove = itemList.find(
           (item) =>
             item.position === ctx.req.position &&
             item.id !== ctx.req.id
         )
-        if (itemEqualPosition) {
-          itemEqualPosition.position = ctx.req.oldItem.position
-          await listRepo.save(itemEqualPosition)
+        if (itemToMove) {
+          itemToMove.position = ctx.req.oldItem.position
+          await itemRepo.save(itemToMove)
         }
 
-        return (ctx.ret = await listRepo.save(ctx.ret.updatedItem))
+        return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
       }),
 
-      'Save updated item': step(async (ctx) => {
-        const listRepo = new ctx.di.ItemListRepository(injection)
-        return (ctx.ret = await listRepo.save(ctx.ret.updatedItem))
+      'Save updated item on repository': step(async (ctx) => {
+        const itemRepo = new ctx.di.ItemListRepository(injection)
+        return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
       })
     })
   })
