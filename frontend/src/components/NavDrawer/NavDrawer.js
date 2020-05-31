@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
+import { connect } from 'react-redux';
+import { removeTodoList } from '../../core/redux/actions/Index';
 
-import { List as ListIcon, Add } from '@material-ui/icons';
+import { List as ListIcon, Delete as DeleteIcon, Add } from '@material-ui/icons';
 import {
   Drawer,
   CssBaseline,
@@ -15,7 +17,7 @@ import {
 
 import style from '../Styles/Styles';
 
-function NavDrawer() {
+function NavDrawer({ todos, dispatch }) {
   const classes = style();
   return (
     <>
@@ -40,12 +42,17 @@ function NavDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button key={'list1'}>
+          {
+            todos.map(todo => (
+            <ListItem button key={todo.id}>
               <ListItemIcon>
                 <ListIcon />
               </ListItemIcon>
-              <ListItemText primary={'List 1'} />
+              <ListItemText primary={todo.name} />
+              <DeleteIcon onClick={() => { dispatch(removeTodoList(todo.id)) }}/>
             </ListItem>
+            )
+          )}
           </List>
         </div>
       </Drawer>
@@ -53,4 +60,4 @@ function NavDrawer() {
   );
 }
 
-export default NavDrawer;
+export default connect(state => ({ todos: state.todos.data })) (NavDrawer);
