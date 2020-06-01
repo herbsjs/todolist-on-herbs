@@ -1,17 +1,14 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Route } from 'react-router-dom';
+
 import DefaultLayout from '../pages/DefaultLayout';
 
-export default function RouteWrapper({
-  component: Component,
-  ...rest
-}) {
-
+export default function RouteWrapper({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props => (
+      render={(props) => (
         <DefaultLayout>
           <Component {...props} />
         </DefaultLayout>
@@ -22,8 +19,7 @@ export default function RouteWrapper({
 
 RouteWrapper.propTypes = {
   isPrivate: PropTypes.bool,
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
-    .isRequired,
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
 };
 
 RouteWrapper.defaultProps = {

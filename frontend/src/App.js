@@ -1,15 +1,28 @@
-import React from 'react';
-import { Router } from 'react-router-dom';
-import Routes from './routes';
 import './App.css';
-import history from './extensions/history';
+import './core/redux/saga/Reactotron';
 
-function App() {
+import ApolloClient from 'apollo-boost';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import environment from './config/Config';
+import { store } from './core/redux/store/Index';
+import history from './extensions/history';
+import Routes from './routes';
+
+const client = new ApolloClient({ uri: environment.apiSettings.baseUrl });
+
+const App = () => {
   return (
-    <Router history={history}>
-      <Routes />
-    </Router>
+    <ApolloProvider client={client}>
+      <Router history={history}>
+        <Provider store={store}>
+          <Routes />
+        </Provider>
+      </Router>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;

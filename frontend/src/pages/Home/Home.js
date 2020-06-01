@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Form from './Form/Form';
 import Formlist from './Formlist/Formlist';
 
-  function Home() {
-    return (
+const Home = () => {
+  return (
     <>
-        <Form/>
-        <Formlist/>
+      <Form />
+      <Formlist />
     </>
-    )
-}
+  );
+};
 
 export default Home;

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-  function Header() {
-    return (
+function Header() {
+  return (
     <>
-    <div className="header">
+      <div className="header">
         <h1 className="header-title">Keep calm and get things DONE!</h1>
-    </div>
+      </div>
     </>
-    )
+  );
 }
 
 export default Header;
