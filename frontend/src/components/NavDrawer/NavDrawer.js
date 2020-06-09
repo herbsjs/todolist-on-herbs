@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 
 import { List as ListIcon, Add } from '@material-ui/icons';

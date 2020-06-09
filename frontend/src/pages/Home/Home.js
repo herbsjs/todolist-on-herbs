@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
+import React from 'react';
 import style from '../../components/Styles/Styles';
+import Form from './Form/Form';
+import Formlist from './Formlist/Formlist';
 
 function Home() {
   const classes = style();
@@ -10,9 +11,11 @@ function Home() {
         <div className={classes.toolbar} />
         <h1>Welcome!</h1>
         <p>
-          This is a sample Todo List graphQL API using Herbs using Buchu, Gotu,
-          Suma and Graphql with Apollo Server Express
+          This is a sample Todo List graphQL API using Herbs using Buchu, Gotu, Suma and Graphql with Apollo Server
+          Express
         </p>
+        <Form />
+        <Formlist />
       </main>
     </>
   );

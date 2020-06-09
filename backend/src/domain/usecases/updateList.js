@@ -9,7 +9,7 @@ module.exports.updateList = injection =>
   usecase('Update Todo List', {
     request: { id: Number, name: String },
 
-    authorize: user => (user.canCreateList ? Ok() : Err()),
+    authorize: user => (user.canUpdateList ? Ok() : Err()),
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 

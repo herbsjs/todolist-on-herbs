@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import NavDrawer from '../components/NavDrawer/NavDrawer';
 import style  from '../components/Styles/Styles';
 
-export default function DefaultLayout({ children }) {
+const DefaultLayout = ({ children }) => {
   const classes = style();
   return (
     <div className={classes.root}>
@@ -10,4 +11,10 @@ export default function DefaultLayout({ children }) {
       {children}
     </div>
   );
-}
+};
+
+DefaultLayout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default DefaultLayout;

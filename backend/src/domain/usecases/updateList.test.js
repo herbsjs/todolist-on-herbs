@@ -16,7 +16,7 @@ describe('Update Todo List', () => {
                     async save(list) { return Ok(list) }
                 }
             }
-            const user = { canCreateList: true }
+            const user = { canUpdateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When
@@ -35,7 +35,7 @@ describe('Update Todo List', () => {
                     async getByIDs(ids) { return Ok([]) }
                 }
             }
-            const user = { canCreateList: true }
+            const user = { canUpdateList: true }
             const req = { id: 1, name: "New Name" }
 
             // When
