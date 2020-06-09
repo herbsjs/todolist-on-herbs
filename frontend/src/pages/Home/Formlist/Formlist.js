@@ -46,7 +46,7 @@ const Update = styled.button`
 
 const FormList = ({ todos, dispatch }) => {
   const onSubmit = ({ todos: values }) => {
-    document.querySelector('div.App > div > form > input').focus();
+    document.querySelector('div#root div > form > input').focus();
     const [modifiedRow] = values.filter((row, idx) => row.name !== todos[idx].name);
     dispatch(updateTodo(modifiedRow));
   };

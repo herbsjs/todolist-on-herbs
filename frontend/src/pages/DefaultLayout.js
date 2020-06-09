@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Header from '../components/Header/Header';
+import NavDrawer from '../components/NavDrawer/NavDrawer';
+import style  from '../components/Styles/Styles';
 
 const DefaultLayout = ({ children }) => {
+  const classes = style();
   return (
-    <div className="App">
-      <Header />
+    <div className={classes.root}>
+      <NavDrawer />
       {children}
     </div>
   );

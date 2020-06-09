@@ -1,12 +1,18 @@
 import React from 'react';
+import { Typography, AppBar, Toolbar } from '@material-ui/core';
+
+import styles from '../Styles/Styles';
 
 function Header() {
+  const classes = styles();
   return (
-    <>
-      <div className="header">
-        <h1 className="header-title">Keep calm and get things DONE!</h1>
-      </div>
-    </>
+    <AppBar position="fixed" variant="elevation" elevation={0} className={classes.appBar}>
+      <Toolbar>
+        <Typography variant="h5" noWrap>
+          Todo List on HerbsJS
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
 
