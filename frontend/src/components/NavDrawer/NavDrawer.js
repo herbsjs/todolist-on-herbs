@@ -11,12 +11,22 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  InputBase,
 } from '@material-ui/core';
 
 import style from '../Styles/Styles';
 
 function NavDrawer() {
   const classes = style();
+
+  const [addListLabel, setAddListLabel] = useState('Add List');
+  const [toDoLists, setToDoLists] = useState([]);
+
+  function addList(listName) {
+    const listConcat = [...toDoLists, { name: listName }];
+    setToDoLists(listConcat);
+  }
+
   return (
     <>
       <CssBaseline />
@@ -35,17 +45,37 @@ function NavDrawer() {
               <ListItemIcon>
                 <Add />
               </ListItemIcon>
-              <ListItemText primary={'Add List'} />
+              <InputBase
+                value={addListLabel}
+                placeholder="New list name"
+                onChange={(event) => setAddListLabel(event.currentTarget.value)}
+                onFocusCapture={() => setAddListLabel('')}
+                onBlur={(event) => {
+                  addList(event.currentTarget.value);
+                  setAddListLabel('Add List');
+                }}
+                onKeyDown={(event) => {
+                  const enterKey = 13;
+
+                  if (event.keyCode === enterKey) {
+                    event.target.blur();
+                  }
+                }}
+              />
             </ListItem>
           </List>
           <Divider />
           <List>
-            <ListItem button key={'list1'}>
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary={'List 1'} />
-            </ListItem>
+            {toDoLists.map((list, index) => {
+              return (
+                <ListItem button key={index}>
+                  <ListItemIcon>
+                    <ListIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={list.name} />
+                </ListItem>
+              );
+            })}
           </List>
         </div>
       </Drawer>
