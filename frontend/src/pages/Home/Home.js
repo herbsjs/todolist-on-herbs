@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import style from '../../components/Styles/Styles';
+import { useTranslation } from 'react-i18next';
 
 function Home() {
   const classes = style();
+  const { t } = useTranslation();
   return (
     <>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h1>Welcome!</h1>
+        <h1>{t('welcome')}!</h1>
         <p>
-          This is a sample Todo List graphQL API using Herbs using Buchu, Gotu,
-          Suma and Graphql with Apollo Server Express
+        {t('welcomeDescription')}
         </p>
       </main>
     </>

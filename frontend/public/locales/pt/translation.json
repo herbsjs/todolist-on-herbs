@@ -1,0 +1,5 @@
+{
+    "welcome":"Bem vindo",
+    "welcomeDescription":"Este é um exemplo de um todo list utlizando Herbs, Buchu, Gotu, Suma e GraphQL com Apollo Express",
+    "typeTodoList":"Por Favor, insera um nome para sua lista"
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 
-import { List as ListIcon, Add } from '@material-ui/icons';
+import { List as ListIcon, } from '@material-ui/icons';
 import {
   Drawer,
   CssBaseline,
@@ -11,12 +11,21 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Input
 } from '@material-ui/core';
 
 import style from '../Styles/Styles';
 
-function NavDrawer() {
+import { addTodo } from '../../core/redux/actions/Index'
+import { connect } from 'react-redux';
+
+import { useTranslation } from 'react-i18next';
+
+function NavDrawer({todos, dispatch}) {
   const classes = style();
+  const { t } = useTranslation();
+  let input = ""
+
   return (
     <>
       <CssBaseline />
@@ -26,26 +35,34 @@ function NavDrawer() {
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
-        }}
-      >
+        }}>
+
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key={'add'}>
-              <ListItemIcon>
-                <Add />
-              </ListItemIcon>
-              <ListItemText primary={'Add List'} />
-            </ListItem>
+            <form noValidate autoComplete="off" 
+                onSubmit={e => {
+                  e.preventDefault()
+                  if (input.value.length < 3) return
+                  dispatch(addTodo(input.value))
+                  input.value = ''
+                }}>
+                <Input inputRef={node => (input = node)} id="standard-basic" placeholder={t('typeTodoList')} /> 
+            </form>
           </List>
           <Divider />
           <List>
-            <ListItem button key={'list1'}>
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText primary={'List 1'} />
-            </ListItem>
+          {
+            todos.map(todo => (
+              <ListItem button key={todo.id}>
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary={todo.id} />
+                <ListItemText primary={todo.name} />
+              </ListItem>
+            )
+          )}
           </List>
         </div>
       </Drawer>
@@ -53,4 +70,4 @@ function NavDrawer() {
   );
 }
 
-export default NavDrawer;
+export default connect(state => ({ todos: state.todos  })) (NavDrawer);

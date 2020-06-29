@@ -1,0 +1,5 @@
+{
+    "welcome":"welcome",
+    "welcomeDescription":"This is a sample Todo List graphQL API using Herbs using Buchu, Gotu, Suma and Graphql with Apollo Server Express",
+    "typeTodoList":"Type your todo list"
+}
