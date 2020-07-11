@@ -1,5 +1,5 @@
 {
-  "name": "todolist",
+  "name": "todolist-api",
   "version": "1.0.1",
   "description": "A sample Todo List graphQL API using Herbs using Buchu, Gotu,Suma and Graphql with Apollo Server Express",
   "main": "index.js",
