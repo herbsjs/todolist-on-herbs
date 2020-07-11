@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 function Style() {
   //Definitions
-  const drawerWidth = 250;
+  const drawerWidth = 250
 
   const customStyle = makeStyles((theme) => ({
     root: {
@@ -30,9 +30,9 @@ function Style() {
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-  }));
+  }))
 
-  return customStyle();
+  return customStyle()
 }
 
-export default Style;
+export default Style

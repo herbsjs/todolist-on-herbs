@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../Header/Header';
+import React, { useState, useEffect } from 'react'
+import Header from '../Header/Header'
 
-import { List as ListIcon, Add } from '@material-ui/icons';
+import { List as ListIcon, Add } from '@material-ui/icons'
 import {
   Drawer,
   CssBaseline,
@@ -12,19 +12,19 @@ import {
   ListItemIcon,
   ListItemText,
   InputBase,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import style from '../Styles/Styles';
+import style from '../Styles/Styles'
 
 function NavDrawer() {
-  const classes = style();
+  const classes = style()
 
-  const [addListLabel, setAddListLabel] = useState('Add List');
-  const [toDoLists, setToDoLists] = useState([]);
+  const [addListLabel, setAddListLabel] = useState('Add List')
+  const [toDoLists, setToDoLists] = useState([])
 
   function addList(listName) {
-    const listConcat = [...toDoLists, { name: listName }];
-    setToDoLists(listConcat);
+    const listConcat = [...toDoLists, { name: listName }]
+    setToDoLists(listConcat)
   }
 
   return (
@@ -51,14 +51,14 @@ function NavDrawer() {
                 onChange={(event) => setAddListLabel(event.currentTarget.value)}
                 onFocusCapture={() => setAddListLabel('')}
                 onBlur={(event) => {
-                  addList(event.currentTarget.value);
-                  setAddListLabel('Add List');
+                  addList(event.currentTarget.value)
+                  setAddListLabel('Add List')
                 }}
                 onKeyDown={(event) => {
-                  const enterKey = 13;
+                  const enterKey = 13
 
                   if (event.keyCode === enterKey) {
-                    event.target.blur();
+                    event.target.blur()
                   }
                 }}
               />
@@ -74,13 +74,13 @@ function NavDrawer() {
                   </ListItemIcon>
                   <ListItemText primary={list.name} />
                 </ListItem>
-              );
+              )
             })}
           </List>
         </div>
       </Drawer>
     </>
-  );
+  )
 }
 
-export default NavDrawer;
+export default NavDrawer
