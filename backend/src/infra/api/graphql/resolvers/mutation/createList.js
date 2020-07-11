@@ -9,7 +9,7 @@ const resolvers = {
     createList: async (parent, args) => {
       const di = Object.assign({}, dependency, args.injection)
       const uc = di.createList(args.injection)
-      const hasAccess = uc.authorize({ canCreateList: true }) // TODO: authorize user
+      uc.authorize({ canCreateList: true }) // TODO: authorize user
       const response = await uc.run({ name: args.name })
 
       if (response.isErr) throw new UserInputError(null, { invalidArgs: response.err })

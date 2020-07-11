@@ -1,5 +1,5 @@
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist'
 
 export default reducers => {
   const persistedReducer = persistReducer(
@@ -9,7 +9,7 @@ export default reducers => {
       whitelist: [],
     },
     reducers
-  );
+  )
 
-  return persistedReducer;
-};
+  return persistedReducer
+}

@@ -1,6 +1,6 @@
 var express = require('express')
 const Settings = require('./settings')
-var { ApolloServer, gql } = require('apollo-server-express')
+var { ApolloServer } = require('apollo-server-express')
 var cors = require('cors')
 var morgan = require('cors')
 const schema = require('./graphql/schema')
@@ -34,6 +34,7 @@ class ServerAPI {
   }
 
   banner() {
+    // eslint-disable-next-line no-console
     console.log(`🚀 Server UP and Running in port: ${Settings.web.httpPort}`)
   }
 
