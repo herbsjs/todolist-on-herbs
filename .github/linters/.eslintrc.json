@@ -1,6 +1,4 @@
 {
-  "extends": ["prettier"],
-  "plugins": ["prettier"],
   "env": {
     "commonjs": true,
     "node": true,
