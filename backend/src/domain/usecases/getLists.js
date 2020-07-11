@@ -1,4 +1,4 @@
-const { Ok, Err, usecase, step, ifElse } = require('buchu')
+const { Ok, Err, usecase, step } = require('buchu')
 
 const dependency = {
   ListRepository: require('../../infra/repositories/listRepository'),

@@ -1,5 +1,5 @@
 const { getLists } = require('./getLists')
-const { Ok, Err } = require('buchu')
+const { Ok } = require('buchu')
 const assert = require('assert')
 
 describe('Get Todo Lists', () => {

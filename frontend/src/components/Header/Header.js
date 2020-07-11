@@ -1,10 +1,10 @@
-import React from 'react';
-import { Typography, AppBar, Toolbar } from '@material-ui/core';
+import React from 'react'
+import { Typography, AppBar, Toolbar } from '@material-ui/core'
 
-import styles from '../Styles/Styles';
+import styles from '../Styles/Styles'
 
 function Header() {
-  const classes = styles();
+  const classes = styles()
   return (
     <AppBar position="fixed" variant="dense" elevation='0' className={classes.appBar}>
       <Toolbar>
@@ -13,7 +13,7 @@ function Header() {
         </Typography>
       </Toolbar>
     </AppBar>
-  );
+  )
 }
 
-export default Header;
+export default Header

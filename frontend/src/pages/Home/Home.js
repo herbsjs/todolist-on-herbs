@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
-import style from '../../components/Styles/Styles';
+import React, { useState, useEffect } from 'react'
+import { Typography } from '@material-ui/core'
+import style from '../../components/Styles/Styles'
 
 function Home() {
-  const classes = style();
+  const classes = style()
   return (
     <>
       <main className={classes.content}>
@@ -15,7 +15,7 @@ function Home() {
         </p>
       </main>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
