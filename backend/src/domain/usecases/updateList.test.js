@@ -9,28 +9,6 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          return Ok([new TodoList()])
-        }
-        async save(list) {
-          return Ok(list)
-        }
-      },
-    }
-    const user = { canUpdateList: true }
-    const req = { id: 1, name: 'New Name' }
-
-    // When
-    const uc = updateList(injection)
-    uc.authorize(user)
-    const ret = await uc.run({ id: req.id, name: req.name })
-    assert.ok(ret.isOk)
-  });
-
-  it('Should Update List', async () => {
-    // Given
-    const injection = {
-      ListRepository: class ListRepository {
         async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: "Previous Name" })]) }
         async save(list) { return Ok(list) }
       }
