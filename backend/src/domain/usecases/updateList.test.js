@@ -108,7 +108,10 @@ describe('Update Lists', () => {
     const injection = {
       ListRepository: class ListRepository {
         async getByIDs(ids) {
-          return Ok([new TodoList()])
+          const source = [new TodoList()]
+          let list = source.filter(args => ids.includes(args.id))
+          return Ok(list)
+          // return Ok([new TodoList()])
         }
         async save(list) {
           return Ok(list)
