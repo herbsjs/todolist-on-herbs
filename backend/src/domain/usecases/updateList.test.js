@@ -1,7 +1,8 @@
 const { updateList } = require('./updateList')
 const { Ok, Err } = require('buchu')
 const assert = require('assert')
-const { TodoList } = require('../entities/todoList')
+const { TodoList } = require('../entities/todoList');
+const { ok } = require('assert');
 
 describe('Update Lists', () => {
 
@@ -9,7 +10,11 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: "Previous Name" })]) }
+        async getByIDs(ids) {
+          const source = [TodoList.fromJSON({ id: 1, name: "Previous Name" })]
+          let list = source.filter(args => ids.includes(args.id))
+          return Ok(list)
+        }
         async save(list) { return Ok(list) }
       }
     }
@@ -29,7 +34,11 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) { return Ok([]) }
+        async getByIDs(ids) {
+          const source = []
+          let list = source.filter(args => ids.includes(args.id))
+          return Ok(list)
+        }
       }
     }
     const user = { canUpdateList: true }
@@ -50,7 +59,9 @@ describe('Update Lists', () => {
     const injection = {
       ListRepository: class ListRepository {
         async getByIDs(ids) {
-          return Ok([])
+          const source = []
+          let list = source.filter(args => ids.includes(args.id))
+          return Ok(list)
         }
       },
     }
@@ -72,7 +83,9 @@ describe('Update Lists', () => {
     const injection = {
       ListRepository: class ListRepository {
         async getByIDs(ids) {
-          return Ok([new TodoList()])
+          const source = [TodoList.fromJSON({ id: 1, name: "Previous Name" })]
+          let list = source.filter(args => ids.includes(args.id))
+          return Ok(list)
         }
         async save(list) {
           return Ok(list)
@@ -120,6 +133,10 @@ describe('Update Lists', () => {
     const injection = {
       ListRepository: class ListRepository {
         async getByIDs(ids) {
+          if (!ids) {
+            return new Err('Id must have a value')
+          }
+
           return Err('Wrong params')
         }
         async save(list) {
