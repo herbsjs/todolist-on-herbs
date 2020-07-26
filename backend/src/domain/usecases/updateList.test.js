@@ -1,7 +1,7 @@
 const { updateList } = require('./updateList')
 const { Ok, Err } = require('buchu')
 const assert = require('assert')
-const { TodoList } = require('../entities/todoList');
+const { TodoList } = require('../entities/todoList')
 
 describe('Update Lists', () => {
 
@@ -156,5 +156,4 @@ describe('Update Lists', () => {
     // Then
     assert.ok(ret.isErr && ret.err === 'Wrong params')
   })
-});
-
+})
