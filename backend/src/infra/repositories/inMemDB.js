@@ -25,6 +25,12 @@ class DB {
     async set(table, key, value) {
         return this.memDB[this._key(table, key)] = JSON.stringify(value)
     }
+
+    async deleteMany(table, keys) {
+        const dbKeys = keys.map(key => this._key(table, key))
+        dbKeys.forEach(key => delete this.memDB[key])
+        return this.memDB
+    }
 }
 
 module.exports = new DB()
