@@ -34,7 +34,7 @@ function NavDrawer() {
   }, [data])
 
   function addList(listName) {
-    const input = { name: listName };
+    const input = { name: listName }
     const listConcat = [...toDoLists, input]
     
     createTodo({ variables: input })

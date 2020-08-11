@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const getTodos = gql`
   query {
@@ -7,4 +7,4 @@ export const getTodos = gql`
         name
     }
   }
-`;
+`
