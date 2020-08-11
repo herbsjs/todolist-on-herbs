@@ -38,8 +38,9 @@ class DB {
 
     async deleteMany(table, keys) {
         const dbKeys = keys.map(key => this._key(table, key))
-        dbKeys.forEach(key => delete this.memDB[key])
-        return this.memDB
+        for (const key of dbKeys) {
+            delete this.memDB[key]
+        }
     }
 }
 
