@@ -19,9 +19,9 @@ module.exports.getLists = injection =>
         ctx.ret = await listRepo.getByIDs(ctx.req.ids)
       }
       else {
-        ctx.ret = await listRepo.getAll();
+        ctx.ret = await listRepo.getAll()
       }
 
-      return ctx.ret;
+      return ctx.ret
     }),
   })

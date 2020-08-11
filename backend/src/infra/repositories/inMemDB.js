@@ -18,7 +18,7 @@ class DB {
         const ret = []
         for (const key in this.memDB) {
             if (this.memDB.hasOwnProperty(key) && key.startsWith(table)) {
-                ret.push(this.memDB[key]);
+                ret.push(this.memDB[key])
             }
         }
         return ret
