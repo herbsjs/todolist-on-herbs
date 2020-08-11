@@ -14,6 +14,14 @@ module.exports.getLists = injection =>
 
     'Get lists': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await listRepo.getByIDs(ctx.req.ids))
+
+      if (ctx.req.ids.length > 0) {
+        ctx.ret = await listRepo.getByIDs(ctx.req.ids)
+      }
+      else {
+        ctx.ret = await listRepo.getAll();
+      }
+
+      return ctx.ret;
     }),
   })

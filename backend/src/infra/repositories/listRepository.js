@@ -1,5 +1,5 @@
 const DB = require('./inMemDB')
-const { Ok} = require('buchu')
+const { Ok } = require('buchu')
 const { TodoList } = require('../../domain/entities/todoList')
 
 module.exports = class ListRepository {
@@ -10,6 +10,16 @@ module.exports = class ListRepository {
   async save(list) {
     const ret = await DB.set(this.table, list.id, list)
     return Ok(TodoList.fromJSON(ret))
+  }
+
+  async getAll() {
+    const ret = await DB.getAll(this.table)
+    const listArray = []
+    for (var i = 0, len = ret.length; i < len; i++) {
+      if (ret[i] === undefined) continue
+      listArray.push(TodoList.fromJSON(ret[i]))
+    }
+    return Ok(listArray)
   }
 
   async getByIDs(ids) {
