@@ -19,7 +19,6 @@ module.exports.deleteList = injection =>
       if (ret.isErr) return ret
       const list = (ctx.list = ret.ok[0])
       if (list) return Ok(list)
-      return Err(`List not found - ID: "${ctx.req.id}"`)
     }),
 
     'Delete list': step(async ctx => {

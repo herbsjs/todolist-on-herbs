@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive src/**/*.test.js --timeout 10000",
-    "coverage": "nyc mocha src/**/*.test.js",
+    "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
     "start": "node src/infra/api/server.js"
   },
   "keywords": [],

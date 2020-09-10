@@ -15,15 +15,29 @@ import {
 } from '@material-ui/core'
 
 import style from '../Styles/Styles'
+import { getTodos } from '../../graphql/query'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { createList } from '../../graphql/mutation/createList'
 
 function NavDrawer() {
   const classes = style()
+  const { loading, error, data } = useQuery(getTodos)
+  const [createTodo] = useMutation(createList)
 
   const [addListLabel, setAddListLabel] = useState('Add List')
   const [toDoLists, setToDoLists] = useState([])
 
+  useEffect(() => {
+    if (data) {
+      setToDoLists(data.getLists)
+    }
+  }, [data])
+
   function addList(listName) {
-    const listConcat = [...toDoLists, { name: listName }]
+    const input = { name: listName }
+    const listConcat = [...toDoLists, input]
+    
+    createTodo({ variables: input })
     setToDoLists(listConcat)
   }
 

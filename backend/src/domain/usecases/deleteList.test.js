@@ -33,8 +33,7 @@ describe('Delete Todo Lists', () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: 'todo-list-1' })]) }
-                    async deleteByIDs(ids) { return Err(`List not found - ID: "2"`) }
+                    async getByIDs(ids) { return Err(`List not found - ID: "2"`) }
                 }
             }
             const user = { canDeteleList: true }
@@ -48,6 +47,28 @@ describe('Delete Todo Lists', () => {
             // Then
             assert.ok(!ret.isOk)
             assert.ok(ret.err == 'List not found - ID: "2"')
+        })
+
+        it('Should throws some error on repository to delete list', async () => {
+            // Given
+            const injection = {
+                ListRepository: class ListRepository {
+                    async getByIDs(ids) { return Ok([new TodoList({ id: 1, name: 'todo-list-1' })]) }
+                    async deleteByIDs(ids) { return Err("Some error") }
+
+                }
+            }
+            const user = { canDeteleList: true }
+            const req = { id: 2 }
+
+            // When
+            const uc = deleteList(injection)
+            uc.authorize(user)
+            const ret = await uc.run({ id: req.id })
+
+            // Then
+            assert.ok(!ret.isOk)
+            assert.ok(ret.err == 'Some error')
         })
     })
 })

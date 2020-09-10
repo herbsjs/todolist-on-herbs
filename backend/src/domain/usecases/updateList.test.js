@@ -135,7 +135,7 @@ describe('Update Lists', () => {
       ListRepository: class ListRepository {
         async getByIDs(ids) {
           if (!ids) {
-            return new Err('Id must have a value')
+            return Err('Id must have a value')
           }
 
           return Err('Wrong params')
