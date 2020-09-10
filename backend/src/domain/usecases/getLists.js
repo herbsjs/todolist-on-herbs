@@ -14,7 +14,7 @@ module.exports.getLists = injection =>
 
     'Create new instance of todo repository': step(async ctx => {
       ctx.listRepo = new ctx.di.ListRepository(injection)
-      return ctx.listRepo;
+      return ctx.listRepo
     }),
 
     'Get todos by Id or get all': ifElse({

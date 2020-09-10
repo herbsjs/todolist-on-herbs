@@ -1,4 +1,3 @@
-const { Ok, Err } = require('buchu')
 const assert = require('assert')
 const ListRepository = require('./listRepository')
 
@@ -12,8 +11,8 @@ describe('List Repository', () => {
     const ret = await repository.save({ id: 1, name: 'List 1' })
 
     // Then
-    assert.equal("List 1", ret.ok.name);
-    assert.equal(1, ret.ok.id);
+    assert.equal("List 1", ret.ok.name)
+    assert.equal(1, ret.ok.id)
   })
 
   it('Should get all lists', async () => {
@@ -23,10 +22,10 @@ describe('List Repository', () => {
     await repository.save({ id: 2, name: 'List 2' })
 
     // When
-    const ret = await repository.getAll();
+    const ret = await repository.getAll()
 
     // Then
-    assert.equal(2, ret.ok.length);
+    assert.equal(2, ret.ok.length)
   })
 
   it('Should get lists by id', async () => {
@@ -36,12 +35,12 @@ describe('List Repository', () => {
     await repository.save({ id: 2, name: 'List 2' })
 
     // When
-    const ret = await repository.getByIDs([1]);
+    const ret = await repository.getByIDs([1])
 
     // Then
-    assert.equal(1, ret.ok.length);
-    assert.equal("List 1", ret.ok[0].name);
-    assert.equal(1, ret.ok[0].id);
+    assert.equal(1, ret.ok.length)
+    assert.equal("List 1", ret.ok[0].name)
+    assert.equal(1, ret.ok[0].id)
   })
 
   it('Should delete a list by id', async () => {
@@ -51,10 +50,10 @@ describe('List Repository', () => {
     await repository.save({ id: 2, name: 'List 2' })
 
     // When
-    const ret = await repository.deleteByIDs([1]);
+    const ret = await repository.deleteByIDs([1])
 
     // Then
-    assert.equal(1, ret.ok.length);
+    assert.equal(1, ret.ok.length)
   })
 
 })
