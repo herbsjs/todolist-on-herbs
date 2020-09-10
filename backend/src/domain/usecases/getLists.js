@@ -14,22 +14,22 @@ module.exports.getLists = injection =>
 
     'Create new instance of todo repository': step(async ctx => {
       ctx.listRepo = new ctx.di.ListRepository(injection)
-      return Ok();
+      return ctx.listRepo;
     }),
+
     'Get todos by Id or get all': ifElse({
 
       'If the id exists': step(async (ctx) => {
-        if (ctx.req.ids.length > 0) {
-          return Ok()
-        }
+        return ctx.req.ids.length > 0 ? Ok() : Err()
       }),
 
       'Then: Get By Id': step(async (ctx) => {
-        return await ctx.listRepo.getByIDs(ctx.req.ids)
+        return Ok(ctx.ret = await ctx.listRepo.getByIDs(ctx.req.ids))
       }),
 
       'Else: Get All': step(async (ctx) => {
-        return await ctx.listRepo.getAll()
+        return Ok(ctx.ret = await ctx.listRepo.getAll())
       })
+
     })
   })
