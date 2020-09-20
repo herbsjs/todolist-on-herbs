@@ -1,35 +1,35 @@
 {
-  "name": "todolist",
+  "name": "todolist-api",
   "version": "1.0.1",
   "description": "A sample Todo List graphQL API using Herbs using Buchu, Gotu,Suma and Graphql with Apollo Server Express",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive src/**/*.test.js --timeout 10000",
-    "coverage": "nyc mocha src/**/*.test.js",
+    "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
     "start": "node src/infra/api/server.js"
   },
   "keywords": [],
   "author": "David Lojudice Sb",
   "license": "MIT",
   "dependencies": {
-    "apollo-server-express": "^2.11.0",
-    "buchu": "^1.0.4",
+    "apollo-server-express": "^2.15.1",
+    "buchu": "^1.0.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "gotu": "^1.0.5",
-    "graphql": "^15.0.0",
+    "gotu": "^1.0.6",
+    "graphql": "^15.3.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
-    "suma": "^1.0.5"
+    "suma": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.2",
-    "mocha": "^7.1.1",
-    "nyc": "^15.0.1",
-    "prettier": "^2.0.4"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5"
   }
 }

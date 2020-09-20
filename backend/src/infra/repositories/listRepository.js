@@ -1,5 +1,5 @@
 const DB = require('./inMemDB')
-const { Ok, Err, usecase, step, ifElse } = require('buchu')
+const { Ok } = require('buchu')
 const { TodoList } = require('../../domain/entities/todoList')
 
 module.exports = class ListRepository {
@@ -20,6 +20,16 @@ module.exports = class ListRepository {
     }
   }
 
+  async getAll() {
+    const ret = await DB.getAll(this.table)
+    const listArray = []
+    for (var i = 0, len = ret.length; i < len; i++) {
+      if (ret[i] === undefined) continue
+      listArray.push(TodoList.fromJSON(ret[i]))
+    }
+    return Ok(listArray)
+  }
+
   async getByIDs(ids) {
     const ret = await DB.getMany(this.table, ids)
 
@@ -35,6 +45,12 @@ module.exports = class ListRepository {
     if(!listArray.length)
       return Err('Not Found')
 
+    return Ok(listArray)
+  }
+
+  async deleteByIDs(ids) {
+    await DB.deleteMany(this.table, ids)
+    const listArray = await this.getAll()
     return Ok(listArray)
   }
 }

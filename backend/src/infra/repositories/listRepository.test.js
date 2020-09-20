@@ -1,63 +1,59 @@
-const ListRepository = require('./listRepository')
-const { Ok } = require('buchu')
 const assert = require('assert')
+const ListRepository = require('./listRepository')
 
 describe('List Repository', () => {
-  describe('Valid Operations', () => {
-    it('Should save list', async () => {
-      // Given
-      const list = {id:1, name: "My favorite list"}
 
-      // When
-      const repo = new ListRepository()
+  it('Should save a new list', async () => {
+    // Given
+    const repository = new ListRepository()
 
-      const ret = await repo.save(list)
+    // When
+    const ret = await repository.save({ id: 1, name: 'List 1' })
 
-      // Then
-      assert.ok(ret.isOk)
-    }),
-    it('Should get list', async () => {
-      // Given
-      const list = {id:1, name: "My favorite list"}
-      await new ListRepository().save(list)
-
-      // When
-      const repo = new ListRepository()
-
-      const ret = await repo.getByIDs([1])
-
-      // Then
-      assert.ok(ret.isOk)
-    })
+    // Then
+    assert.equal("List 1", ret.ok.name)
+    assert.equal(1, ret.ok.id)
   })
 
-  describe('Invalid Operations', () => {
-    it('Should not save list', async () => {
-      // Given
-      const list = undefined
+  it('Should get all lists', async () => {
+    // Given
+    const repository = new ListRepository()
+    await repository.save({ id: 1, name: 'List 1' })
+    await repository.save({ id: 2, name: 'List 2' })
 
-      // When
-      const repo = new ListRepository()
+    // When
+    const ret = await repository.getAll()
 
-      const ret = await repo.save(list)
-
-      // Then
-      assert.ok(ret.isErr)
-      assert.equal(ret.err, 'Not Saved')
-    }),
-    it('Should not get non existing list', async () => {
-      // Given
-      const list = {id:1, name: "My favorite list"}
-      await new ListRepository().save(list)
-
-      // When
-      const repo = new ListRepository()
-
-      const ret = await repo.getByIDs([33])
-
-      // Then
-      assert.ok(ret.isErr)
-      assert.equal(ret.err,'Not Found')
-    })
+    // Then
+    assert.equal(2, ret.ok.length)
   })
+
+  it('Should get lists by id', async () => {
+    // Given
+    const repository = new ListRepository()
+    await repository.save({ id: 1, name: 'List 1' })
+    await repository.save({ id: 2, name: 'List 2' })
+
+    // When
+    const ret = await repository.getByIDs([1])
+
+    // Then
+    assert.equal(1, ret.ok.length)
+    assert.equal("List 1", ret.ok[0].name)
+    assert.equal(1, ret.ok[0].id)
+  })
+
+  it('Should delete a list by id', async () => {
+    // Given
+    const repository = new ListRepository()
+    await repository.save({ id: 1, name: 'List 1' })
+    await repository.save({ id: 2, name: 'List 2' })
+
+    // When
+    const ret = await repository.deleteByIDs([1])
+
+    // Then
+    assert.equal(1, ret.ok.length)
+  })
+
 })

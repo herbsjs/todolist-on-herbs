@@ -25,6 +25,31 @@ class DB {
   async set(table, key, value) {
     return (this.memDB[table][key] = JSON.stringify(value))
   }
+
+  async getAll(table) {
+    const ret = []
+    for (const key in this.memDB) {
+      if (this.memDB.hasOwnProperty(key) && key.startsWith(table)) {
+        ret.push(this.memDB[key])
+      }
+    }
+    return ret
+  }
+
+  async getMany(table, keys) {
+    const ret = []
+    for (const key of keys) {
+      ret.push(await this.get(table, key))
+    }
+    return ret
+  }
+
+  async deleteMany(table, keys) {
+    const dbKeys = keys.map((key) => this._key(table, key))
+    for (const key of dbKeys) {
+      delete this.memDB[key]
+    }
+  }
 }
 
 module.exports = new DB()
