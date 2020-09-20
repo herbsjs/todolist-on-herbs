@@ -2,7 +2,6 @@ const { entity, field } = require('gotu')
 
 module.exports.Item = entity('Item', {
   id: field(Number),
-  listId: field(Number),
   description: field(String, {
     validation: { presence: true, length: { minimum: 3 } }
   }),
