@@ -11,8 +11,8 @@ describe('List Repository', () => {
     const ret = await repository.save({ id: 1, name: 'List 1' })
 
     // Then
-    assert.equal("List 1", ret.ok.name)
-    assert.equal(1, ret.ok.id)
+    assert.deepStrictEqual("List 1", ret.ok.name)
+    assert.deepStrictEqual(1, ret.ok.id)
   })
 
   it('Should get all lists', async () => {
@@ -25,7 +25,7 @@ describe('List Repository', () => {
     const ret = await repository.getAll()
 
     // Then
-    assert.equal(2, ret.ok.length)
+    assert.deepStrictEqual(2, ret.ok.length)
   })
 
   it('Should get lists by id', async () => {
@@ -38,9 +38,9 @@ describe('List Repository', () => {
     const ret = await repository.getByIDs([1])
 
     // Then
-    assert.equal(1, ret.ok.length)
-    assert.equal("List 1", ret.ok[0].name)
-    assert.equal(1, ret.ok[0].id)
+    assert.deepStrictEqual(1, ret.ok.length)
+    assert.deepStrictEqual("List 1", ret.ok[0].name)
+    assert.deepStrictEqual(1, ret.ok[0].id)
   })
 
   it('Should delete a list by id', async () => {
@@ -53,7 +53,7 @@ describe('List Repository', () => {
     const ret = await repository.deleteByIDs([1])
 
     // Then
-    assert.equal(1, ret.ok.length)
+    assert.deepStrictEqual(1, ret.ok.length)
   })
 
 })

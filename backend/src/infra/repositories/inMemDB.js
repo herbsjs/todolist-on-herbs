@@ -27,10 +27,10 @@ class DB {
   }
 
   async getAll(table) {
-    const ret = []
+    let ret
     for (const key in this.memDB) {
       if (this.memDB.hasOwnProperty(key) && key.startsWith(table)) {
-        ret.push(this.memDB[key])
+        ret = this.memDB[key]
       }
     }
     return ret
@@ -45,9 +45,8 @@ class DB {
   }
 
   async deleteMany(table, keys) {
-    const dbKeys = keys.map((key) => this._key(table, key))
-    for (const key of dbKeys) {
-      delete this.memDB[key]
+    for (const key of keys) {
+      delete this.memDB[table][key]
     }
   }
 }
