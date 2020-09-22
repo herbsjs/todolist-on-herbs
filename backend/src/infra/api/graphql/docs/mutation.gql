@@ -3,3 +3,15 @@ mutation{
     name,id
   }
 }
+
+mutation{
+  createItemList(description: "Create second item on list") {
+    description,position,isDone,id
+  }
+}
+
+mutation{
+  updateItemList(description: "Create Update first item on list",position: 2, isDone: true) {
+    description,position,isDone,id
+  }
+}

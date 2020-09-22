@@ -1,47 +1,54 @@
+const tables = require('./tablesList').tables
 class DB {
+  constructor() {
+    this.id = Math.random() * 1000
+    global._todolist = {}
+    this.memDB = global._todolist
 
-    constructor() {
-        this.id = Math.random() * 1000
-        global._todolist = {}
-        this.memDB = global._todolist
-    }
+    tables.forEach((tableName) => {
+      this.memDB[tableName] = []
+    })
+  }
 
-    _key(table, key) {
-        return table + key
-    }
+  async get(table, key) {
+    return key ? this.memDB[table][key] : this.memDB[table]
+  }
 
-    async get(table, key) {
-        return this.memDB[this._key(table, key)]
+  async getMany(table, keys) {
+    const ret = []
+    for (const key of keys) {
+      ret.push(await this.get(table, key))
     }
+    return ret
+  }
 
-    async getAll(table) {
-        const ret = []
-        for (const key in this.memDB) {
-            if (this.memDB.hasOwnProperty(key) && key.startsWith(table)) {
-                ret.push(this.memDB[key])
-            }
-        }
-        return ret
-    }
+  async set(table, key, value) {
+    return (this.memDB[table][key] = JSON.stringify(value))
+  }
 
-    async getMany(table, keys) {
-        const ret = []
-        for (const key of keys) {
-            ret.push(await this.get(table, key))
-        }
-        return ret
+  async getAll(table) {
+    let ret
+    for (const key in this.memDB) {
+      if (this.memDB.hasOwnProperty(key) && key.startsWith(table)) {
+        ret = this.memDB[key]
+      }
     }
+    return ret
+  }
 
-    async set(table, key, value) {
-        return this.memDB[this._key(table, key)] = JSON.stringify(value)
+  async getMany(table, keys) {
+    const ret = []
+    for (const key of keys) {
+      ret.push(await this.get(table, key))
     }
+    return ret
+  }
 
-    async deleteMany(table, keys) {
-        const dbKeys = keys.map(key => this._key(table, key))
-        for (const key of dbKeys) {
-            delete this.memDB[key]
-        }
+  async deleteMany(table, keys) {
+    for (const key of keys) {
+      delete this.memDB[table][key]
     }
+  }
 }
 
 module.exports = new DB()
