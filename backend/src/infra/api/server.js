@@ -5,6 +5,8 @@ var cors = require('cors')
 var morgan = require('cors')
 const schema = require('./graphql/schema')
 const resolvers = require('./graphql/resolvers')
+const usecases = require('../../domain/usecases/_uclist')
+const renderShelfHTML = require('../herbsshelf/shelf')
 
 class ServerAPI {
   constructor(app) {
@@ -12,6 +14,7 @@ class ServerAPI {
     this.useCors()
     this.morgan()
     this.apollo()
+    this.herbsShelf()
     this.init()
   }
 
@@ -40,6 +43,15 @@ class ServerAPI {
 
   init() {
     return this.app.listen({ port: Settings.web.httpPort }, this.banner)
+  }
+
+  herbsShelf() {
+    this.app.get('/herbsshelf', (req, res, next) => {
+      res.setHeader('Content-Type', 'text/html')
+      const shelf = renderShelfHTML(usecases())
+      res.write(shelf)
+      res.end()
+    })
   }
 }
 

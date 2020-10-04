@@ -12,23 +12,19 @@ module.exports.getLists = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    'Create new instance of todo repository': step(async ctx => {
-      ctx.listRepo = new ctx.di.ListRepository(injection)
-      return Ok()
-    }),
+    'Get List by ID or All': ifElse({
 
-    'Get todos by Id or get all': ifElse({
-
-      'If the id exists': step(async (ctx) => {
+      'If there is just an ID': step(async (ctx) => {
+        ctx.listRepo = new ctx.di.ListRepository(injection)
         return Ok(ctx.req.ids.length > 0)
       }),
 
-      'Then: Get By Id': step(async (ctx) => {
+      'Then get just one list': step(async (ctx) => {
         ctx.ret = await ctx.listRepo.getByIDs(ctx.req.ids)
         return Ok()
       }),
 
-      'Else: Get All': step(async (ctx) => {
+      'Else get all on the list': step(async (ctx) => {
         ctx.ret = await ctx.listRepo.getAll()
         return Ok()
       })
