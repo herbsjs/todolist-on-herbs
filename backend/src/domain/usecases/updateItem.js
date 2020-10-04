@@ -6,7 +6,7 @@ const dependency = {
 }
 
 module.exports.updateItem = (injection) =>
-  usecase('update Item', {
+  usecase('Update Item', {
     request: {
       id: Number,
       description: String,
@@ -18,7 +18,7 @@ module.exports.updateItem = (injection) =>
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
-    'Get the old item from the repository': step(async (ctx) => {
+    'Retrieve the previous item from the repository': step(async (ctx) => {
       const itemRepo = new ctx.di.ItemListRepository(injection)
       const repoResult = await itemRepo.getItemByID(ctx.req.id)
 
@@ -28,7 +28,7 @@ module.exports.updateItem = (injection) =>
       return Ok()
     }),
 
-    'Update item entity': step((ctx) => {
+    'Update temporary item': step((ctx) => {
       const oldItem = Item.fromJSON({ ...ctx.req.oldItem })
 
       oldItem.position = ctx.req.position || oldItem.position
@@ -39,18 +39,18 @@ module.exports.updateItem = (injection) =>
       return Ok()
     }),
 
-    'Check if updated item is valid': step((ctx) => {
+    'Check if temporary item is valid': step((ctx) => {
       return ctx.ret.updatedItem.isValid()
         ? Ok()
         : Err(ctx.ret.updatedItem.errors)
     }),
 
-    'Check if is necessary update tasks positions': ifElse({
-      'Check if position as been changed': step((ctx) => {
+    'Check if is necessary to update tasks positions': ifElse({
+      'If position has been changed': step((ctx) => {
         return Ok(ctx.req.position !== ctx.req.oldItem.position)
       }),
 
-      'Rearrange positions and save itens on repository': step(async (ctx) => {
+      'Then rearrange positions and save itens on repository': step(async (ctx) => {
         const itemRepo = new ctx.di.ItemListRepository(injection)
         const ret = await itemRepo.geItemByListID([ctx.req.listId])
         const itemList = ret.ok
@@ -68,7 +68,7 @@ module.exports.updateItem = (injection) =>
         return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
       }),
 
-      'Save updated item on repository': step(async (ctx) => {
+      'Else save updated item on repository': step(async (ctx) => {
         const itemRepo = new ctx.di.ItemListRepository(injection)
         return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
       })

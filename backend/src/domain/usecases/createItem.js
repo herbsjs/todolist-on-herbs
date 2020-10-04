@@ -14,14 +14,13 @@ module.exports.createItem = (injection) =>
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
-    'Create item': step(
-      (ctx) =>
-        (ctx.item = Item.fromJSON({
-          id: Math.floor(Math.random() * 100000),
-          description: ctx.req.description,
-          isDone: false,
-          listId: ctx.req.listId,
-        }))
+    'Create temporary item': step((ctx) =>
+      (ctx.item = Item.fromJSON({
+        id: Math.floor(Math.random() * 100000),
+        description: ctx.req.description,
+        isDone: false,
+        listId: ctx.req.listId,
+      }))
     ),
 
     'Check if it is valid item': step((ctx) =>
@@ -41,11 +40,11 @@ module.exports.createItem = (injection) =>
       const itemRepo = new ctx.di.ItemRepository(injection)
       const repoResult = await itemRepo.geItemByListID(ctx.req.listId)
 
-      if(repoResult.isErr) return repoResult
+      if (repoResult.isErr) return repoResult
 
       const items = repoResult.ok
 
-      if (!items.length){
+      if (!items.length) {
         ctx.item.position = 1
         return Ok()
       }
