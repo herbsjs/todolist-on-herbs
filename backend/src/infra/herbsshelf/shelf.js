@@ -321,11 +321,12 @@ const html = (shelfData) => `
           page: -1,
           navOpen: -1,
           selectedPage: {},
-          shelfData: ${shelfData},
+          shelfData: ${JSON.stringify(shelfData)},
         },
         methods: {
           openNav: function (value) {
             this.navOpen = this.navOpen === value ? -1 : value
+            this.page = -1
             this.$forceUpdate()
           },
           openPage: function (value) {
