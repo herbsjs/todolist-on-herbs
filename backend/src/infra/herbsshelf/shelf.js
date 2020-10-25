@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 const generateShelfData = (usecases) => {
   let shelfData = []
@@ -14,7 +14,7 @@ const generateShelfData = (usecases) => {
 }
 
 const getCssStyle = () => {
-  const cssFilePath = path.resolve(__dirname, 'shelf.css');
+  const cssFilePath = path.resolve(__dirname, 'shelf.css')
   return fs.readFileSync(cssFilePath, "utf-8")
 }
 
