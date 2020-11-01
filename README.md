@@ -68,7 +68,7 @@ We also added the sample environment files. Within the .env file you will find t
 
 ## How to contribute
 
-If you would like to help contribute to this repository, please see [CONTRIBUTING]https://github.com/herbsjs/todolist-on-herbs/blob/master/.github/CONTRIBUTING.md)
+If you would like to help contribute to this repository, please see [CONTRIBUTING](https://github.com/herbsjs/todolist-on-herbs/blob/master/.github/CONTRIBUTING.md)
 
 ---
 
