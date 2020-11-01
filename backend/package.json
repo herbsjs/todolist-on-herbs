@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive src/**/*.test.js --timeout 10000",
-    "coverage": "nyc mocha src/**/*.test.js",
+    "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
     "start": "node src/infra/api/server.js"
   },
   "keywords": [],
@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server-express": "^2.15.1",
-    "buchu": "^1.0.6",
+    "buchu": "^1.0.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "gotu": "^1.0.6",

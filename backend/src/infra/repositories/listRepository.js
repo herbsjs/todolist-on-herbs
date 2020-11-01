@@ -1,5 +1,5 @@
 const DB = require('./inMemDB')
-const { Ok} = require('buchu')
+const { Ok } = require('buchu')
 const { TodoList } = require('../../domain/entities/todoList')
 
 module.exports = class ListRepository {
@@ -8,12 +8,20 @@ module.exports = class ListRepository {
   }
 
   async save(list) {
-    const ret = await DB.set(this.table, list.id, list)
-    return Ok(TodoList.fromJSON(ret))
+    try{
+      const ret = await DB.set(this.table, list.id, list)
+
+      if(!ret)
+      return Err('Not Saved')
+
+      return Ok(TodoList.fromJSON(ret))
+    }catch(__){
+      return Err('Not Saved')
+    }
   }
 
-  async getByIDs(ids) {
-    const ret = await DB.getMany(this.table, ids)
+  async getAll() {
+    const ret = await DB.getAll(this.table)
     const listArray = []
     for (var i = 0, len = ret.length; i < len; i++) {
       if (ret[i] === undefined) continue
@@ -22,13 +30,27 @@ module.exports = class ListRepository {
     return Ok(listArray)
   }
 
-  async deleteByIDs(ids) {
-    const ret = await DB.deleteMany(this.table, ids)
+  async getByIDs(ids) {
+    const ret = await DB.getMany(this.table, ids)
+
+    if(!ret)
+      return Err('Not Found')
+
     const listArray = []
     for (var i = 0, len = ret.length; i < len; i++) {
       if (ret[i] === undefined) continue
       listArray.push(TodoList.fromJSON(ret[i]))
     }
+
+    if(!listArray.length)
+      return Err('Not Found')
+
+    return Ok(listArray)
+  }
+
+  async deleteByIDs(ids) {
+    await DB.deleteMany(this.table, ids)
+    const listArray = await this.getAll()
     return Ok(listArray)
   }
 }
