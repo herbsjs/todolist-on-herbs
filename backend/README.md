@@ -16,6 +16,10 @@ A sample Todo List graphQL API using Herbs using [Buchu](https://github.com/herb
 
   We also added an exclusive Visual Studio Code launch.json file to the project so you can run the project using F5 or the debug tab (Ctrl+Shift+D)
 
+### Herbs REPL
+
+    $ node .\src\infra\repl
+
 
 ### Installing dev dependencies
 

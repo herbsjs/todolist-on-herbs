@@ -1,5 +1,5 @@
 var express = require('express')
-const Settings = require('./settings')
+const Config = require('../config/config')
 var { ApolloServer } = require('apollo-server-express')
 var cors = require('cors')
 var morgan = require('cors')
@@ -38,11 +38,11 @@ class ServerAPI {
 
   banner() {
     // eslint-disable-next-line no-console
-    console.log(`🚀 Server UP and Running in port: ${Settings.web.httpPort}`)
+    console.log(`🚀 Server UP and Running in port: ${Config.web.httpPort}`)
   }
 
   init() {
-    return this.app.listen({ port: Settings.web.httpPort }, this.banner)
+    return this.app.listen({ port: Config.web.httpPort }, this.banner)
   }
 
   herbsShelf() {
