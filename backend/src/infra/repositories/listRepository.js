@@ -1,5 +1,5 @@
 const DB = require('./inMemDB')
-const { Ok } = require('buchu')
+const { Ok, Err } = require('buchu')
 const { TodoList } = require('../../domain/entities/todoList')
 
 module.exports = class ListRepository {

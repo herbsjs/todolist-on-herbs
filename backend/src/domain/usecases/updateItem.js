@@ -22,7 +22,7 @@ module.exports.updateItem = (injection) =>
       const itemRepo = new ctx.di.ItemListRepository(injection)
       const repoResult = await itemRepo.getItemByID(ctx.req.id)
 
-      if(repoResult.isErr) return Err(`Item not found - ID: "${ctx.req.id}"`)
+      if (repoResult.isErr) return Err(`Item not found - ID: "${ctx.req.id}"`)
 
       ctx.req.oldItem = repoResult.ok
       return Ok()
@@ -71,6 +71,10 @@ module.exports.updateItem = (injection) =>
       'Else save updated item on repository': step(async (ctx) => {
         const itemRepo = new ctx.di.ItemListRepository(injection)
         return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
-      })
-    })
+      }),
+
+
+
+    }),
+
   })

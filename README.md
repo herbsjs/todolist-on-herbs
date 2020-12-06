@@ -1,70 +1,53 @@
 ![CI Build](https://github.com/herbsjs/todolist-on-herbs/workflows/Node.js%20CI/badge.svg) [![codecov](https://codecov.io/gh/herbsjs/todolist-on-herbs/branch/master/graph/badge.svg)](https://codecov.io/gh/herbsjs/todolist-on-herbs)
 
 
-```json
-  {
-      "devDependencies": {
-      "eslint": "^6.8.0",
-      "eslint-config-airbnb-base": "^14.1.0",
-      "eslint-config-prettier": "^6.10.1",
-      "eslint-plugin-import": "^2.20.2",
-      "eslint-plugin-prettier": "^3.1.2",
-      "mocha": "^7.1.1",
-      "nyc": "^15.0.1",
-      "prettier": "^2.0.4"
-    }
-  }
-  ```
+# TO DO list on Herbs
+This is a example on how to build a application using [Herbs](https://github.com/herbsjs).
 
-We recommend you install them for the best experience
 
 ### Using
 
-To create a list just run a POST http://localhost:{yourport}/graphql
+Backend:
 
-```graphql
-mutation{
-  createList(name: "List One") {
-    name,id
-  }
-}
-```
+    $ cd ./backend
+    $ npm install
+    $ npm start
 
-To get the list and just run a POST http://localhost:{yourport}/graphql passing an array of ID's
+Frontend:
 
-```graphql
-query{
-  getLists(ids:[0]) {
-    name,id
-  }
-}
-```
+    $ cd ./frontend
+    $ npm install
+    $ npm start
 
-To update a list just run a POST http://localhost:{yourport}/graphql
+### GraphQL
 
-```graphql
-mutation{
-  updateList(id: "1", name: "List One") {
-    name,id
-  }
-}
-```
+GraphQL Playground: [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
-To delete a list just run a POST http://localhost:{yourport}/graphql
 
-```graphql
-mutation{
-  deleteList(id: "1") {
-  }
-}
-```
+### Herbs Shelf
 
-  Additionally a [file](src/api/graphql/docs/herbs.postman_collection.json) was also added to the docs folder for import into the postman
+Herbs Shelf: [http://localhost:4000/herbsshelf](http://localhost:4000/herbsshelf)
 
-### Environment
+### Herbs REPL
 
-We also added the sample environment files. Within the .env file you will find the following information
+[Herbs REPL](https://github.com/herbsjs/herbs2repl):
 
+    $ cd ./backend
+    $ node ./src/infra/repl
+
+### Settings
+
+**Environment:**
+
+`.env.{environment}` files. 
+
+Rename one of the files to just `.env`. 
+
+Default is `dev`.
+
+**Config:**
+
+Edit `/backend/infra/config/{environment}.json` files if necessary.
 
 ## How to contribute
 

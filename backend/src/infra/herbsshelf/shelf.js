@@ -2,13 +2,16 @@ const fs = require('fs')
 const path = require('path')
 
 const generateShelfData = (usecases) => {
-  let shelfData = []
-  for (const [ucsGroup, ucs] of Object.entries(usecases)) {
-    let useCases = []
-    for (const uc of ucs) {
-      useCases.push(uc.doc())
-    }
-    shelfData.push({ section: ucsGroup, useCases })
+
+  const shelfData = []
+  const groups = [...new Set(usecases.map(i => i.tags.group))]
+  for (const group of groups) {
+    shelfData.push({
+      section: group,
+      useCases: usecases
+        .filter(i => i.tags.group === group)
+        .map(i => i.usecase.doc())
+    })
   }
   return shelfData
 }
