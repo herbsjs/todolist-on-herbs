@@ -28,9 +28,9 @@ GraphQL Playground: [http://localhost:4000/graphql](http://localhost:4000/graphq
 
 Herbs Shelf: [http://localhost:4000/herbsshelf](http://localhost:4000/herbsshelf)
 
-### REPL
+### Herbs REPL
 
-Herbs REPL:
+[Herbs REPL](https://github.com/herbsjs/herbs2repl):
 
     $ cd ./backend
     $ node ./src/infra/repl
