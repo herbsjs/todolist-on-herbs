@@ -20,7 +20,7 @@
     "graphql": "^15.4.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
-    "herbs2repl": "^1.0.0",
+    "herbs2repl": "^1.0.1",
     "suma": "^1.0.7"
   },
   "devDependencies": {
