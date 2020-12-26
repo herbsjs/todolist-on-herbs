@@ -1,16 +1,19 @@
 const { Ok, Err, usecase, step } = require('buchu')
+const { TodoList } = require('../../domain/entities/todoList')
 
 const dependency = {
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
 module.exports.updateList = injection =>
-  usecase('Update Todo List', {
+  usecase('Update List', {
     request: { id: Number, name: String },
 
-    authorize: user => (user.canUpdateList ? Ok() : Err()),
+    response: TodoList,
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
+
+    authorize: user => (user.canUpdateList ? Ok() : Err()),
 
     'Retrieve list': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)

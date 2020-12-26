@@ -1,7 +1,6 @@
+const { usecase2mutation } = require('herbs2gql')
 const { gql } = require('apollo-server-express')
 
-module.exports = gql`
-  extend type Mutation {
-    deleteList(id: String!): TodoList!
-  }
-`
+const usecase = require('../../../../../domain/usecases/deleteList').deleteList()
+
+module.exports = gql(usecase2mutation(usecase))

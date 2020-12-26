@@ -6,19 +6,21 @@ const dependency = {
 }
 
 module.exports.createList = injection =>
-  usecase('Create Todo List', {
+  usecase('Create List', {
     request: { name: String },
 
-    authorize: user => (user.canCreateList ? Ok() : Err()),
+    response: TodoList,
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
+    authorize: user => (user.canCreateList ? Ok() : Err()),
+
     'Create list': step(
       ctx =>
-        (ctx.list = TodoList.fromJSON({
-          id: Math.floor(Math.random() * 100000),
-          name: ctx.req.name,
-        }))
+      (ctx.list = TodoList.fromJSON({
+        id: Math.floor(Math.random() * 100000),
+        name: ctx.req.name,
+      }))
     ),
 
     'Check if it is valid list': step(ctx =>

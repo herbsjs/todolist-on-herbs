@@ -1,5 +1,6 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
 const { Item } = require('../entities/item')
+const { TodoList } = require('../entities/todoList')
 
 const dependency = {
   ItemRepository: require('../../infra/repositories/itemRepository'),
@@ -10,18 +11,21 @@ module.exports.createItem = (injection) =>
   usecase('Create Item', {
     request: { listId: Number, description: String },
 
-    authorize: (user) => (user.canAddItem ? Ok() : Err()),
+    response: Item,
 
-    setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
+    setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
+
+    authorize: (user) => (user.canCreateItem ? Ok() : Err()),
 
     'Create temporary item': step((ctx) =>
-      (ctx.item = Item.fromJSON({
+    (
+      ctx.item = Item.fromJSON({
         id: Math.floor(Math.random() * 100000),
         description: ctx.req.description,
         isDone: false,
         listId: ctx.req.listId,
-      }))
-    ),
+      })
+    )),
 
     'Check if it is valid item': step((ctx) =>
       ctx.item.isValid() ? Ok() : Err(ctx.item.errors)

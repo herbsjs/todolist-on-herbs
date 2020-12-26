@@ -1,16 +1,19 @@
 const { Ok, Err, usecase, step, ifElse } = require('buchu')
+const { TodoList } = require('../entities/todoList')
 
 const dependency = {
   ListRepository: require('../../infra/repositories/listRepository'),
 }
 
 module.exports.getLists = injection =>
-  usecase('Get Todo Lists', {
-    request: { ids: Array },
+  usecase('Get Lists', {
+    request: { ids: [Number] },
 
-    authorize: user => (user.canGetLists ? Ok() : Err()),
+    response: [TodoList],
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
+
+    authorize: user => (user.canGetLists ? Ok() : Err()),
 
     'Get List by ID or All': ifElse({
 

@@ -22,16 +22,12 @@ module.exports = class ItemListRepositoy {
   async geItemByListID(id) {
       const ret = await DB.get(this.table)
 
-      if (!ret) return Err('Not Found')
-
       const itemListArray = []
       for (var i = 0, len = ret.length; i < len; i++) {
         const item = ret[i]
         if (item === undefined || JSON.parse(item).listId !== id) continue
         itemListArray.push(Item.fromJSON(item))
       }
-
-      if (!itemListArray.length) return Err('Not Found')
 
       return Ok(itemListArray)
   }

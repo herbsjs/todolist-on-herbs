@@ -17,7 +17,7 @@ describe('Delete Todo Lists', () => {
                 }
             }
 
-            const user = { canDeteleList: true }
+            const user = { canDeleteList: true }
             const req = { id: 1 }
 
             // When
@@ -36,7 +36,7 @@ describe('Delete Todo Lists', () => {
                     async getByIDs(ids) { return Err(`List not found - ID: "2"`) }
                 }
             }
-            const user = { canDeteleList: true }
+            const user = { canDeleteList: true }
             const req = { id: 2 }
 
             // When
@@ -58,7 +58,7 @@ describe('Delete Todo Lists', () => {
 
                 }
             }
-            const user = { canDeteleList: true }
+            const user = { canDeleteList: true }
             const req = { id: 2 }
 
             // When

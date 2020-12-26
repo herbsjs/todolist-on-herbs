@@ -32,6 +32,16 @@ class ServerAPI {
       playground: true,
       typeDefs: schema,
       resolvers,
+      context: ({ req }) => ({
+        user: {
+          canCreateList: true,
+          canGetLists:true,
+          canUpdateList: true,
+          canDeleteList: true,
+          canCreateItem: true,
+          canUpdateItem:true
+        }
+      })
     })
     server.applyMiddleware({ app: this.app, path: '/graphql' })
   }

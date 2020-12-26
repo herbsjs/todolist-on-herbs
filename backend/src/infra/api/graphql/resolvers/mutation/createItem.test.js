@@ -30,7 +30,7 @@ describe('GraphQL - Mutations', () => {
       const createItem = createItemGQL.Mutation.createItem
 
       // When
-      const ret = await createItem(null, { injection, description: itemDescription, listId: itemlistId })
+      const ret = await createItem(null, { injection, description: itemDescription, listId: itemlistId }, { user: {} })
 
       // Then
       assert.deepEqual(ret.description, itemDescription)
@@ -57,11 +57,13 @@ describe('GraphQL - Mutations', () => {
 
       // When
       const ret = async () =>
-        await createItem(null, {
-          injection,
-          description: itemDescription,
-          listId: itemlistId,
-        })
+        await createItem(null,
+          {
+            injection,
+            description: itemDescription,
+            listId: itemlistId,
+          },
+          { user: {} })
 
       // Then
       await assert.rejects(

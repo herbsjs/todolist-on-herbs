@@ -4,7 +4,7 @@ const assert = require('assert')
 
 describe('Create TO DO Item', () => {
   function aUser({ hasAccess }) {
-    return { canAddItem: hasAccess }
+    return { canCreateItem: hasAccess }
   }
 
   describe('Valid Item', () => {

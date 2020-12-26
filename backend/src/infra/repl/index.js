@@ -8,7 +8,7 @@ const main = async (injection) => {
 
     // your user for the REPL session
     const user = {
-        canAddItem: true, canCreateList: true, canDeteleList: false,
+        canCreateItem: true, canCreateList: true, canDeteleList: false,
         canGetLists: true, canUpdateItem: true, canUpdateList: true
     }
 

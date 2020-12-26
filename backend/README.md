@@ -20,28 +20,6 @@ A sample Todo List graphQL API using Herbs using [Buchu](https://github.com/herb
 
     $ node .\src\infra\repl
 
-
-### Installing dev dependencies
-
- We also added some developer dependencies to force a pattern for lint, formating and testing:
-
-```json
-  {
-      "devDependencies": {
-      "eslint": "^6.8.0",
-      "eslint-config-airbnb-base": "^14.1.0",
-      "eslint-config-prettier": "^6.10.1",
-      "eslint-plugin-import": "^2.20.2",
-      "eslint-plugin-prettier": "^3.1.2",
-      "mocha": "^7.1.1",
-      "nyc": "^15.0.1",
-      "prettier": "^2.0.4"
-    }
-  }
-  ```
-
-We recommend you install them for the best experience
-
 ### Using
 
 To create a list just run a POST http://localhost:{yourport}/graphql

@@ -75,7 +75,7 @@ describe('Item Repository', () => {
 
       // Then
       assert.ok(ret.isErr)
-      assert.equal(ret.err, 'Not Saved')
+      assert.deepStrictEqual(ret.err, 'Not Saved')
     }),
     it('Should not get non existing item by id', async () => {
       // Given
@@ -89,7 +89,7 @@ describe('Item Repository', () => {
 
       // Then
       assert.ok(ret.isErr)
-      assert.equal(ret.err, 'Not Found')
+      assert.deepStrictEqual(ret.err, 'Not Found')
     }),
     it('Should not get item by non existing List', async () => {
       // Given
@@ -102,8 +102,8 @@ describe('Item Repository', () => {
       const ret = await repo.geItemByListID(33)
 
       // Then
-      assert.ok(ret.isErr)
-      assert.equal(ret.err, 'Not Found')
+      assert.ok(ret.isOk)
+      assert.deepStrictEqual(ret.ok, [])
     })
   })
 })
