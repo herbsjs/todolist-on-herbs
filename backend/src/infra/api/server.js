@@ -3,8 +3,7 @@ const Config = require('../config/config')
 var { ApolloServer } = require('apollo-server-express')
 var cors = require('cors')
 var morgan = require('cors')
-const schema = require('./graphql/schema')
-const resolvers = require('./graphql/resolvers')
+const [typeDefs, resolvers] = require('./graphql/index')
 const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('../herbsshelf/shelf')
 
@@ -30,16 +29,16 @@ class ServerAPI {
     const server = new ApolloServer({
       introspection: true,
       playground: true,
-      typeDefs: schema,
+      typeDefs,
       resolvers,
       context: ({ req }) => ({
         user: {
           canCreateList: true,
-          canGetLists:true,
+          canGetLists: true,
           canUpdateList: true,
           canDeleteList: true,
           canCreateItem: true,
-          canUpdateItem:true
+          canUpdateItem: true
         }
       })
     })

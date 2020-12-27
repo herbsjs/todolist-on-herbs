@@ -27,7 +27,7 @@ describe('GraphQL - Mutations', () => {
           }
         },
       }
-      const createItem = createItemGQL.Mutation.createItem
+      const createItem = createItemGQL[1].Mutation.createItem
 
       // When
       const ret = await createItem(null, { injection, description: itemDescription, listId: itemlistId }, { user: {} })
@@ -53,7 +53,7 @@ describe('GraphQL - Mutations', () => {
           }
         },
       }
-      const createItem = createItemGQL.Mutation.createItem
+      const createItem = createItemGQL[1].Mutation.createItem
 
       // When
       const ret = async () =>

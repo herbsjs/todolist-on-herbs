@@ -7,28 +7,25 @@ function args2request(args, useCase) {
     return params
 }
 
-function defaultResolver(params) {
+function defaultResolver(usecase) {
 
     return async function resolver(parent, args, context, info) {
 
-        /* Initialization */
-        const uc = params.usecase(args.injection)
-
         /* Authorization */
-        const hasAccess = uc.authorize(context.user)
+        const hasAccess = usecase.authorize(context.user)
         if (hasAccess === false) {
             // eslint-disable-next-line no-console
-            console.info(uc.auditTrail)
+            console.info(usecase.auditTrail)
             throw new ForbiddenError()
         }
 
         /* Execution */
-        const request = args2request(args, uc)
-        const response = await uc.run(request)
+        const request = args2request(args, usecase)
+        const response = await usecase.run(request)
 
         /* Audit */
         // eslint-disable-next-line no-console
-        console.info(uc.auditTrail)
+        console.info(usecase.auditTrail)
 
         /* Response */
         if (response.isErr) throw new UserInputError(null, { invalidArgs: response.err })
