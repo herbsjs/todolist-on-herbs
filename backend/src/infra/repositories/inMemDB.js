@@ -11,7 +11,7 @@ class DB {
   }
 
   async get(table, key) {
-    return key ? this.memDB[table][key] : this.memDB[table]
+    return key ? this.memDB[table][key] : undefined
   }
 
   async getMany(table, keys) {

@@ -41,6 +41,7 @@ describe('Item Repository', () => {
       // Then
       assert.ok(ret.isOk)
     }),
+
     it('Should get item by listId', async () => {
       // Given
 
@@ -59,7 +60,7 @@ describe('Item Repository', () => {
 
       // Then
       assert.ok(ret.isOk)
-      assert.ok(ret.ok.length)
+      assert.ok(ret.ok.length === 1)
     })
   })
 

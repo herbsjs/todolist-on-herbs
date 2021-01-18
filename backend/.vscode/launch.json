@@ -5,32 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "HTTP Server",
             "request": "launch",
-            "name": "Graphql Server",
-            "program": "${workspaceFolder}/src/infra/api/server.js",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "runtimeExecutable": "npm",
             "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-                "<node_internals>/**/*.js"
-            ]
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         },        
         {
-            "type": "node",
+            "name": "Backend Tests",
             "request": "launch",
-            "name": "Tests",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "--timeout",
-                "999999",
-                "--colors",
-                "--recursive",
-                "${workspaceFolder}/src/**/*.test.js"
+            "runtimeArgs": [
+                "run-script",
+                "test"
             ],
-            "internalConsoleOptions": "openOnSessionStart",
+            "runtimeExecutable": "npm",
             "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-                "<node_internals>/**/*.js"
-            ]
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         }
     ]
 }

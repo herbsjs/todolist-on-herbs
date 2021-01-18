@@ -2,16 +2,25 @@ var express = require('express')
 const Config = require('../config/config')
 var { ApolloServer } = require('apollo-server-express')
 var cors = require('cors')
-var morgan = require('cors')
 const [typeDefs, resolvers] = require('./graphql/index')
 const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('../herbsshelf/shelf')
+const controllers = require('./rest/controller')
+
+const user = {
+  canCreateList: true,
+  canGetLists: true,
+  canUpdateList: true,
+  canDeleteList: true,
+  canCreateItem: true,
+  canUpdateItem: true
+}
 
 class ServerAPI {
   constructor(app) {
     this.app = app
     this.useCors()
-    this.morgan()
+    this.rest()
     this.apollo()
     this.herbsShelf()
     this.init()
@@ -21,8 +30,10 @@ class ServerAPI {
     this.app.use(cors())
   }
 
-  morgan() {
-    this.app.use(morgan('dev'))
+  rest() {
+    this.app.use((req, res, next) => { req.user = user; next() })
+    this.app.use(express.json())
+    controllers(this.app)
   }
 
   apollo() {
@@ -31,16 +42,7 @@ class ServerAPI {
       playground: true,
       typeDefs,
       resolvers,
-      context: ({ req }) => ({
-        user: {
-          canCreateList: true,
-          canGetLists: true,
-          canUpdateList: true,
-          canDeleteList: true,
-          canCreateItem: true,
-          canUpdateItem: true
-        }
-      })
+      context: ({ req }) => ({ user })
     })
     server.applyMiddleware({ app: this.app, path: '/graphql' })
   }
