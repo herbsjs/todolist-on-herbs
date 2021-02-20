@@ -4,7 +4,7 @@ var { ApolloServer } = require('apollo-server-express')
 var cors = require('cors')
 const [typeDefs, resolvers] = require('./graphql/index')
 const usecases = require('../../domain/usecases/_uclist')
-const renderShelfHTML = require('../herbsshelf/shelf')
+const renderShelfHTML = require('herbsshelf')
 const controllers = require('./rest/controller')
 
 const user = {

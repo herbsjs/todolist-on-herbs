@@ -22,6 +22,7 @@
     "graphql-resolvers": "^0.4.2",
     "herbs2gql": "^1.0.4",
     "herbs2repl": "^1.0.1",
+    "herbsshelf": "^1.0.0",
     "suma": "^1.0.7"
   },
   "devDependencies": {
