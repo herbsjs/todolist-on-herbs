@@ -1,86 +1,58 @@
 ![Node.js CI](https://github.com/herbsjs/todolist-on-herbs/workflows/Node.js%20CI/badge.svg)
 
 # Todolist on Herbs
-A sample Todo List graphQL API using Herbs using [Buchu](https://github.com/herbsjs/buchu), [Gotu](https://github.com/herbsjs/gotu), [Suma](https://github.com/herbsjs/suma) and [Graphql](https://github.com/graphql/graphql-js) with [Apollo Server Express](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express)
 
-### Installing
+This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs).
 
-  Just run:
+### Using
 
     $ npm install
-
-### Run
     $ npm start
 
   You should receive this message => 🚀 Server UP and Running in port: 4000
 
-  We also added an exclusive Visual Studio Code launch.json file to the project so you can run the project using F5 or the debug tab (Ctrl+Shift+D)
+  VSCode launchers (launch.json) are also available.
+
+### Using with Postgres
+
+  Change `knexfile.js` connection info.
+
+    $ npx knex migrate:latest
 
 ### Herbs REPL
 
     $ node .\src\infra\repl
 
-### Using
+### GraphQL
 
-To create a list just run a POST http://localhost:{yourport}/graphql
+GraphQL Playground: [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
-```graphql
-mutation{
-  createList(name: "List One") {
-    name,id
-  }
-}
-```
+### Herbs Shelf
 
-To add item on a list just run a POST http://localhost:{yourport}/graphql
+Herbs Shelf: [http://localhost:4000/herbsshelf](http://localhost:4000/herbsshelf)
 
-```graphql
-mutation{
-	createItem(listId: 94585, description: "First Item"){
-    id,
-    listId,
-    isDone,
-    description,
-    position
-  }
-}
-```
+### Herbs REPL
 
-To update item just run a POST http://localhost:{yourport}/graphql
+[Herbs REPL](https://github.com/herbsjs/herbs2repl):
 
-```graphql
-mutation{
-  updateItem(id: 96211, description: "Updated Item", position: 1, isDone:true)
-    {
-      id,
-      listId,
-      isDone,
-      description,
-      position,
-    }
-}
-```
+    $ node ./src/infra/repl
 
-To get the list and just run a POST http://localhost:{yourport}/graphql passing an array of ID's
+### Settings
 
-```graphql
-query{
-  getLists(ids:[0]) {
-    name,id
-  }
-}
-```
+**Environment:**
 
-  Additionally a [file](src/api/graphql/docs/herbs.postman_collection.json) was also added to the docs folder for import into the postman
+`.env.{environment}` files. 
 
-### Environment
+Rename one of the files to just `.env`. 
 
-We also added the sample environment files. Within the .env file you will find the following information
+Default is `dev`. Also check for `HERBS_EXCEPTION` env variable.
 
-    NODE_ENV=dev
-    HERBS_EXCEPTION=audit
+**Config:**
 
+Edit `/backend/infra/config/{environment}.json` files if necessary.
 
-Within settings, the application reads the NODE_ENV variable within the .env file to define which configuration file it will use (within config/settings.xxx.json).
+## How to contribute
 
-The audit HERBS_EXCEPTION variable is also added within the .env file according to its documentation.
+If you would like to help contribute to this repository, please see [CONTRIBUTING](https://github.com/herbsjs/todolist-on-herbs/blob/master/.github/CONTRIBUTING.md)
+
+---

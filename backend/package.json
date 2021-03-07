@@ -23,6 +23,8 @@
     "herbs2gql": "^1.0.4",
     "herbs2repl": "^1.0.1",
     "herbsshelf": "^1.0.0",
+    "knex": "^0.95.1",
+    "pg": "^8.5.1",
     "suma": "^1.0.7"
   },
   "devDependencies": {
