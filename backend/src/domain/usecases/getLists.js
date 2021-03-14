@@ -2,7 +2,7 @@ const { Ok, Err, usecase, step, ifElse } = require('buchu')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {
-  ListRepository: require('../../infra/repositories/listRepository'),
+  ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
 
 module.exports.getLists = injection =>
@@ -17,19 +17,20 @@ module.exports.getLists = injection =>
 
     'Get List by ID or All': ifElse({
 
-      'If there is just an ID': step(async (ctx) => {
-        ctx.listRepo = new ctx.di.ListRepository(injection)
+      'If it is was informed one or more IDs': step(async (ctx) => {
         return Ok(ctx.req.ids.length > 0)
       }),
 
-      'Then get just one list': step(async (ctx) => {
-        ctx.ret = await ctx.listRepo.getByIDs(ctx.req.ids)
-        return Ok()
+      'Then return the all on the list': step(async (ctx) => {
+        const repo = new ctx.di.ListRepository(injection)
+        const lists = await repo.findByID(ctx.req.ids)
+        return Ok(ctx.ret = lists)
       }),
 
-      'Else get all on the list': step(async (ctx) => {
-        ctx.ret = await ctx.listRepo.getAll()
-        return Ok()
+      'Else return all': step(async (ctx) => {
+        const repo = new ctx.di.ListRepository(injection)
+        ctx.ret = await repo.findAll() // TODO
+        return Err()
       })
 
     })

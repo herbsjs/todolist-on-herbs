@@ -1,10 +1,10 @@
 {
   "name": "todolist-api",
   "version": "1.0.1",
-  "description": "A sample Todo List graphQL API using Herbs using Buchu, Gotu,Suma and Graphql with Apollo Server Express",
-  "main": "index.js",
+  "description": "This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs)",
+  "main": "",
   "scripts": {
-    "test": "mocha --recursive src/**/*.test.js --timeout 10000",
+    "test": "mocha --timeout 999999 --colors --recursive src/**/*.test.js",
     "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
     "start": "node src/infra/api/server.js"
   },
@@ -12,28 +12,28 @@
   "author": "David Lojudice Sb",
   "license": "MIT",
   "dependencies": {
-    "apollo-server-express": "^2.19.1",
-    "buchu": "^1.0.10",
+    "apollo-server-express": "^2.21.1",
+    "buchu": "^1.0.11",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "gotu": "^1.0.9",
-    "graphql": "^15.4.0",
+    "gotu": "^1.0.15",
+    "graphql": "^15.5.0",
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
-    "herbs2gql": "^1.0.4",
+    "herbs2gql": "^1.0.5",
     "herbs2repl": "^1.0.1",
     "herbsshelf": "^1.0.0",
-    "knex": "^0.95.1",
+    "knex": "^0.95.2",
     "pg": "^8.5.1",
     "suma": "^1.0.7"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.16.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.3.0",
-    "mocha": "^8.2.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "mocha": "^8.3.2",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1"
   }

@@ -8,5 +8,5 @@ module.exports.Item = entity('Item', {
   isDone: field(Boolean, {
     default: false
   }),
-  position: field(Number,{ presence: true })
+  position: field(Number, { presence: true })
 })

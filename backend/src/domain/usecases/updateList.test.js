@@ -5,20 +5,16 @@ const { TodoList } = require('../entities/todoList')
 
 describe('Update Lists', () => {
 
-  it('Should Update List', async () => {
+  it('should Update List', async () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          const source = [TodoList.fromJSON({ id: 1, name: "Previous Name" })]
-          let list = source.filter(args => ids.includes(args.id))
-          return Ok(list)
-        }
-        async save(list) { return Ok(list) }
+        async findByID(ids) { return [TodoList.fromJSON({ id: 1, name: `Things I must do` })] }
+        async update(list) { return list }
       }
     }
     const user = { canUpdateList: true }
-    const req = { id: 1, name: "New Name" }
+    const req = { id: 1, name: `Things I must learn` }
 
     // When
     const uc = updateList(injection)
@@ -27,21 +23,18 @@ describe('Update Lists', () => {
 
     // Then
     assert.ok(ret.isOk)
+    assert.strictEqual(ret.ok.id, 1)
   })
 
-  it('Should Not Update List If the List Is Not Found', async () => {
+  it('should not update List if the List does not exist', async () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          const source = []
-          let list = source.filter(args => ids.includes(args.id))
-          return Ok(list)
-        }
+        async findByID(ids) { return [] }
       }
     }
     const user = { canUpdateList: true }
-    const req = { id: 1, name: "New Name" }
+    const req = { id: 1, name: `Should make this year` }
 
     // When
     const uc = updateList(injection)
@@ -50,49 +43,18 @@ describe('Update Lists', () => {
 
     // Then
     assert.ok(!ret.isOk)
-    assert.ok(ret.err == 'List not found - ID: "1"')
+    assert.deepStrictEqual(ret.err, `List not found - ID: 1`)
   })
 
-  it('Should Not Update List If the List Is Not Found', async () => {
+  it('should not update if List is invalid', async () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          const source = []
-          let list = source.filter(args => ids.includes(args.id))
-          return Ok(list)
-        }
-      },
+        async findByID(ids) { return [TodoList.fromJSON({ id: 1, name: `Must have` })] }
+      }
     }
     const user = { canUpdateList: true }
-    const req = { id: 1, name: 'New Name' }
-
-    // When
-    const uc = updateList(injection)
-    uc.authorize(user)
-    const ret = await uc.run({ id: req.id, name: req.name })
-
-    // Then
-    assert.ok(!ret.isOk)
-    assert.ok(ret.err == 'List not found - ID: "1"')
-  })
-
-  it('Should Not Update If Invalid List Name', async () => {
-    // Given
-    const injection = {
-      ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          const source = [TodoList.fromJSON({ id: 1, name: "Previous Name" })]
-          let list = source.filter(args => ids.includes(args.id))
-          return Ok(list)
-        }
-        async save(list) {
-          return Ok(list)
-        }
-      },
-    }
-    const user = { canUpdateList: true }
-    const req = { id: 1, name: 'Ne' }
+    const req = { id: 1, name: 'Li' }
 
     // When
     const uc = updateList(injection)
@@ -103,57 +65,4 @@ describe('Update Lists', () => {
     assert.ok(ret.isErr && ret.err.name[0].isTooShort === 3)
   })
 
-  it('Should Not Update If the User Does Not Have Permission', async () => {
-    // Given
-    const injection = {
-      ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          const source = [new TodoList()]
-          let list = source.filter(args => ids.includes(args.id))
-          return Ok(list)
-        }
-        async save(list) {
-          return Ok(list)
-        }
-      },
-    }
-    const user = {}
-    const req = { id: 1, name: 'New List' }
-
-    // When
-    const uc = updateList(injection)
-    uc.authorize(user)
-    const ret = await uc.run({ id: req.id, name: req.name })
-
-    // Then
-    assert.ok(ret.isErr && ret.err == 'Not Authorized')
-  })
-
-  it('Should Not Update If Repository Returns Error', async () => {
-    // Given
-    const injection = {
-      ListRepository: class ListRepository {
-        async getByIDs(ids) {
-          if (!ids) {
-            return Err('Id must have a value')
-          }
-
-          return Err('Wrong params')
-        }
-        async save(list) {
-          return Ok(list)
-        }
-      },
-    }
-    const user = { canUpdateList: true }
-    const req = { id: 1, name: 'New List' }
-
-    // When
-    const uc = updateList(injection)
-    uc.authorize(user)
-    const ret = await uc.run({ id: req.id, name: req.name })
-
-    // Then
-    assert.ok(ret.isErr && ret.err === 'Wrong params')
-  })
 })

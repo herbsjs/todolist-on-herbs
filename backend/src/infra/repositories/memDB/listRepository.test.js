@@ -1,7 +1,7 @@
 const assert = require('assert')
 const ListRepository = require('./listRepository')
 
-describe('List Repository', () => {
+describe.skip('List Repository', () => {
 
   it('Should save a new list', async () => {
     // Given

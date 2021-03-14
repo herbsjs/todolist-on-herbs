@@ -2,7 +2,7 @@ const ItemRepository = require('./itemRepository')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
-describe('Item Repository', () => {
+describe.skip('Item Repository', () => {
   describe('Valid Operations', () => {
     it('Should save item', async () => {
       // Given

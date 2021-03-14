@@ -2,174 +2,104 @@ const { createItem } = require('./createItem')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
-describe('Create TO DO Item', () => {
+describe('Create Item', () => {
   function aUser({ hasAccess }) {
     return { canCreateItem: hasAccess }
   }
 
   describe('Valid Item', () => {
-    it('Should Add item on empty List ', async () => {
+
+    it('should add Item on empty List ', async () => {
       // Given
       const injection = {
         ListRepository: class {
-          async getByIDs(id) {
-            return Ok([{ name: 'List One', id: 65676 }])
-          }
+          async findByID(id) { return ([{ name: `Great achievements`, id: 65676 }]) }
         },
         ItemRepository: class {
-          async save(list) {
-            return Ok(list)
-          }
-          async geItemByListID(id) {
-            return Ok([])
-          }
+          async insert(item) { return (item) }
+          async findBy(id) { return [] }
         },
       }
       const user = aUser({ hasAccess: true })
-      const req = { description: 'First item on my list', listId: 65676 }
+      const req = { description: `My firts item!`, listId: 65676 }
 
       // When
       const uc = createItem(injection)
       uc.authorize(user)
-      const ret = await uc.run({
-        listId: req.listId,
-        description: req.description,
-      })
+      const ret = await uc.run(req)
 
       // Then
       assert.ok(ret.isOk)
-    }),
-      it('Should Add extra item on List ', async () => {
-        // Given
-        const injection = {
-          ListRepository: class {
-            async getByIDs(id) {
-              return Ok([{ name: 'List list', id: 65676 }])
-            }
-          },
-          ItemRepository: class {
-            async save(list) {
-              return Ok(list)
-            }
-            async geItemByListID(id) {
-              const baseList = [
-                {
-                  id: 11110,
-                  listId: 65676,
-                  description: 'First item on list',
-                  position: 1,
-                  isDone: false,
-                },
-                {
-                  id: 11111,
-                  listId: 65676,
-                  description: 'Second item on list',
-                  position: 2,
-                  isDone: false,
-                },
-                {
-                  id: 11112,
-                  listId: 65676,
-                  description: 'Third item on list',
-                  position: 3,
-                  isDone: false,
-                },
-              ]
+      assert.strictEqual(ret.ok.position, 1)
+    })
 
-              const filteredList = baseList.filter(
-                (item) => item.listId === id
-              )
-
-              return Ok(filteredList)
-            }
-          },
-        }
-        const user = aUser({ hasAccess: true })
-        const req = { description: 'Fourth item on my list', listId: 65676 }
-
-        // When
-        const uc = createItem(injection)
-        uc.authorize(user)
-        const ret = await uc.run({
-          listId: req.listId,
-          description: req.description,
-        })
-
-        // Then
-        assert.ok(ret.isOk)
-      })
-  })
-
-  describe('Invalid Item', () => {
-    it('Should Not Create Item on invalid list', async () => {
+    it('should add Item at the last position on a List with others Items', async () => {
       // Given
       const injection = {
         ListRepository: class {
-          async getByIDs(id) {
-            return Ok([])
-          }
+          async findByID(id) { return [{ name: `Great goals`, id: 65676 }] }
         },
         ItemRepository: class {
-          async save(list) {
-            return Ok(list)
-          }
-          async geItemByListID(id) {
-            return Ok([
-              {
-                id: 11110,
-                listId: 65676,
-                description: 'First item on list',
-                position: 1,
-                isDone: false,
-              },
-            ])
+          async insert(item) { return item }
+          async findBy(where) {
+            return [
+              { id: 11111, position: 1 },
+              { id: 11112, position: 2 },
+              { id: 11113, position: 3 },
+            ]
           }
         },
       }
       const user = aUser({ hasAccess: true })
-      const req = { description: 'Fist item on my list', listId: 65680 }
+      const req = { description: `Make it happen!`, listId: 65676 }
 
       // When
       const uc = createItem(injection)
       uc.authorize(user)
-      const ret = await uc.run({
-        listId: req.listId,
-        description: req.description,
-      })
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isOk)
+      assert.strictEqual(ret.ok.position, 4)
+    })
+  })
+
+  describe('Invalid Item', () => {
+
+    it('should not create Item if the List does not exist', async () => {
+      // Given
+      const injection = {
+        ListRepository: class {
+          async findByID(id) { return [] }
+        }
+      }
+      const user = aUser({ hasAccess: true })
+      const req = { description: `You can do it!`, listId: 65680 }
+
+      // When
+      const uc = createItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
 
       // Then
       assert.ok(ret.isErr)
-    }),
-      it('Should Not Create invalid Item', async () => {
-        // Given
-        const injection = {
-          ListRepository: class {
-            async getByIDs(id) {
-              return Ok([{ name: 'List list', id: 65676 }])
-            }
-          },
-          ItemRepository: class {
-            async save(list) {
-              return Ok(list)
-            }
-            async geItemByListID(id) {
-              return Ok([])
-            }
-          },
-        }
-        const user = aUser({ hasAccess: true })
-        const req = { listId: 65676 }
+      assert.strictEqual(ret.err, `List not found - ID: 65680`)
+    })
 
-        // When
-        const uc = createItem(injection)
-        uc.authorize(user)
-        const ret = await uc.run({
-          listId: req.listId,
-          description: req.description,
-        })
+    it('should not create invalid Item', async () => {
+      // Given
+      const injection = {}
+      const user = aUser({ hasAccess: true })
+      const req = { listId: 65676 }
 
-        // Then
-        assert.ok(ret.isErr)
-      })
+      // When
+      const uc = createItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isErr)
+      assert.deepStrictEqual(ret.err, { description: [{ cantBeEmpty: true }] })
+    })
   })
 })

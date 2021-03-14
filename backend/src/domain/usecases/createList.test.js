@@ -2,7 +2,7 @@ const { createList } = require('./createList')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
-describe('Create TO DO List', () => {
+describe('Create List', () => {
 
     function aUser({ hasAccess }) {
         return { canCreateList: hasAccess }
@@ -10,15 +10,15 @@ describe('Create TO DO List', () => {
 
     describe('Valid List', () => {
 
-        it('Should Create List ', async () => {
+        it('should create List ', async () => {
             // Given
             const injection = {
                 ListRepository: class ListRepository {
-                    async save(list) { return Ok(list) }
+                    async insert(list) { return list }
                 }
             }
             const user = aUser({ hasAccess: true })
-            const req = { name: "My favorite list" }
+            const req = { name: `Amazing List` }
 
             // When
             const uc = createList(injection)
@@ -27,12 +27,13 @@ describe('Create TO DO List', () => {
 
             // Then
             assert.ok(ret.isOk)
+            assert.deepStrictEqual(ret.ok.toJSON(), { id: ret.ok.id, items: [], name: `Amazing List` })
         })
     })
 
-    describe('Invalid Name List', () => {
+    describe('Invalid List', () => {
 
-        it('Should Not Create List', async () => {
+        it('should not create List', async () => {
             // Given
             const injection = {}
             const user = aUser({ hasAccess: true })
@@ -45,7 +46,7 @@ describe('Create TO DO List', () => {
 
             // Then
             assert.ok(ret.isErr)
-            assert.deepEqual(ret.err, { name: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
+            assert.deepStrictEqual(ret.err, { name: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
         })
     })
 })

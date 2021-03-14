@@ -2,7 +2,7 @@ const { Ok, Err, usecase, step, ifElse } = require('buchu')
 const { Item } = require('../entities/item')
 
 const dependency = {
-  ItemListRepository: require('../../infra/repositories/itemRepository'),
+  ItemRepository: require('../../infra/repositories/pg/itemRepository'),
 }
 
 module.exports.updateItem = (injection) =>
@@ -20,59 +20,54 @@ module.exports.updateItem = (injection) =>
 
     authorize: (user) => (user.canUpdateItem ? Ok() : Err()),
 
-    'Retrieve the previous item from the repository': step(async (ctx) => {
-      const itemRepo = new ctx.di.ItemListRepository(injection)
-      const repoResult = await itemRepo.getItemByID(ctx.req.id)
-
-      if (repoResult.isErr) return Err(`Item not found - ID: "${ctx.req.id}"`)
-
-      ctx.req.oldItem = repoResult.ok
-      return Ok()
+    'Retrieve the previous Item from the repository': step(async (ctx) => {
+      const req = ctx.req
+      const repo = new ctx.di.ItemRepository(injection)
+      const ret = await repo.findByID(req.id)
+      const item = (ctx.item = ret[0])
+      if (item === undefined) return Err(`Item not found - ID: ${req.id}`)
+      return Ok(item)
     }),
 
-    'Update temporary item': step((ctx) => {
-      const oldItem = Item.fromJSON({ ...ctx.req.oldItem })
+    'Check if it is a valid Item before update': step((ctx) => {
+      const req = ctx.req
+      const item = ctx.item
 
-      oldItem.position = ctx.req.position || oldItem.position
-      oldItem.description = ctx.req.description || oldItem.description
-      oldItem.isDone = ctx.req.isDone || oldItem.isDone
+      ctx.hasChangedPosition = (item.position !== req.position)
+      ctx.oldPosition = item.position
 
-      ctx.ret.updatedItem = oldItem
-      return Ok()
-    }),
+      item.id = req.id
+      item.description = req.description
+      item.isDone = req.isDone
+      item.position = req.position
 
-    'Check if temporary item is valid': step((ctx) => {
-      return ctx.ret.updatedItem.isValid()
-        ? Ok()
-        : Err(ctx.ret.updatedItem.errors)
+      return item.isValid() ? Ok() : Err(item.errors)
     }),
 
     'Check if is necessary to update tasks positions': ifElse({
-      'If position has been changed': step((ctx) => {
-        return Ok(ctx.req.position !== ctx.req.oldItem.position)
+      'If position has changed': step((ctx) => {
+        return Ok(ctx.hasChangedPosition)
       }),
 
       'Then rearrange positions and save itens on repository': step(async (ctx) => {
-        const itemRepo = new ctx.di.ItemListRepository(injection)
-        const ret = await itemRepo.geItemByListID([ctx.req.listId])
-        const itemList = ret.ok
+        const req = ctx.req
+        const item = ctx.item
+        const repo = new ctx.di.ItemRepository(injection)
+        const itemList = await repo.findBy({ listId: item.listId })
 
-        const itemToMove = itemList.find(
-          (item) =>
-            item.position === ctx.req.position &&
-            item.id !== ctx.req.id
-        )
+        const itemToMove = itemList.find((item) => item.id !== req.id && item.position === req.position)
+
         if (itemToMove) {
-          itemToMove.position = ctx.req.oldItem.position
-          await itemRepo.save(itemToMove)
+          itemToMove.position = ctx.oldPosition
+          await repo.update(itemToMove)
         }
 
-        return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
+        return (ctx.ret = await repo.update(ctx.item))
       }),
 
       'Else save updated item on repository': step(async (ctx) => {
-        const itemRepo = new ctx.di.ItemListRepository(injection)
-        return (ctx.ret = await itemRepo.save(ctx.ret.updatedItem))
+        const repo = new ctx.di.ItemRepository(injection)
+        return (ctx.ret = await repo.update(ctx.item))
       }),
 
 

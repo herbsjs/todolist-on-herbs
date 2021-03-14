@@ -13,13 +13,17 @@ This is a example on how to build a backend application using [Herbs](https://gi
 
   VSCode launchers (launch.json) are also available.
 
-### Using with Postgres
+### Postgres setup
 
-  Change `knexfile.js` connection info.
+  1. Change `knexfile.js` and `src\infra\config\dev.json` connection info.
+
+  2. Run migration:
 
     $ npx knex migrate:latest
 
 ### Herbs REPL
+
+  View all the use cases and its steps in just one place.
 
     $ node .\src\infra\repl
 
