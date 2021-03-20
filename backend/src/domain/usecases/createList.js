@@ -1,8 +1,12 @@
 const { Ok, Err, usecase, step } = require('buchu')
 const { TodoList } = require('../entities/todoList')
 
+// const dependency = {
+//   ListRepository: require('../../infra/repositories/memDB/listRepository'),
+// }
+
 const dependency = {
-  ListRepository: require('../../infra/repositories/listRepository'),
+  ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
 
 module.exports.createList = injection =>
@@ -15,20 +19,17 @@ module.exports.createList = injection =>
 
     authorize: user => (user.canCreateList ? Ok() : Err()),
 
-    'Create list': step(
-      ctx =>
-      (ctx.list = TodoList.fromJSON({
-        id: Math.floor(Math.random() * 100000),
-        name: ctx.req.name,
-      }))
-    ),
+    'Check if the List is valid': step(ctx => {
+      const list = ctx.list = new TodoList()
+      list.id = Math.floor(Math.random() * 100000)
+      list.name = ctx.req.name
 
-    'Check if it is valid list': step(ctx =>
-      ctx.list.isValid() ? Ok() : Err(ctx.list.errors)
-    ),
+      if (!list.isValid()) return Err(list.errors)
+      return Ok()
+    }),
 
-    'Save list': step(async ctx => {
+    'Save the List': step(async ctx => {
       const listRepo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await listRepo.save(ctx.list))
+      return (ctx.ret = await listRepo.insert(ctx.list))
     }),
   })

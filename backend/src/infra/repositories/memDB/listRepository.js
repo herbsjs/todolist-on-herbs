@@ -1,13 +1,13 @@
 const DB = require('./inMemDB')
 const { Ok, Err } = require('buchu')
-const { TodoList } = require('../../domain/entities/todoList')
+const { TodoList } = require('../../../domain/entities/todoList')
 
 module.exports = class ListRepository {
   constructor() {
     this.table = 'list'
   }
 
-  async save(list) {
+  async insert(list) {
     try{
       const ret = await DB.set(this.table, list.id, list)
 

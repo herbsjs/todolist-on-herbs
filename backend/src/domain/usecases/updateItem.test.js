@@ -1,100 +1,27 @@
 const { Ok, Err } = require('buchu')
 const assert = require('assert')
-
 const { Item } = require('../entities/item')
+
 const { updateItem } = require('./updateItem')
 
-describe('Update To Do Item', () => {
+describe('Update Item', () => {
   function aUser({ hasAccess }) {
     return { canUpdateItem: hasAccess }
   }
 
-  describe('Should update Valid Item', () => {
-    it('Should Update Item not changing position ', async () => {
+  describe('Valid Item', () => {
+
+    it('should update Item keeping the same position ', async () => {
       const injection = {
-        ItemListRepository: class {
-          async save(list) {
-            return Ok(list)
-          }
-          async geItemByListID(id) {
-            return Ok([
-              {
-                id: 11110,
-                listId: 65676,
-                description: 'First item on list',
-                position: 1,
-                isDone: false,
-              },
-              {
-                id: 11112,
-                listId: 65676,
-                description: 'Second item on list',
-                position: 2,
-                isDone: true,
-              },
-            ])
-          }
-          async getItemByID(id) {
-            return Ok({
+        ItemRepository: class {
+          async update(item) { return item }
+          async findByID(id) {
+            return [Item.fromJSON({
               id: 11110,
-              listId: 65676,
-              description: 'First item on list',
-              position: 1,
-              isDone: false,
-            })
-          }
-        },
-      }
-      const user = aUser({ hasAccess: true })
-      const req = {
-        id: 11110,
-        position: 1,
-        isDone: true,
-        description: 'New item on description',
-      }
-
-      // When
-      const uc = updateItem(injection)
-      uc.authorize(user)
-      const ret = await uc.run(req)
-
-      // Then
-      assert.ok(ret.isOk)
-      assert.equal(ret.ok.position, 1)
-    }),
-
-    it('Should Update Item changing position ', async () => {
-      const injection = {
-        ItemListRepository: class {
-          async save(list) {
-            return Ok(list)
-          }
-          async geItemByListID(id) {
-            return Ok([
-              {
-                id: 11110,
-                listId: 65676,
-                description: 'First item on list',
-                position: 1,
-                isDone: false,
-              },
-              {
-                id: 11112,
-                listId: 65676,
-                description: 'Second item on list',
-                position: 2,
-                isDone: true,
-              },
-            ])
-          }
-          async getItemByID(id) {
-            return Ok({
-              id: 11110,
-              listId: 65676,
-              description: 'First item on list',
-              position: 1,
-              isDone: false,
-            })
+              position: 2,
+              isDone: true,
+              description: `Let's do it!`,
+            })]
           }
         },
       }
@@ -103,7 +30,7 @@ describe('Update To Do Item', () => {
         id: 11110,
         position: 2,
         isDone: true,
-        description: 'New item in second position',
+        description: `Let's make it!`,
       }
 
       // When
@@ -113,83 +40,130 @@ describe('Update To Do Item', () => {
 
       // Then
       assert.ok(ret.isOk)
-      assert.notEqual(ret.ok.position,1)
+      assert.strictEqual(ret.ok.position, 2)
     })
-  }),
-  describe('Should not update Item', () => {
-    it('Should not update nonexistent Item ', async () => {
+
+    it('should update Item changing to an existing position', async () => {
       const injection = {
-        ItemListRepository: class {
-          async save(list) {
-            return Ok(list)
+        ItemRepository: class {
+          async update(item) { return item }
+          async findByID(id) {
+            return [Item.fromJSON({
+              id: 22,
+              position: 2,
+              isDone: true,
+              description: `Domain Driven Design`,
+            })]
           }
-          async geItemByListID(id) {
-            return Ok([])
-          }
-          async getItemByID(id) {
-            return Err('Not Found')
-          }
-        },
-      }
-      const user = aUser({ hasAccess: true })
-      const req = {
-        id: 11110,
-        position: 1,
-        isDone: true,
-        description: 'Updating not created item',
-      }
-
-      // When
-      const uc = updateItem(injection)
-      uc.authorize(user)
-      const ret = await uc.run(req)
-
-      // Then
-      assert.ok(ret.isErr)
-      assert.equal(ret.err,"Item not found - ID: \"11110\"")
-    }),
-
-    it('Should not Update invalid Item', async () => {
-      const injection = {
-        ItemListRepository: class {
-          async save(list) {
-            return Ok(list)
-          }
-          async geItemByListID(id) {
-            return Ok([
-              {
-                id: 11110,
-                listId: 65676,
-                description: 'First item on list',
-                position: 1,
-                isDone: false,
-              },
-              {
-                id: 11112,
-                listId: 65676,
-                description: 'Second item on list',
-                position: 2,
-                isDone: true,
-              },
-            ])
-          }
-          async getItemByID(id) {
-            return Ok({
-              id: 11110,
-              listId: 65676,
-              description: 'First item on list',
+          async findBy(where) {
+            return [Item.fromJSON({
+              id: 11,
               position: 1,
-              isDone: false,
-            })
+              isDone: true,
+              description: `Clean Architecture`,
+            }),
+            Item.fromJSON({
+              id: 22,
+              position: 2,
+              isDone: true,
+              description: `Domain Driven Design`,
+            }),
+            Item.fromJSON({
+              id: 33,
+              position: 3,
+              isDone: true,
+              description: `Test Driven Design`,
+            })]
+          }
+        },
+      }
+      const user = aUser({ hasAccess: true })
+      const req = {
+        id: 22,
+        position: 3,
+        isDone: true,
+        description: `Domain Driven Design`,
+      }
+
+      // When
+      const uc = updateItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isOk)
+      assert.strictEqual(ret.ok.position, 3)
+    })
+
+    it('should update Item changing to a non existing position', async () => {
+      const injection = {
+        ItemRepository: class {
+          async update(item) { return item }
+          async findByID(id) {
+            return [Item.fromJSON({
+              id: 22,
+              position: 2,
+              isDone: true,
+              description: `Domain Driven Design`,
+            })]
+          }
+          async findBy(where) {
+            return [Item.fromJSON({
+              id: 11,
+              position: 1,
+              isDone: true,
+              description: `Clean Architecture`,
+            }),
+            Item.fromJSON({
+              id: 22,
+              position: 2,
+              isDone: true,
+              description: `Domain Driven Design`,
+            }),
+            Item.fromJSON({
+              id: 33,
+              position: 3,
+              isDone: true,
+              description: `Test Driven Design`,
+            })]
+          }
+        },
+      }
+      const user = aUser({ hasAccess: true })
+      const req = {
+        id: 22,
+        position: 5,
+        isDone: true,
+        description: `Domain Driven Design`,
+      }
+
+      // When
+      const uc = updateItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isOk)
+      assert.strictEqual(ret.ok.position, 5)
+    })
+  })
+
+  describe('Invalid Item', () => {
+
+    it('should not update Item if the Item does not exist', async () => {
+      const injection = {
+        ItemRepository: class {
+          async findByID(id) {
+            return []
           }
         },
       }
       const user = aUser({ hasAccess: true })
       const req = {
         id: 11110,
-        description: 0,
-        position: '1',
-        isDone: {}
+        position: 2,
+        isDone: true,
+        description: `Let's make it!`,
       }
 
       // When
@@ -199,6 +173,39 @@ describe('Update To Do Item', () => {
 
       // Then
       assert.ok(ret.isErr)
+      assert.strictEqual(ret.err, `Item not found - ID: 11110`)
     })
+
+    it('should not update invalid Item', async () => {
+      const injection = {
+        ItemRepository: class {
+          async findByID(id) {
+            return [Item.fromJSON({
+              id: 22,
+              position: 2,
+              isDone: true,
+              description: `Clean Code`,
+            })]
+          }
+        },
+      }
+      const user = aUser({ hasAccess: true })
+      const req = {
+        id: 11110,
+        position: 2,
+        isDone: true,
+        description: ``,
+      }
+
+      // When
+      const uc = updateItem(injection)
+      uc.authorize(user)
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isErr)
+      assert.deepStrictEqual(ret.err, { description: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
+    })
+
   })
 })

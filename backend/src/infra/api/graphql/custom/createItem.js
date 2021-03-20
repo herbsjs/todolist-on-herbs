@@ -5,7 +5,7 @@ const dependency = {
 }
 
 const schema = `extend type Mutation {
-  createItem(description: String!, listId: Int!): Item
+  createItem(description: String!, listId: Int!, isDone: Boolean): Item
 }`
 
 const resolver = {
@@ -26,7 +26,8 @@ const resolver = {
       /* Execution */
       const response = await usecase.run({
         description: args.description,
-        listId: args.listId
+        listId: args.listId,
+        isDone: args.isDone,
       })
 
       /* Audit */

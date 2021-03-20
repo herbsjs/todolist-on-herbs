@@ -1,6 +1,6 @@
 const DB = require('./inMemDB')
 const { Ok, Err } = require('buchu')
-const { Item } = require('../../domain/entities/item')
+const { Item } = require('../../../domain/entities/item')
 
 module.exports = class ItemListRepositoy {
   constructor() {
