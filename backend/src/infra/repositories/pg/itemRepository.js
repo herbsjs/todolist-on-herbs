@@ -1,4 +1,4 @@
-const { Repository } = require("../../../../gotu2knex/src/herbs2knex")
+const { Repository } = require("herbs2knex")
 const { Item } = require('../../../domain/entities/item')
 const connection = require('./connection')
 
