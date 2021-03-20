@@ -7,47 +7,8 @@ This is a example on how to build a application using [Herbs](https://github.com
 
 ### Using
 
-Backend:
-
-    $ cd ./backend
-    $ npm install
-    $ npm start
-
-Frontend:
-
-    $ cd ./frontend
-    $ npm install
-    $ npm start
-
-### GraphQL
-
-GraphQL Playground: [http://localhost:4000/graphql](http://localhost:4000/graphql)
-
-
-### Herbs Shelf
-
-Herbs Shelf: [http://localhost:4000/herbsshelf](http://localhost:4000/herbsshelf)
-
-### Herbs REPL
-
-[Herbs REPL](https://github.com/herbsjs/herbs2repl):
-
-    $ cd ./backend
-    $ node ./src/infra/repl
-
-### Settings
-
-**Environment:**
-
-`.env.{environment}` files. 
-
-Rename one of the files to just `.env`. 
-
-Default is `dev`.
-
-**Config:**
-
-Edit `/backend/infra/config/{environment}.json` files if necessary.
+- Backend: [Doc](./backend)
+- Frontend: [Doc](./frontend)
 
 ## How to contribute
 
