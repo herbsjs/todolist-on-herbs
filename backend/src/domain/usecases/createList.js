@@ -1,10 +1,6 @@
 const { Ok, Err, usecase, step } = require('buchu')
 const { TodoList } = require('../entities/todoList')
 
-// const dependency = {
-//   ListRepository: require('../../infra/repositories/memDB/listRepository'),
-// }
-
 const dependency = {
   ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
@@ -29,7 +25,7 @@ module.exports.createList = injection =>
     }),
 
     'Save the List': step(async ctx => {
-      const listRepo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await listRepo.insert(ctx.list))
+      const repo = new ctx.di.ListRepository(injection)
+      return (ctx.ret = await repo.insert(ctx.list))
     }),
   })

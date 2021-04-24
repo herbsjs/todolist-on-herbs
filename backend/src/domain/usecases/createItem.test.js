@@ -1,4 +1,5 @@
 const { createItem } = require('./createItem')
+const { TodoList } = require('../entities/todoList')
 const { Ok } = require('buchu')
 const assert = require('assert')
 
@@ -13,7 +14,7 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async findByID(id) { return ([{ name: `Great achievements`, id: 65676 }]) }
+          async findByID(id) { return ([TodoList.fromJSON({ name: `Great achievements`, id: 65676 })]) }
         },
         ItemRepository: class {
           async insert(item) { return (item) }
@@ -37,7 +38,7 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async findByID(id) { return [{ name: `Great goals`, id: 65676 }] }
+          async findByID(id) { return [TodoList.fromJSON({ name: `Great goals`, id: 65676 })] }
         },
         ItemRepository: class {
           async insert(item) { return item }

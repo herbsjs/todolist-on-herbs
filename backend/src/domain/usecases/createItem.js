@@ -32,7 +32,7 @@ module.exports.createItem = (injection) =>
       const req = ctx.req
       const repo = new ctx.di.ListRepository(injection)
       const ret = await repo.findByID([req.listId])
-      const list = (ctx.List = ret[0])
+      const list = (ctx.list = ret[0])
 
       if (list === undefined) return Err(`List not found - ID: ${req.listId}`)
       return Ok()
@@ -41,18 +41,17 @@ module.exports.createItem = (injection) =>
     'Set item position as the last Item on the List': step(async (ctx) => {
       const req = ctx.req
       const item = ctx.item
+      const list = ctx.list
       const repo = new ctx.di.ItemRepository(injection)
-      const otherItems = await repo.findBy({ listId: req.listId })
+      list.items = await repo.findBy({ listId: req.listId })
 
-      if (otherItems.length === 0) {
+      if (list.isEmpty()) {
         item.position = 1
         return Ok()
       }
 
-      // put Item to the botton of the list
-      const positions = otherItems.map(i => i.position)
-      const lastPosition = Math.max(...positions)
-      item.position = lastPosition + 1
+      // put Item at the botton of the list
+      item.position = list.lastPosition() + 1
       return Ok()
     }),
 

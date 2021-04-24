@@ -7,5 +7,17 @@ module.exports.TodoList =
         name: field(String, {
             validation: { presence: true, length: { minimum: 3 } }
         }),
-        items: field([Item]), // TODO: remove and test
+        items: field([Item]),
+
+        isEmpty() {
+            return this.items.length === 0
+        },
+
+        lastPosition() {
+            const positions = this.items.map(i => i.position)
+            positions.push(0)
+            const lastPosition = Math.max(...positions)
+            return lastPosition
+        }
+
     })
