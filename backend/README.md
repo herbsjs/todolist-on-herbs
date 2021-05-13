@@ -19,7 +19,7 @@ This is a example on how to build a backend application using [Herbs](https://gi
 
   2. Run migration:
 
-    $ npx knex migrate:latest
+    $ npx knex migrate:latest --env development
 
 ### Herbs Shelf
 
