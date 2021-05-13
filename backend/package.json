@@ -21,10 +21,10 @@
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
     "herbs2gql": "^1.0.7",
-    "herbs2rest": "^1.0.0",
-    "herbs2repl": "^1.0.1",
-    "herbsshelf": "^1.0.0",
     "herbs2knex": "^1.0.9",
+    "herbs2repl": "^1.0.1",
+    "herbs2rest": "^1.0.1",
+    "herbsshelf": "^1.0.0",
     "knex": "^0.95.2",
     "pg": "^8.5.1",
     "suma": "^1.0.7"
