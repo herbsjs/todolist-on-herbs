@@ -1,4 +1,3 @@
-const { Ok, Err } = require('buchu')
 const assert = require('assert')
 const { Item } = require('../entities/item')
 
@@ -10,7 +9,6 @@ describe('Update Item', () => {
   }
 
   describe('Valid Item', () => {
-
     it('should update Item keeping the same position ', async () => {
       const injection = {
         ItemRepository: class {
@@ -25,9 +23,10 @@ describe('Update Item', () => {
           }
         },
       }
+
       const user = aUser({ hasAccess: true })
       const req = {
-        id: 11110,
+        itemId: 11110,
         position: 2,
         isDone: true,
         description: `Let's make it!`,
@@ -77,9 +76,10 @@ describe('Update Item', () => {
           }
         },
       }
+
       const user = aUser({ hasAccess: true })
       const req = {
-        id: 22,
+        itemId: 22,
         position: 3,
         isDone: true,
         description: `Domain Driven Design`,
@@ -129,9 +129,10 @@ describe('Update Item', () => {
           }
         },
       }
+
       const user = aUser({ hasAccess: true })
       const req = {
-        id: 22,
+        itemId: 22,
         position: 5,
         isDone: true,
         description: `Domain Driven Design`,
@@ -149,7 +150,6 @@ describe('Update Item', () => {
   })
 
   describe('Invalid Item', () => {
-
     it('should not update Item if the Item does not exist', async () => {
       const injection = {
         ItemRepository: class {
@@ -158,9 +158,10 @@ describe('Update Item', () => {
           }
         },
       }
+
       const user = aUser({ hasAccess: true })
       const req = {
-        id: 11110,
+        itemId: 11110,
         position: 2,
         isDone: true,
         description: `Let's make it!`,
@@ -189,9 +190,10 @@ describe('Update Item', () => {
           }
         },
       }
+
       const user = aUser({ hasAccess: true })
       const req = {
-        id: 11110,
+        itemId: 11110,
         position: 2,
         isDone: true,
         description: ``,
@@ -206,6 +208,5 @@ describe('Update Item', () => {
       assert.ok(ret.isErr)
       assert.deepStrictEqual(ret.err, { description: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
     })
-
   })
 })

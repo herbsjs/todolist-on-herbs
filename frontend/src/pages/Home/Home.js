@@ -10,8 +10,8 @@ function Home() {
         <div className={classes.toolbar} />
         <h1>Welcome!</h1>
         <p>
-          This is a sample Todo List graphQL API using Herbs using Buchu, Gotu,
-          Suma and Graphql with Apollo Server Express
+          This is a sample Todo List graphQL/rest API using Herbs using Buchu, Gotu,
+          Suma, Graphql with Apollo Server Express and Herbs2Rest
         </p>
       </main>
     </>

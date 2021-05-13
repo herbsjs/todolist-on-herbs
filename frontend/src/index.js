@@ -7,7 +7,7 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import environment from './config/Config'
 
-const client = new ApolloClient({ uri: environment.apiSettings.baseUrl })
+const client = new ApolloClient({ uri: `${environment.apiSettings.baseUrl}/graphql` })
 
 ReactDOM.render(
   <ApolloProvider client={client}>

@@ -8,7 +8,7 @@ const dependency = {
 module.exports.updateItem = (injection) =>
   usecase('Update Item', {
     request: {
-      id: Number,
+      itemId: Number,
       description: String,
       isDone: Boolean,
       position: Number
@@ -23,9 +23,11 @@ module.exports.updateItem = (injection) =>
     'Retrieve the previous Item from the repository': step(async (ctx) => {
       const req = ctx.req
       const repo = new ctx.di.ItemRepository(injection)
-      const ret = await repo.findByID(req.id)
+      const ret = await repo.findByID(req.itemId)
       const item = (ctx.item = ret[0])
-      if (item === undefined) return Err(`Item not found - ID: ${req.id}`)
+
+      if (item === undefined) return Err(`Item not found - ID: ${req.itemId}`)
+
       return Ok(item)
     }),
 
@@ -36,7 +38,7 @@ module.exports.updateItem = (injection) =>
       ctx.hasChangedPosition = (item.position !== req.position)
       ctx.oldPosition = item.position
 
-      item.id = req.id
+      item.id = req.itemId
       item.description = req.description
       item.isDone = req.isDone
       item.position = req.position
@@ -52,10 +54,11 @@ module.exports.updateItem = (injection) =>
       'Then rearrange positions and save itens on repository': step(async (ctx) => {
         const req = ctx.req
         const item = ctx.item
+
         const repo = new ctx.di.ItemRepository(injection)
         const itemList = await repo.findBy({ listId: item.listId })
 
-        const itemToMove = itemList.find((item) => item.id !== req.id && item.position === req.position)
+        const itemToMove = itemList.find((item) => item.id !== req.itemId && item.position === req.position)
 
         if (itemToMove) {
           itemToMove.position = ctx.oldPosition
@@ -69,9 +72,5 @@ module.exports.updateItem = (injection) =>
         const repo = new ctx.di.ItemRepository(injection)
         return (ctx.ret = await repo.update(ctx.item))
       }),
-
-
-
     }),
-
   })
