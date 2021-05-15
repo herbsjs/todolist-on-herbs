@@ -26,7 +26,7 @@ describe('Update Item', () => {
 
       const user = aUser({ hasAccess: true })
       const req = {
-        itemId: 11110,
+        id: 11110,
         position: 2,
         isDone: true,
         description: `Let's make it!`,
@@ -79,7 +79,7 @@ describe('Update Item', () => {
 
       const user = aUser({ hasAccess: true })
       const req = {
-        itemId: 22,
+        id: 22,
         position: 3,
         isDone: true,
         description: `Domain Driven Design`,
@@ -132,7 +132,7 @@ describe('Update Item', () => {
 
       const user = aUser({ hasAccess: true })
       const req = {
-        itemId: 22,
+        id: 22,
         position: 5,
         isDone: true,
         description: `Domain Driven Design`,
@@ -161,7 +161,7 @@ describe('Update Item', () => {
 
       const user = aUser({ hasAccess: true })
       const req = {
-        itemId: 11110,
+        id: 11110,
         position: 2,
         isDone: true,
         description: `Let's make it!`,
@@ -193,7 +193,7 @@ describe('Update Item', () => {
 
       const user = aUser({ hasAccess: true })
       const req = {
-        itemId: 11110,
+        id: 11110,
         position: 2,
         isDone: true,
         description: ``,

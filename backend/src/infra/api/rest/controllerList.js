@@ -1,14 +1,13 @@
 const controllerList = [
   {
     name: 'lists',
-    getById: require('../../../domain/usecases/getList').getList,
+    getAll: require('../../../domain/usecases/getLists').getLists,
     post: require('../../../domain/usecases/createList').createList,
     put: require('../../../domain/usecases/updateList').updateList,
     delete: require('../../../domain/usecases/deleteList').deleteList
   },
   {
     name: 'items',
-    idParameter: 'itemId',
     post: require('../../../domain/usecases/createItem').createItem,
     put: require('../../../domain/usecases/updateItem').updateItem
   }
