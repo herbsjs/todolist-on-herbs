@@ -1,4 +1,7 @@
-const controllerList = [
+const { generateRoutes } = require('herbs2rest')
+const Config = require('../../config/config')
+
+const controllers = [
   {
     name: 'lists',
     getAll: require('../../../domain/usecases/getLists').getLists,
@@ -14,4 +17,7 @@ const controllerList = [
   }
 ]
 
-module.exports = controllerList
+module.exports = (routes) => {
+  const showInfo = Config.environment !== "production"
+  generateRoutes(controllers, routes, showInfo)
+}

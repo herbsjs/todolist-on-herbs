@@ -1,12 +1,20 @@
-var express = require('express')
 const Config = require('../config/config')
-var { ApolloServer } = require('apollo-server-express')
+
+// Express
+var express = require('express')
 var cors = require('cors')
-const [typeDefs, resolvers] = require('./graphql/index')
+
+// Shelf
 const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('herbsshelf')
-const { generateRoutes } = require('herbs2rest')
-const controllerList = require('./rest/controllerList')
+
+// GraphQL
+var { ApolloServer } = require('apollo-server-express')
+const [typeDefs, resolvers] = require('./graphql/index')
+
+// REST
+const generateRoutes = require('./rest/routes')
+
 
 const user = {
   canCreateList: true,
@@ -36,8 +44,7 @@ class ServerAPI {
     this.app.use(express.json())
 
     const routes = new express.Router()
-    generateRoutes(controllerList, routes)
-
+    generateRoutes(routes)
     this.app.use(routes)
   }
 
@@ -54,7 +61,7 @@ class ServerAPI {
 
   banner() {
     // eslint-disable-next-line no-console
-    console.log(`🚀 Server UP and Running in port: ${Config.web.httpPort}`)
+    console.log(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
   }
 
   init() {
