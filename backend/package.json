@@ -23,6 +23,7 @@
     "herbs2gql": "^1.0.7",
     "herbs2knex": "^1.0.9",
     "herbs2repl": "^1.0.1",
+    "herbs2rest": "^1.0.2",
     "herbsshelf": "^1.0.2",
     "knex": "^0.95.6",
     "pg": "^8.6.0",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../Header/Header'
 
-import { List as ListIcon, Add } from '@material-ui/icons'
+import { List as ListIcon, Add, Delete } from '@material-ui/icons'
 import {
   Drawer,
   CssBaseline,
@@ -12,12 +12,15 @@ import {
   ListItemIcon,
   ListItemText,
   InputBase,
+  IconButton,
+  ListItemSecondaryAction
 } from '@material-ui/core'
 
 import style from '../Styles/Styles'
 import { getTodos } from '../../graphql/query'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { createList } from '../../graphql/mutation/createList'
+import { deleteList } from '../../services/api'
 
 function NavDrawer() {
   const classes = style()
@@ -33,11 +36,23 @@ function NavDrawer() {
     }
   }, [data])
 
-  function addList(listName) {
+  async function addList(listName) {
     const input = { name: listName }
-    const listConcat = [...toDoLists, input]
-    
-    createTodo({ variables: input })
+
+    const { data } = await createTodo({ variables: input })
+
+    const newList = data.createList
+
+    const listConcat = [...toDoLists, newList]
+
+    setToDoLists(listConcat)
+  }
+
+  async function handlerDeleteList(listId) {
+    await deleteList(listId)
+
+    const listConcat = toDoLists.filter(list => list.id !== listId)
+
     setToDoLists(listConcat)
   }
 
@@ -87,6 +102,11 @@ function NavDrawer() {
                     <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary={list.name} />
+                  <ListItemSecondaryAction onClick={() => handlerDeleteList(list.id)}>
+                    <IconButton edge="end" aria-label="delete">
+                      <Delete style={{ color: '#e74c3c' }} />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               )
             })}

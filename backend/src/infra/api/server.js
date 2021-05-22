@@ -5,7 +5,8 @@ var cors = require('cors')
 const [typeDefs, resolvers] = require('./graphql/index')
 const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('herbsshelf')
-const controllers = require('./rest/controller')
+const { generateRoutes } = require('herbs2rest')
+const controllerList = require('./rest/controllerList')
 
 const user = {
   canCreateList: true,
@@ -33,7 +34,11 @@ class ServerAPI {
   rest() {
     this.app.use((req, res, next) => { req.user = user; next() })
     this.app.use(express.json())
-    controllers(this.app)
+
+    const routes = new express.Router()
+    generateRoutes(controllerList, routes)
+
+    this.app.use(routes)
   }
 
   apollo() {

@@ -25,7 +25,9 @@ module.exports.updateItem = (injection) =>
       const repo = new ctx.di.ItemRepository(injection)
       const ret = await repo.findByID(req.id)
       const item = (ctx.item = ret[0])
+
       if (item === undefined) return Err(`Item not found - ID: ${req.id}`)
+
       return Ok(item)
     }),
 
@@ -52,6 +54,7 @@ module.exports.updateItem = (injection) =>
       'Then rearrange positions and save itens on repository': step(async (ctx) => {
         const req = ctx.req
         const item = ctx.item
+
         const repo = new ctx.di.ItemRepository(injection)
         const itemList = await repo.findBy({ listId: item.listId })
 
@@ -69,9 +72,5 @@ module.exports.updateItem = (injection) =>
         const repo = new ctx.di.ItemRepository(injection)
         return (ctx.ret = await repo.update(ctx.item))
       }),
-
-
-
     }),
-
   })

@@ -18,7 +18,7 @@ module.exports.getLists = injection =>
     'Get List by ID or All': ifElse({
 
       'If it is was informed one or more IDs': step(async (ctx) => {
-        return Ok(ctx.req.ids.length > 0)
+        return Ok(ctx.req.ids !== undefined && ctx.req.ids.length > 0)
       }),
 
       'Then return the all on the list': step(async (ctx) => {

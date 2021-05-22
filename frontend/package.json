@@ -10,6 +10,7 @@
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.6.0",
     "apollo-boost": "^0.4.9",
+    "axios": "^0.21.1",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "react": "^16.14.0",
