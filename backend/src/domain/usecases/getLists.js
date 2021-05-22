@@ -23,14 +23,14 @@ module.exports.getLists = injection =>
 
       'Then return the all on the list': step(async (ctx) => {
         const repo = new ctx.di.ListRepository(injection)
-        const lists = await repo.findByID(ctx.req.ids)
-        return Ok(ctx.ret = lists)
+        const list = await repo.find({ where: { id: ctx.req.ids } })
+        return Ok(ctx.ret = list)
       }),
 
       'Else return all': step(async (ctx) => {
         const repo = new ctx.di.ListRepository(injection)
-        ctx.ret = await repo.findAll() // TODO
-        return Err()
+        const lists = await repo.findAll()
+        return Ok(ctx.ret = lists)
       })
 
     })

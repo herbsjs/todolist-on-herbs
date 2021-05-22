@@ -9,7 +9,7 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async findByID(ids) { return [TodoList.fromJSON({ id: 1, name: `Things I must do` })] }
+        async find(where) { return [TodoList.fromJSON({ id: 1, name: `Things I must do` })] }
         async update(list) { return list }
       }
     }
@@ -30,7 +30,7 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async findByID(ids) { return [] }
+        async find(where) { return [] }
       }
     }
     const user = { canUpdateList: true }
@@ -50,7 +50,7 @@ describe('Update Lists', () => {
     // Given
     const injection = {
       ListRepository: class ListRepository {
-        async findByID(ids) { return [TodoList.fromJSON({ id: 1, name: `Must have` })] }
+        async find(where) { return [TodoList.fromJSON({ id: 1, name: `Must have` })] }
       }
     }
     const user = { canUpdateList: true }

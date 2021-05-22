@@ -13,7 +13,7 @@ describe('Update Item', () => {
       const injection = {
         ItemRepository: class {
           async update(item) { return item }
-          async findByID(id) {
+          async find(where) {
             return [Item.fromJSON({
               id: 11110,
               position: 2,
@@ -46,7 +46,7 @@ describe('Update Item', () => {
       const injection = {
         ItemRepository: class {
           async update(item) { return item }
-          async findByID(id) {
+          async find(where) {
             return [Item.fromJSON({
               id: 22,
               position: 2,
@@ -54,7 +54,7 @@ describe('Update Item', () => {
               description: `Domain Driven Design`,
             })]
           }
-          async findBy(where) {
+          async find(where) {
             return [Item.fromJSON({
               id: 11,
               position: 1,
@@ -99,7 +99,7 @@ describe('Update Item', () => {
       const injection = {
         ItemRepository: class {
           async update(item) { return item }
-          async findByID(id) {
+          async find(where) {
             return [Item.fromJSON({
               id: 22,
               position: 2,
@@ -107,7 +107,7 @@ describe('Update Item', () => {
               description: `Domain Driven Design`,
             })]
           }
-          async findBy(where) {
+          async find(where) {
             return [Item.fromJSON({
               id: 11,
               position: 1,
@@ -153,7 +153,7 @@ describe('Update Item', () => {
     it('should not update Item if the Item does not exist', async () => {
       const injection = {
         ItemRepository: class {
-          async findByID(id) {
+          async find(where) {
             return []
           }
         },
@@ -180,7 +180,7 @@ describe('Update Item', () => {
     it('should not update invalid Item', async () => {
       const injection = {
         ItemRepository: class {
-          async findByID(id) {
+          async find(where) {
             return [Item.fromJSON({
               id: 22,
               position: 2,

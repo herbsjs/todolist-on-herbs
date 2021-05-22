@@ -27,7 +27,7 @@ describe('Get List', () => {
         // Given
         const injection = {
             ListRepository: class ListRepository {
-                async findByID(ids) { return Ok([{id: 1}]) }
+                async find(where) { return Ok([{id: 1}]) }
             }
         }
         const user = { canGetLists: true }
@@ -47,7 +47,7 @@ describe('Get List', () => {
         // Given
         const injection = {
             ListRepository: class ListRepository {
-                async findByID(ids) { return Ok([]) }
+                async find(where) { return Ok([]) }
             }
         }
         const user = { canGetLists: true }

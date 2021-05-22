@@ -17,7 +17,7 @@ module.exports.updateList = injection =>
 
     'Retrieve the List': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)
-      const ret = await repo.findByID([ctx.req.id])
+      const ret = await repo.find({ where: { id: [ctx.req.id] } })
       const list = (ctx.list = ret[0])
       if (list === undefined) return Err(`List not found - ID: ${ctx.req.id}`)
       return Ok(list)

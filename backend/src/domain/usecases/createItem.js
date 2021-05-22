@@ -31,7 +31,7 @@ module.exports.createItem = (injection) =>
     'Check if the List exists': step(async (ctx) => {
       const req = ctx.req
       const repo = new ctx.di.ListRepository(injection)
-      const ret = await repo.findByID([req.listId])
+      const ret = await repo.find({ where: { id: [req.listId] } })
       const list = (ctx.list = ret[0])
 
       if (list === undefined) return Err(`List not found - ID: ${req.listId}`)
@@ -43,7 +43,7 @@ module.exports.createItem = (injection) =>
       const item = ctx.item
       const list = ctx.list
       const repo = new ctx.di.ItemRepository(injection)
-      list.items = await repo.findBy({ listId: req.listId })
+      list.items = await repo.find({ where: { listId: req.listId } })
 
       if (list.isEmpty()) {
         item.position = 1

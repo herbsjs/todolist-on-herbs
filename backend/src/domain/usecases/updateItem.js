@@ -23,7 +23,7 @@ module.exports.updateItem = (injection) =>
     'Retrieve the previous Item from the repository': step(async (ctx) => {
       const req = ctx.req
       const repo = new ctx.di.ItemRepository(injection)
-      const ret = await repo.findByID(req.id)
+      const ret = await repo.find({ where: { id: req.id } })
       const item = (ctx.item = ret[0])
 
       if (item === undefined) return Err(`Item not found - ID: ${req.id}`)
@@ -56,7 +56,7 @@ module.exports.updateItem = (injection) =>
         const item = ctx.item
 
         const repo = new ctx.di.ItemRepository(injection)
-        const itemList = await repo.findBy({ listId: item.listId })
+        const itemList = await repo.find({ where: { listId: item.listId } })
 
         const itemToMove = itemList.find((item) => item.id !== req.id && item.position === req.position)
 

@@ -10,7 +10,7 @@ describe('Delete Todo Lists', () => {
         // Given
         const injection = {
             ListRepository: class ListRepository {
-                async findByID(ids) { return [new TodoList({ id: 1, name: `Goals for this year` })] }
+                async find(where) { return [new TodoList({ id: 1, name: `Goals for this year` })] }
                 async delete(ids) { return true }
             }
         }
@@ -31,7 +31,7 @@ describe('Delete Todo Lists', () => {
         // Given
         const injection = {
             ListRepository: class ListRepository {
-                async findByID(ids) { return [] }
+                async find(where) { return [] }
             }
         }
         const user = { canDeleteList: true }
