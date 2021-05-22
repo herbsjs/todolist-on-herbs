@@ -7,7 +7,7 @@ module.exports.TodoList =
         name: field(String, {
             validation: { presence: true, length: { minimum: 3 } }
         }),
-        items: field([Item]),
+        items: field([Item], { default: () => [] }),
 
         isEmpty() {
             return this.items.length === 0
