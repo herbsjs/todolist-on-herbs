@@ -4,16 +4,16 @@ const Config = require('../../config/config')
 const controllers = [
   {
     name: 'lists',
-    getAll: require('../../../domain/usecases/getLists').getLists,
-    getById: require('../../../domain/usecases/getLists').getLists,
-    post: require('../../../domain/usecases/createList').createList,
-    put: require('../../../domain/usecases/updateList').updateList,
-    delete: require('../../../domain/usecases/deleteList').deleteList
+    getAll: { usecase: require('../../../domain/usecases/getLists').getLists },
+    getById: { usecase: require('../../../domain/usecases/getLists').getLists, id: 'ids' },
+    post: { usecase: require('../../../domain/usecases/createList').createList },
+    put: { usecase: require('../../../domain/usecases/updateList').updateList },
+    delete: { usecase: require('../../../domain/usecases/deleteList').deleteList }
   },
   {
     name: 'items',
-    post: require('../../../domain/usecases/createItem').createItem,
-    put: require('../../../domain/usecases/updateItem').updateItem
+    post: { usecase: require('../../../domain/usecases/createItem').createItem },
+    put: { usecase: require('../../../domain/usecases/updateItem').updateItem }
   }
 ]
 
