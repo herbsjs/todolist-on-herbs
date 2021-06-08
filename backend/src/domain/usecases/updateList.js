@@ -13,7 +13,7 @@ module.exports.updateList = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: user => (user.canUpdateList ? Ok() : Err()),
+    authorize: async user => (user.canUpdateList ? Ok() : Err()),
 
     'Retrieve the List': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)

@@ -12,7 +12,7 @@ describe('GraphQL - Mutations', () => {
       const injection = {
         createItem: (injection) => {
           return {
-            authorize() {
+            async authorize() {
               return true
             },
             async run() {
@@ -44,7 +44,7 @@ describe('GraphQL - Mutations', () => {
       const injection = {
         createItem: (injection) => {
           return {
-            authorize() {
+            async authorize() {
               return true
             },
             async run() {

@@ -13,7 +13,7 @@ module.exports.getLists = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: user => (user.canGetLists ? Ok() : Err()),
+    authorize: async user => (user.canGetLists ? Ok() : Err()),
 
     'Get List by ID or All': ifElse({
 

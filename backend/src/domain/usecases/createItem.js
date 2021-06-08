@@ -14,7 +14,7 @@ module.exports.createItem = (injection) =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: (user) => (user.canCreateItem ? Ok() : Err()),
+    authorize: async (user) => (user.canCreateItem ? Ok() : Err()),
 
     'Check if the Item is valid': step((ctx) => {
       const req = ctx.req

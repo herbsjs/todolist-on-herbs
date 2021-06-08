@@ -22,7 +22,7 @@ describe('Create List', () => {
 
             // When
             const uc = createList(injection)
-            uc.authorize(user)
+            await uc.authorize(user)
             const ret = await uc.run({ name: req.name })
 
             // Then
@@ -41,7 +41,7 @@ describe('Create List', () => {
 
             // When
             const uc = createList(injection)
-            uc.authorize(user)
+            await uc.authorize(user)
             const ret = await uc.run({ name: req.name })
 
             // Then

@@ -20,7 +20,7 @@ describe('Delete Todo Lists', () => {
 
         // When
         const uc = deleteList(injection)
-        uc.authorize(user)
+        await uc.authorize(user)
         const ret = await uc.run({ id: req.id })
 
         // Then
@@ -39,7 +39,7 @@ describe('Delete Todo Lists', () => {
 
         // When
         const uc = deleteList(injection)
-        uc.authorize(user)
+        await uc.authorize(user)
         const ret = await uc.run({ id: req.id })
 
         // Then

@@ -16,7 +16,7 @@ const resolver = {
       const usecase = di.createItem(args.injection)
 
       /* Authorization */
-      const hasAccess = usecase.authorize(context.user)
+      const hasAccess = await usecase.authorize(context.user)
       if (hasAccess === false) {
         // eslint-disable-next-line no-console
         console.info(usecase.auditTrail)
