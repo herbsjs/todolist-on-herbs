@@ -13,7 +13,7 @@ module.exports.deleteList = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: user => (user.canDeleteList ? Ok() : Err()),
+    authorize: async user => (user.canDeleteList ? Ok() : Err()),
 
     'Check if the List exist': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)

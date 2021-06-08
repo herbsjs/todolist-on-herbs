@@ -1,5 +1,4 @@
 const { updateList } = require('./updateList')
-const { Ok, Err } = require('buchu')
 const assert = require('assert')
 const { TodoList } = require('../entities/todoList')
 
@@ -18,7 +17,7 @@ describe('Update Lists', () => {
 
     // When
     const uc = updateList(injection)
-    uc.authorize(user)
+    await uc.authorize(user)
     const ret = await uc.run({ id: req.id, name: req.name })
 
     // Then
@@ -38,7 +37,7 @@ describe('Update Lists', () => {
 
     // When
     const uc = updateList(injection)
-    uc.authorize(user)
+    await uc.authorize(user)
     const ret = await uc.run({ id: req.id, name: req.name })
 
     // Then
@@ -58,7 +57,7 @@ describe('Update Lists', () => {
 
     // When
     const uc = updateList(injection)
-    uc.authorize(user)
+    await uc.authorize(user)
     const ret = await uc.run({ id: req.id, name: req.name })
 
     // Then

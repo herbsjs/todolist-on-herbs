@@ -26,7 +26,7 @@ describe('Create Item', () => {
 
       // When
       const uc = createItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -56,7 +56,7 @@ describe('Create Item', () => {
 
       // When
       const uc = createItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -79,7 +79,7 @@ describe('Create Item', () => {
 
       // When
       const uc = createItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -95,7 +95,7 @@ describe('Create Item', () => {
 
       // When
       const uc = createItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then

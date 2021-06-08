@@ -34,7 +34,7 @@ describe('Update Item', () => {
 
       // When
       const uc = updateItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -87,7 +87,7 @@ describe('Update Item', () => {
 
       // When
       const uc = updateItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -140,7 +140,7 @@ describe('Update Item', () => {
 
       // When
       const uc = updateItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -169,7 +169,7 @@ describe('Update Item', () => {
 
       // When
       const uc = updateItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then
@@ -201,7 +201,7 @@ describe('Update Item', () => {
 
       // When
       const uc = updateItem(injection)
-      uc.authorize(user)
+      await uc.authorize(user)
       const ret = await uc.run(req)
 
       // Then

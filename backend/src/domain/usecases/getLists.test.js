@@ -16,7 +16,7 @@ describe('Get List', () => {
 
         // When
         const uc = getLists(injection)
-        uc.authorize(user)
+        await uc.authorize(user)
         const ret = await uc.run({ ids: req.ids })
 
         // Then
@@ -35,7 +35,7 @@ describe('Get List', () => {
 
         // When
         const uc = getLists(injection)
-        uc.authorize(user)
+        await uc.authorize(user)
         const ret = await uc.run({ ids: req.ids })
 
         // Then
@@ -55,7 +55,7 @@ describe('Get List', () => {
 
         // When
         const uc = getLists(injection)
-        uc.authorize(user)
+        await uc.authorize(user)
         const ret = await uc.run({ ids: req.ids })
 
         // Then
