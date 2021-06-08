@@ -1,6 +1,6 @@
 {
   "name": "todolist-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs)",
   "main": "",
   "scripts": {
@@ -11,7 +11,10 @@
     "knex:migrate": "npx knex --knexfile knexfile.js migrate:latest",
     "knex:rollback": "npx knex --knexfile knexfile.js migrate:rollback",
     "knex:makeSeeds": "npx knex --knexfile knexfile.js seed:make",
-    "knex:runSeeds": "npx knex --knexfile knexfile.js seed:run"
+    "knex:runSeeds": "npx knex --knexfile knexfile.js seed:run",
+    "lint": "npx eslint \"**/*.{js,jsx}\" --quiet",
+    "lint:fix": "npx eslint \"**/*.{js,jsx}\" --fix"
+
   },
   "keywords": [],
   "author": "David Lojudice Sb",
