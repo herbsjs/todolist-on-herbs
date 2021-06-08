@@ -5,7 +5,7 @@ module.exports = {
     connection: {
       database: 'todolist_on_herbs_db',
       user: 'postgres',
-      password: '32913731',
+      password: 'postgres',
       host: 'localhost',
       port: 5432
     },
