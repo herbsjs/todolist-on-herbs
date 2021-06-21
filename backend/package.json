@@ -14,7 +14,6 @@
     "knex:runSeeds": "npx knex --knexfile knexfile.js seed:run",
     "lint": "npx eslint \"**/*.{js,jsx}\" --quiet",
     "lint:fix": "npx eslint \"**/*.{js,jsx}\" --fix"
-
   },
   "keywords": [],
   "author": "David Lojudice Sb",
@@ -31,7 +30,7 @@
     "graphql-resolvers": "^0.4.2",
     "graphql-upload": "^12.0.0",
     "herbs2gql": "^1.0.8",
-    "herbs2knex": "^1.0.10",
+    "herbs2knex": "^1.0.11",
     "herbs2repl": "^1.0.1",
     "herbs2rest": "^1.0.6",
     "herbsshelf": "^1.0.2",
