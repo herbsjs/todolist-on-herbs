@@ -1,4 +1,4 @@
-const { generateRoutes } = require('herbs2rest')
+const { generateRoutes } = require('@herbsjs/herbs2rest')
 const Config = require('../../config/config')
 
 const controllers = [

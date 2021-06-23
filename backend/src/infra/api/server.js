@@ -6,7 +6,7 @@ var cors = require('cors')
 
 // Shelf
 const usecases = require('../../domain/usecases/_uclist')
-const renderShelfHTML = require('herbsshelf')
+const renderShelfHTML = require('@herbsjs/herbsshelf')
 
 // GraphQL
 var { ApolloServer } = require('apollo-server-express')

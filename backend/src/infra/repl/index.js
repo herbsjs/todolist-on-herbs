@@ -1,8 +1,8 @@
 const usecases = require('../../domain/usecases/_uclist')
-const repl = require('herbs2repl')
+const repl = require('@herbsjs/herbs2repl')
 
 const main = async (injection) => {
-    
+
     // list of all use cases, initialized
     const ucs = usecases(injection)
 

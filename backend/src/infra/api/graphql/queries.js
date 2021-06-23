@@ -1,4 +1,4 @@
-const { usecase2query, defaultResolver } = require('herbs2gql')
+const { usecase2query, defaultResolver } = require('@herbsjs/herbs2gql')
 
 const usecases = [
     require('../../../domain/usecases/getLists').getLists

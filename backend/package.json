@@ -1,6 +1,6 @@
 {
   "name": "todolist-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs)",
   "main": "",
   "scripts": {
@@ -13,40 +13,47 @@
     "knex:makeSeeds": "npx knex --knexfile knexfile.js seed:make",
     "knex:runSeeds": "npx knex --knexfile knexfile.js seed:run",
     "lint": "npx eslint \"**/*.{js,jsx}\" --quiet",
-    "lint:fix": "npx eslint \"**/*.{js,jsx}\" --fix"
+    "lint:fix": "npx eslint \"**/*.{js,jsx}\" --fix",
+    "commit": "cz"
   },
   "keywords": [],
   "author": "David Lojudice Sb",
   "license": "MIT",
   "dependencies": {
+    "@herbsjs/buchu": "^1.0.1",
+    "@herbsjs/gotu": "^1.0.0",
+    "@herbsjs/herbs2gql": "^1.0.0",
+    "@herbsjs/herbs2knex": "^1.0.0",
+    "@herbsjs/herbs2repl": "^1.0.0",
+    "@herbsjs/herbs2rest": "^1.0.0",
+    "@herbsjs/herbsshelf": "^1.0.0",
+    "@herbsjs/suma": "^1.0.0",
     "apollo-env": "^0.10.0",
-    "apollo-server-express": "^2.25.0",
-    "buchu": "^1.0.14",
+    "apollo-server-express": "^2.25.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "gotu": "^1.0.21",
-    "graphql": "^15.5.0",
+    "graphql": "^15.5.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-resolvers": "^0.4.2",
     "graphql-upload": "^12.0.0",
-    "herbs2gql": "^1.0.8",
-    "herbs2knex": "^1.0.11",
-    "herbs2repl": "^1.0.1",
-    "herbs2rest": "^1.0.6",
-    "herbsshelf": "^1.0.2",
     "knex": "^0.95.6",
-    "pg": "^8.6.0",
-    "suma": "^1.0.10"
+    "pg": "^8.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.27.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
-    "mocha": "^8.4.0",
+    "mocha": "^9.0.1",
     "nyc": "^15.1.0",
-    "ws": ">=7.4.6",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.1",
+    "ws": ">=7.5.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
