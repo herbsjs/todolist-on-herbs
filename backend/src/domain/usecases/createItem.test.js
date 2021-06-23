@@ -1,6 +1,6 @@
 const { createItem } = require('./createItem')
 const { TodoList } = require('../entities/todoList')
-const { Ok } = require('@herbsjs/buchu')
+const { Ok } = require('@herbsjs/herbs')
 const assert = require('assert')
 
 describe('Create Item', () => {

@@ -1,6 +1,6 @@
 const createItemGQL = require('./createItem')
 const assert = require('assert')
-const { Ok, Err } = require('@herbsjs/buchu')
+const { Ok, Err } = require('@herbsjs/herbs')
 const { UserInputError } = require('apollo-server-express')
 
 describe('GraphQL - Mutations', () => {
