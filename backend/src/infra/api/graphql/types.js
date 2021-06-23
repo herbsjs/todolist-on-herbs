@@ -1,4 +1,4 @@
-const { entity2type } = require('herbs2gql')
+const { entity2type } = require('@herbsjs/herbs2gql')
 
 const entities = [
   require('../../../domain/entities/item').Item,

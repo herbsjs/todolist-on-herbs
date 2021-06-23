@@ -1,4 +1,4 @@
-const { Repository } = require("herbs2knex")
+const { Repository } = require("@herbsjs/herbs2knex")
 const { TodoList } = require('../../../domain/entities/todoList')
 const connection = require('./connection')
 

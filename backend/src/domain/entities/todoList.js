@@ -1,4 +1,4 @@
-const { entity, field } = require('gotu')
+const { entity, field } = require('@herbsjs/gotu')
 const { Item } = require('./item')
 
 module.exports.TodoList =

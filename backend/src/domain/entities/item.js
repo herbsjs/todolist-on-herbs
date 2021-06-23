@@ -1,4 +1,4 @@
-const { entity, field } = require('gotu')
+const { entity, field } = require('@herbsjs/gotu')
 
 module.exports.Item = entity('Item', {
   id: field(Number),

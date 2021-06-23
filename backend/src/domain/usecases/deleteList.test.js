@@ -1,5 +1,5 @@
 const { deleteList } = require('./deleteList')
-const { Ok, Err } = require('buchu')
+const { Ok, Err } = require('@herbsjs/buchu')
 const assert = require('assert')
 const { TodoList } = require('../entities/todoList')
 
