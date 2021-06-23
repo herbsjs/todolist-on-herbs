@@ -1,4 +1,4 @@
-const { Ok, Err, usecase, step } = require('@herbsjs/buchu')
+const { Ok, Err, usecase, step } = require('@herbsjs/herbs')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {

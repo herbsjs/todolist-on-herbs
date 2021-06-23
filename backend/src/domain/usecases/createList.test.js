@@ -1,5 +1,5 @@
 const { createList } = require('./createList')
-const { Ok } = require('@herbsjs/buchu')
+const { Ok } = require('@herbsjs/herbs')
 const assert = require('assert')
 
 describe('Create List', () => {
