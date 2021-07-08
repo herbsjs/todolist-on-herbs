@@ -15,67 +15,70 @@ const [typeDefs, resolvers] = require('./graphql/index')
 // REST
 const generateRoutes = require('./rest/routes')
 
-
 const user = {
-  canCreateList: true,
-  canGetLists: true,
-  canUpdateList: true,
-  canDeleteList: true,
-  canCreateItem: true,
-  canUpdateItem: true
+    canCreateList: true,
+    canGetLists: true,
+    canGetItems: true,
+    canUpdateList: true,
+    canDeleteList: true,
+    canCreateItem: true,
+    canUpdateItem: true
 }
 
 class ServerAPI {
-  constructor(app) {
-    this.app = app
-    this.useCors()
-    this.rest()
-    this.apollo()
-    this.herbsShelf()
-    this.init()
-  }
+    constructor(app) {
+        this.app = app
+        this.useCors()
+        this.rest()
+        this.apollo()
+        this.herbsShelf()
+        this.init()
+    }
 
-  useCors() {
-    this.app.use(cors())
-  }
+    useCors() {
+        this.app.use(cors())
+    }
 
-  rest() {
-    this.app.use((req, res, next) => { req.user = user; next() })
-    this.app.use(express.json())
+    rest() {
+        this.app.use((req, res, next) => {
+            req.user = user;
+            next()
+        })
+        this.app.use(express.json())
 
-    const routes = new express.Router()
-    generateRoutes(routes)
-    this.app.use(routes)
-  }
+        const routes = new express.Router()
+        generateRoutes(routes)
+        this.app.use(routes)
+    }
 
-  apollo() {
-    const server = new ApolloServer({
-      introspection: true,
-      playground: true,
-      typeDefs,
-      resolvers,
-      context: ({ req }) => ({ user })
-    })
-    server.applyMiddleware({ app: this.app, path: '/graphql' })
-  }
+    apollo() {
+        const server = new ApolloServer({
+            introspection: true,
+            playground: true,
+            typeDefs,
+            resolvers,
+            context: ({ req }) => ({ user })
+        })
+        server.applyMiddleware({ app: this.app, path: '/graphql' })
+    }
 
-  banner() {
-    // eslint-disable-next-line no-console
-    console.log(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
-  }
+    banner() {
+        // eslint-disable-next-line no-console
+        console.log(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
+    }
 
-  init() {
-    return this.app.listen({ port: Config.web.httpPort }, this.banner)
-  }
+    init() {
+        return this.app.listen({ port: Config.web.httpPort }, this.banner)
+    }
 
-  herbsShelf() {
-    this.app.get('/herbsshelf', (req, res, next) => {
-      res.setHeader('Content-Type', 'text/html')
-      const shelf = renderShelfHTML(usecases())
-      res.write(shelf)
-      res.end()
-    })
-  }
+    herbsShelf() {
+        this.app.get('/herbsshelf', (req, res, next) => {
+            res.setHeader('Content-Type', 'text/html')
+            const shelf = renderShelfHTML(usecases())
+            res.write(shelf)
+            res.end()
+        })
+    }
 }
 
 module.exports = new ServerAPI(express())
