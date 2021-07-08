@@ -19,7 +19,6 @@ module.exports.getItems = (injection) =>
         'Get Item by ID or All': ifElse({
 
             'If it is was informed one ID': step(async(ctx) => {
-                //caso o item id for undefined or null retorna fallso, "!!" recurso do node
                 return Ok(!!ctx.req.ids && ctx.req.ids.length > 0)
             }),
 
