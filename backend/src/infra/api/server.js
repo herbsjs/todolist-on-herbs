@@ -21,6 +21,7 @@ const user = {
     canGetItems: true,
     canUpdateList: true,
     canDeleteList: true,
+    canDeleteItem: true,
     canCreateItem: true,
     canUpdateItem: true
 }

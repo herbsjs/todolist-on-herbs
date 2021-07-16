@@ -8,12 +8,14 @@ const controllers = [{
         post: { usecase: require('../../../domain/usecases/createList').createList },
         put: { usecase: require('../../../domain/usecases/updateList').updateList },
         delete: { usecase: require('../../../domain/usecases/deleteList').deleteList }
+
     },
     {
         name: 'items',
         post: { usecase: require('../../../domain/usecases/createItem').createItem },
         put: { usecase: require('../../../domain/usecases/updateItem').updateItem },
-        getAll: { usecase: require('../../../domain/usecases/getItems').getItems }
+        getAll: { usecase: require('../../../domain/usecases/getItems').getItems },
+        delete: { usecase: require('../../../domain/usecases/deleteItem').deleteItem }
     }
 ]
 
