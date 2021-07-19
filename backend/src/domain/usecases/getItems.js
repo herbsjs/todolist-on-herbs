@@ -19,7 +19,6 @@ module.exports.getItems = (injection) =>
         'Get Item by ID or All': ifElse({
 
             'If it is was informed one ID': step(async(ctx) => {
-                console.log("dj gilmar")
                 return Ok(!!ctx.req.ids && ctx.req.ids.length > 0)
             }),
 
