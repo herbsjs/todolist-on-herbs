@@ -17,12 +17,11 @@ module.exports.getItems = (injection) =>
         authorize: async(user) => (user.canGetItems ? Ok() : Err()),
 
         'Get Item by ID or All': ifElse({
-
-            'If it is was informed one ID': step(async(ctx) => {
+            'If one or more IDs were provided': step(async(ctx) => {
                 return Ok(!!ctx.req.ids && ctx.req.ids.length > 0)
             }),
 
-            'Then return the item ': step(async(ctx) => {
+            'Then return the itens': step(async(ctx) => {
                 const repo = new ctx.di.ItemRepository(injection)
                 const item = await repo.find({ where: { id: ctx.req.ids } })
 
