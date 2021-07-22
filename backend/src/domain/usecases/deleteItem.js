@@ -18,8 +18,9 @@ module.exports.deleteItem = injection =>
             const repo = new ctx.di.ItemRepository(injection)
             const ret = await repo.find({ where: { id: [ctx.req.id] } })
             const item = ctx.item = ret
-            if (item === undefined) return Err(`Item ID ${ctx.req.id} does not exist`)
-            return Ok()
+
+            if (item && item.length > 0) return Ok()
+            return Err(`Item ID ${ctx.req.id} does not exist`)
         }),
 
         'Delete the Item': step(async ctx => {
