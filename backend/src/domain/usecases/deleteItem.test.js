@@ -6,10 +6,14 @@ const { Item } = require('../entities/item')
 describe('Delete Items', () => {
 
     it('should delete Item', async() => {
+        const item = new Item()
+        item.id = 1
+        item.description = 'graduate in college'
+
         // Given
         const injection = {
             ItemRepository: class ItemRepository {
-                async find(where) { return [new Item({ id: 1, description: `graduate in college` })] }
+                async find(where) { return [item] }
                 async delete(ids) { return true }
             }
         }
@@ -20,6 +24,7 @@ describe('Delete Items', () => {
         // When
         const uc = deleteItem(injection)
         await uc.authorize(user)
+
         const ret = await uc.run({ id: req.id })
 
         // Then
@@ -31,6 +36,7 @@ describe('Delete Items', () => {
         const injection = {
             ItemRepository: class ItemRepository {
                 async find(where) { return [] }
+                async delete(ids) { return true }
             }
         }
         const user = { canDeleteItem: true }
