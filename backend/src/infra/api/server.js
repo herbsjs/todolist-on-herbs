@@ -42,7 +42,7 @@ class ServerAPI {
 
     rest() {
         this.app.use((req, res, next) => {
-            req.user = user;
+            req.user = user
             next()
         })
         this.app.use(express.json())
