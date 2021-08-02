@@ -7,10 +7,6 @@ on:
 jobs:
   build:
 
-    defaults:
-      run:
-        working-directory: ./backend
-
     runs-on: ubuntu-latest
 
     strategy:
