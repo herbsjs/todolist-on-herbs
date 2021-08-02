@@ -18,8 +18,6 @@ const resolver = {
       /* Authorization */
       const hasAccess = await usecase.authorize(context.user)
       if (hasAccess === false) {
-        // eslint-disable-next-line no-console
-        console.info(usecase.auditTrail)
         throw new ForbiddenError()
       }
 
