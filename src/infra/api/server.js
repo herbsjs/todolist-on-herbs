@@ -75,7 +75,7 @@ class ServerAPI {
     herbsShelf() {
         this.app.get('/herbsshelf', (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
-            const shelf = renderShelfHTML(usecases())
+            const shelf = renderShelfHTML('TODO List', usecases())
             res.write(shelf)
             res.end()
         })
