@@ -52,7 +52,7 @@ class ServerAPI {
         this.app.use(routes)
     }
 
-    apollo() {
+    async apollo() {
         const server = new ApolloServer({
             introspection: true,
             playground: true,
@@ -60,6 +60,7 @@ class ServerAPI {
             resolvers,
             context: ({ req }) => ({ user })
         })
+        await server.start()
         server.applyMiddleware({ app: this.app, path: '/graphql' })
     }
 
