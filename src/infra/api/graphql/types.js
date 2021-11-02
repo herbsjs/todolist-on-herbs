@@ -1,10 +1,7 @@
 const { entity2type } = require('@herbsjs/herbs2gql')
+const { herbarium } = require('../../herbarium')
 
-const entities = [
-  require('../../../domain/entities/item').Item,
-  require('../../../domain/entities/todoList').TodoList
-  /* Add more entities here */
-]
+const entities = Array.from(herbarium.entities.all.values()).map(e => e.entity)
 
 const defaultSchema = [`
   type Query {
