@@ -1,11 +1,12 @@
 const { Ok, Err, usecase, step, ifElse } = require('@herbsjs/herbs')
 const { TodoList } = require('../entities/todoList')
+const { herbarium } = require('../../infra/herbarium')
 
 const dependency = {
   ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
 
-module.exports.deleteList = injection =>
+const deleteList = injection =>
   usecase('Delete List', {
     request: { id: Number },
 
@@ -31,3 +32,9 @@ module.exports.deleteList = injection =>
     })
 
   })
+
+herbarium
+  .usecases.add(deleteList, 'DeleteList')
+  .metadata({ group: 'Lists', operation: herbarium.crud.delete, entity: 'TodoList' })
+
+module.exports.deleteList = deleteList

@@ -1,15 +1,18 @@
 const Config = require('../config/config')
 
+// Herbarium
+const { herbarium } = require('../herbarium')
+herbarium.requireAll()
+
 // Express
-var express = require('express')
-var cors = require('cors')
+const express = require('express')
+const cors = require('cors')
 
 // Shelf
-const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('@herbsjs/herbsshelf')
 
 // GraphQL
-var { ApolloServer } = require('apollo-server-express')
+const { ApolloServer } = require('apollo-server-express')
 const [typeDefs, resolvers] = require('./graphql/index')
 
 // REST
@@ -74,9 +77,13 @@ class ServerAPI {
     }
 
     herbsShelf() {
+        const usecases = Array.from(herbarium.usecases.all).map(([_, item]) =>
+            ({ usecase: item.usecase(), id: item.id, tags: { group: item.group } }))
+
         this.app.get('/herbsshelf', (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
-            const shelf = renderShelfHTML('TODO List', usecases())
+
+            const shelf = renderShelfHTML('TODO List', usecases)
             res.write(shelf)
             res.end()
         })

@@ -29,6 +29,21 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        }
+        },
+        {
+            "name": "Herbarium",
+            "program": "${workspaceFolder}/src/infra/herbarium.test.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "command": "npm run repl",
+            "name": "REPL",
+            "request": "launch",
+            "type": "node-terminal"
+        },
     ]
 }

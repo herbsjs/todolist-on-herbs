@@ -14,7 +14,8 @@
     "knex:runSeeds": "npx knex --knexfile knexfile.js seed:run",
     "lint": "npx eslint \"**/*.{js,jsx}\" --quiet",
     "lint:fix": "npx eslint \"**/*.{js,jsx}\" --fix",
-    "commit": "cz"
+    "commit": "cz",
+    "repl": "node src/infra/repl/"
   },
   "keywords": [],
   "author": "David Lojudice Sb",
@@ -22,32 +23,33 @@
   "dependencies": {
     "@herbsjs/herbs": "^1.2.0",
     "@herbsjs/herbs2gql": "^1.0.0",
-    "@herbsjs/herbs2knex": "^1.0.0",
+    "@herbsjs/herbs2knex": "^1.1.2",
     "@herbsjs/herbs2repl": "^1.0.0",
     "@herbsjs/herbs2rest": "^1.0.0",
     "@herbsjs/herbsshelf": "^2.0.0",
-    "apollo-env": "^0.10.0",
+    "apollo-env": "^0.10.1",
     "apollo-server-express": "^3.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "graphql": "^15.5.1",
+    "graphql": "^15.7.2",
     "graphql-resolvers": "^0.4.2",
-    "graphql-scalars": "^1.10.0",
+    "graphql-scalars": "^1.13.1",
     "graphql-upload": "^12.0.0",
-    "knex": "^0.95.9",
-    "pg": "^8.7.1"
+    "knex": "^0.95.12",
+    "pg": "^8.7.1",
+    "require-all": "^3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "mocha": "^9.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^3.4.1",
+    "mocha": "^9.1.3",
     "nyc": "^15.1.0",
-    "prettier": "^2.3.2",
-    "ws": ">=8.0.0"
+    "prettier": "^2.4.1",
+    "ws": "^8.2.3"
   },
   "config": {
     "commitizen": {

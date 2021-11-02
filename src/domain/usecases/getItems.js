@@ -1,12 +1,13 @@
 const { Ok, Err, usecase, step, ifElse } = require('@herbsjs/herbs')
 const { Item } = require('../entities/item')
+const { herbarium } = require('../../infra/herbarium')
 
 const dependency = {
     ItemRepository: require('../../infra/repositories/pg/itemRepository'),
     ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
 
-module.exports.getItems = (injection) =>
+const getItems = (injection) =>
     usecase('Get Items', {
         request: { ids: [Number] },
 
@@ -14,21 +15,21 @@ module.exports.getItems = (injection) =>
 
         setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-        authorize: async(user) => (user.canGetItems ? Ok() : Err()),
+        authorize: async (user) => (user.canGetItems ? Ok() : Err()),
 
         'Get Item by ID or All': ifElse({
-            'If one or more IDs were provided': step(async(ctx) => {
+            'If one or more IDs were provided': step(async (ctx) => {
                 return Ok(!!ctx.req.ids && ctx.req.ids.length > 0)
             }),
 
-            'Then return the itens': step(async(ctx) => {
+            'Then return the itens': step(async (ctx) => {
                 const repo = new ctx.di.ItemRepository(injection)
                 const item = await repo.find({ where: { id: ctx.req.ids } })
 
                 return Ok(ctx.ret = item)
             }),
 
-            'Else return all': step(async(ctx) => {
+            'Else return all': step(async (ctx) => {
                 const repo = new ctx.di.ItemRepository(injection)
                 const items = await repo.findAll()
                 return Ok(ctx.ret = items)
@@ -37,3 +38,9 @@ module.exports.getItems = (injection) =>
         }),
 
     })
+
+herbarium
+  .usecases.add(getItems, 'GetItems')
+  .metadata({ group: 'Items', operation: herbarium.crud.read, entity: 'Item' })
+
+module.exports.getItems = getItems
