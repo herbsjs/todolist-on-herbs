@@ -41,8 +41,9 @@ describe('Update Lists', () => {
     const ret = await uc.run({ id: req.id, name: req.name })
 
     // Then
-    assert.ok(!ret.isOk)
-    assert.deepStrictEqual(ret.err, `List not found - ID: 1`)
+    assert.ok(ret.isErr)
+    assert.deepStrictEqual(ret.err.message, `List not found - ID: 1`)
+    assert.deepStrictEqual(ret.isNotFoundError, true)
   })
 
   it('should not update if List is invalid', async () => {
@@ -61,7 +62,9 @@ describe('Update Lists', () => {
     const ret = await uc.run({ id: req.id, name: req.name })
 
     // Then
-    assert.ok(ret.isErr && ret.err.name[0].isTooShort === 3)
+    assert.ok(ret.isErr)
+    assert.deepStrictEqual(ret.err.message, `List is invalid`)
+    assert.deepStrictEqual(ret.isInvalidEntityError, true)
   })
 
 })

@@ -43,8 +43,9 @@ describe('Delete Todo Lists', () => {
         const ret = await uc.run({ id: req.id })
 
         // Then
-        assert.ok(!ret.isOk)
-        assert.strictEqual(ret.err, 'List ID 2 does not exist')
+        assert.ok(ret.isErr)
+        assert.strictEqual(ret.err.message, 'List ID 2 does not exist')
+        assert.strictEqual(ret.isNotFoundError, true)
     })
 })
 

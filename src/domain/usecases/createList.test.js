@@ -46,7 +46,8 @@ describe('Create List', () => {
 
             // Then
             assert.ok(ret.isErr)
-            assert.deepStrictEqual(ret.err, { name: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
+            assert.deepStrictEqual(ret.err.message, 'List is invalid')
+            assert.deepStrictEqual(ret.isInvalidEntityError, true)
         })
     })
 })

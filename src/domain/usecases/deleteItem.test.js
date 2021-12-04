@@ -48,7 +48,8 @@ describe('Delete Items', () => {
         const ret = await uc.run({ id: req.id })
 
         // Then
-        assert.ok(!ret.isOk)
-        assert.strictEqual(ret.err, 'Item ID 2 does not exist')
+        assert.ok(ret.isErr)
+        assert.strictEqual(ret.err.message, 'Item ID 2 does not exist')
+        assert.strictEqual(ret.isNotFoundError, true)
     })
 })
