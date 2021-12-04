@@ -2,7 +2,6 @@ const { herbarium } = require('../../infra/herbarium')
 const { entity, field } = require('@herbsjs/herbs')
 const { Item } = require('./item')
 
-
 const TodoList =
     entity('To Do List', {
         id: field(Number),

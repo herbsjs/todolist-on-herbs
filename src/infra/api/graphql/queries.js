@@ -1,7 +1,6 @@
 const { usecase2query, defaultResolver } = require('@herbsjs/herbs2gql')
 const { herbarium } = require('../../herbarium')
 
-
 const usecases = herbarium.usecases
     .findBy({ operation: [herbarium.crud.read, herbarium.crud.readAll] })
     .map(e => e.usecase)
