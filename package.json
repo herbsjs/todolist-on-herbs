@@ -24,7 +24,7 @@
     "@herbsjs/herbs2gql": "^1.0.0",
     "@herbsjs/herbs2knex": "^1.0.0",
     "@herbsjs/herbs2repl": "^1.0.0",
-    "@herbsjs/herbs2rest": "^1.0.0",
+    "@herbsjs/herbs2rest": "^2.0.0",
     "@herbsjs/herbsshelf": "^2.0.0",
     "apollo-env": "^0.10.0",
     "apollo-server-express": "^3.4.0",
