@@ -18,6 +18,7 @@ This is a example on how to build a backend application using [Herbs](https://gi
 ### Using
 
     $ npm install
+    $ npm run knex:migrate
     $ npm start
 
   You should receive this message => 🚀 Server UP and Running in port: 4000

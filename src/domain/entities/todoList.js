@@ -1,9 +1,9 @@
-const { entity, field } = require('@herbsjs/herbs')
+const { entity, field,id } = require('@herbsjs/herbs')
 const { Item } = require('./item')
 
 module.exports.TodoList =
     entity('To Do List', {
-        id: field(Number),
+        id: id(Number),
         name: field(String, {
             validation: { presence: true, length: { minimum: 3 } }
         }),
