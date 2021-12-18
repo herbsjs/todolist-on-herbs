@@ -1,7 +1,7 @@
 const Config = require('../config/config')
 
 // Herbarium
-const { herbarium } = require('../herbarium')
+const { herbarium } = require('../herbarium/herbarium')
 herbarium.requireAll()
 
 // Express

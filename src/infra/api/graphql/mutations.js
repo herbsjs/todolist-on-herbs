@@ -1,5 +1,5 @@
 const { usecase2mutation, defaultResolver } = require('@herbsjs/herbs2gql')
-const { herbarium } = require('../../herbarium')
+const { herbarium } = require('../../herbarium/herbarium')
 
 const usecases = herbarium.usecases
     .findBy({ operation: [herbarium.crud.create, herbarium.crud.update, herbarium.crud.delete] })

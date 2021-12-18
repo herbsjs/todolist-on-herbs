@@ -1,5 +1,5 @@
 const { entity, field } = require('@herbsjs/herbs')
-const { herbarium } = require('../../infra/herbarium')
+const { herbarium } = require('../../infra/herbarium/herbarium')
 const { Item } = require('./item')
 
 const TodoList =
