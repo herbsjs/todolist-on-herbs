@@ -15,9 +15,8 @@ class ItemRepository extends Repository {
     }
 }
 
-herbarium
-    .repositories.add(ItemRepository, 'ItemRepository')
-    .metadata({ entity: 'Item' })
-
-
-module.exports = ItemRepository
+module.exports =
+    herbarium.repositories
+        .add(ItemRepository, 'ItemRepository')
+        .metadata({ entity: 'Item' })
+        .repository

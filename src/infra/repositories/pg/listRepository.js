@@ -14,8 +14,8 @@ class ListRepository extends Repository {
     }
 }
 
-herbarium
-    .repositories.add(ListRepository, 'ListRepository')
-    .metadata({ entity: 'TodoList' })
-
-module.exports = ListRepository
+module.exports =
+    herbarium.repositories
+        .add(ListRepository, 'ListRepository')
+        .metadata({ entity: 'TodoList' })
+        .repository
