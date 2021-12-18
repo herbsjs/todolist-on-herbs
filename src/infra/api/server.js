@@ -65,11 +65,14 @@ class ServerAPI {
         })
         await server.start()
         server.applyMiddleware({ app: this.app, path: '/graphql' })
+
+        // eslint-disable-next-line no-console
+        console.info(`\n🖧 GraphQL endpoint - /graphql`)
     }
 
     banner() {
         // eslint-disable-next-line no-console
-        console.log(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
+        console.info(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
     }
 
     init() {
@@ -87,6 +90,10 @@ class ServerAPI {
             res.write(shelf)
             res.end()
         })
+
+        // eslint-disable-next-line no-console
+        console.info(`\n📚 Herbs Shelf endpoint - /herbsshelf`)
+
     }
 }
 
