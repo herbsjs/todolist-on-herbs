@@ -1,5 +1,5 @@
-const { herbarium } = require('../../infra/herbarium')
 const { entity, field } = require('@herbsjs/herbs')
+const { herbarium } = require('../../infra/herbarium')
 const { Item } = require('./item')
 
 const TodoList =
@@ -23,7 +23,7 @@ const TodoList =
 
     })
 
-herbarium
-    .entities.add(TodoList, 'TodoList')
-
-module.exports.TodoList = TodoList
+module.exports.TodoList =
+    herbarium.entities
+        .add(TodoList, 'TodoList')
+        .entity

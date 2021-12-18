@@ -1,6 +1,6 @@
 const { Ok, Err, usecase, step, ifElse } = require('@herbsjs/herbs')
-const { Item } = require('../entities/item')
 const { herbarium } = require('../../infra/herbarium')
+const { Item } = require('../entities/item')
 
 const dependency = {
     ItemRepository: require('../../infra/repositories/pg/itemRepository'),
@@ -39,8 +39,8 @@ const getItems = (injection) =>
 
     })
 
-herbarium
-  .usecases.add(getItems, 'GetItems')
-  .metadata({ group: 'Items', operation: herbarium.crud.read, entity: 'Item' })
-
-module.exports.getItems = getItems
+module.exports.getItems =
+    herbarium.usecases
+        .add(getItems, 'GetItems')
+        .metadata({ group: 'Items', operation: herbarium.crud.read, entity: 'Item' })
+        .usecase

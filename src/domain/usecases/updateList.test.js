@@ -1,5 +1,5 @@
-const { updateList } = require('./updateList')
 const assert = require('assert')
+const { updateList } = require('./updateList')
 const { TodoList } = require('../entities/todoList')
 
 describe('Update Lists', () => {

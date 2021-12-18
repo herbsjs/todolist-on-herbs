@@ -1,6 +1,6 @@
-const { getLists } = require('./getLists')
-const { Ok } = require('@herbsjs/herbs')
 const assert = require('assert')
+const { Ok } = require('@herbsjs/herbs')
+const { getLists } = require('./getLists')
 
 describe('Get List', () => {
 

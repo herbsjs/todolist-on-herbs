@@ -13,7 +13,7 @@ const Item =
     position: field(Number, { presence: true })
   })
 
-herbarium
-  .entities.add(Item, 'Item')
-
-module.exports.Item = Item
+module.exports.Item =
+  herbarium.entities
+    .add(Item, 'Item')
+    .entity

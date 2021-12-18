@@ -36,11 +36,15 @@ module.exports = {
                     id,
                     metadata(metadata) {
                         Object.assign(this, metadata)
+                        return this
                     }
                 }
 
                 herbsObjects.entities.set(id, ent)
                 return ent
+            },
+            get(id) {
+                return herbsObjects.entities.get(id)
             },
             get all() {
                 return herbsObjects.entities
@@ -58,6 +62,7 @@ module.exports = {
 
                     metadata(metadata) {
                         Object.assign(this, metadata)
+                        return this
                     }
                 }
 
@@ -66,6 +71,9 @@ module.exports = {
             },
             get all() {
                 return herbsObjects.usecases
+            },
+            get(id) {
+                return herbsObjects.usecases.get(id)
             },
             findBy(where) {
                 return findByMatchingProperties(Array.from(herbsObjects.usecases.values()), where)
@@ -78,6 +86,7 @@ module.exports = {
                     id,
                     metadata(metadata) {
                         Object.assign(this, metadata)
+                        return this
                     }
                 }
 

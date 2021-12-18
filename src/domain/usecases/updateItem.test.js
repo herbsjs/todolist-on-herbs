@@ -1,6 +1,5 @@
 const assert = require('assert')
 const { Item } = require('../entities/item')
-
 const { updateItem } = require('./updateItem')
 
 describe('Update Item', () => {

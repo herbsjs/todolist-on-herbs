@@ -1,7 +1,6 @@
-const { deleteItem } = require('./deleteItem')
 const assert = require('assert')
+const { deleteItem } = require('./deleteItem')
 const { Item } = require('../entities/item')
-
 
 describe('Delete Items', () => {
 
