@@ -1,5 +1,6 @@
 const { Ok, Err, usecase, step } = require('@herbsjs/herbs')
 const { herbarium } = require('../../infra/herbarium')
+const { Item } = require('../entities/item')
 
 const dependency = {
     ItemRepository: require('../../infra/repositories/pg/itemRepository'),
@@ -36,5 +37,5 @@ const deleteItem = injection =>
 module.exports.deleteItem =
     herbarium.usecases
         .add(deleteItem, 'DeleteItem')
-        .metadata({ group: 'Items', operation: herbarium.crud.delete, entity: 'Item' })
+        .metadata({ group: 'Items', operation: herbarium.crud.delete, entity: Item })
         .usecase

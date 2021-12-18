@@ -34,5 +34,5 @@ const createList = injection =>
 module.exports.createList =
   herbarium.usecases
     .add(createList, 'CreateList')
-    .metadata({ group: 'Lists', operation: herbarium.crud.create, entity: 'TodoList' })
+    .metadata({ group: 'Lists', operation: herbarium.crud.create, entity: TodoList })
     .usecase

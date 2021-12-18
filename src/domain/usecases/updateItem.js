@@ -79,5 +79,5 @@ const updateItem = (injection) =>
 module.exports.updateItem =
   herbarium.usecases
     .add(updateItem, 'UpdateItem')
-    .metadata({ group: 'Items', operation: herbarium.crud.update, entity: 'Item' })
+    .metadata({ group: 'Items', operation: herbarium.crud.update, entity: Item })
     .usecase

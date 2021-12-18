@@ -41,5 +41,5 @@ const getLists = injection =>
 module.exports.getLists =
   herbarium.usecases
     .add(getLists, 'GetLists')
-    .metadata({ group: 'Lists', operation: herbarium.crud.read, entity: 'TodoList' })
+    .metadata({ group: 'Lists', operation: herbarium.crud.read, entity: TodoList })
     .usecase

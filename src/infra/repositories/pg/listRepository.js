@@ -1,7 +1,7 @@
-const { Repository } = require("@herbsjs/herbs2knex")
-const { TodoList } = require('../../../domain/entities/todoList')
-const connection = require('./connection')
 const { herbarium } = require('../../herbarium')
+const { Repository } = require("@herbsjs/herbs2knex")
+const connection = require('./connection')
+const { TodoList } = require('../../../domain/entities/todoList')
 
 class ListRepository extends Repository {
     constructor(injection) {
@@ -17,5 +17,5 @@ class ListRepository extends Repository {
 module.exports =
     herbarium.repositories
         .add(ListRepository, 'ListRepository')
-        .metadata({ entity: 'TodoList' })
+        .metadata({ entity: TodoList })
         .repository
