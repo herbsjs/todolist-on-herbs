@@ -1,5 +1,5 @@
 const repl = require('@herbsjs/herbs2repl')
-const { herbarium } = require('../herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 herbarium.requireAll()
 
 const main = async (injection) => {

@@ -1,5 +1,5 @@
 const { Ok, Err, usecase, step, ifElse } = require('@herbsjs/herbs')
-const { herbarium } = require('../../infra/herbarium/herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 const { Item } = require('../entities/item')
 
 const dependency = {

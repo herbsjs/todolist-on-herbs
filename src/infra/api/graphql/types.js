@@ -1,5 +1,5 @@
 const { entity2type } = require('@herbsjs/herbs2gql')
-const { herbarium } = require('../../herbarium/herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 
 const entities = Array.from(herbarium.entities.all.values()).map(e => e.entity)
 

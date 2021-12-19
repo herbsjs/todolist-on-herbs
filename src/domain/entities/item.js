@@ -1,4 +1,4 @@
-const { herbarium } = require('../../infra/herbarium/herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 const { entity, field } = require('@herbsjs/herbs')
 
 const Item =

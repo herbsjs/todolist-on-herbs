@@ -1,4 +1,4 @@
-const { herbarium } = require('../../herbarium/herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 const { Repository } = require("@herbsjs/herbs2knex")
 const connection = require('./connection')
 const { TodoList } = require('../../../domain/entities/todoList')

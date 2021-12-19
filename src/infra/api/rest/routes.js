@@ -1,6 +1,6 @@
 const { generateRoutes } = require('@herbsjs/herbs2rest')
 const Config = require('../../config/config')
-const { herbarium } = require('../../herbarium/herbarium')
+const { herbarium } = require('@herbsjs/herbarium')
 
 function findEntitiesAndGroups() {
     const items = Array.from(herbarium.usecases.all.values()).map(e => ({ id: e.entity, group: e.group }))
