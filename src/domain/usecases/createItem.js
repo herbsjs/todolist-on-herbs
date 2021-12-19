@@ -1,4 +1,4 @@
-const { Ok, Err, usecase, step, ifElse } = require('@herbsjs/herbs')
+const { Ok, Err, usecase, step } = require('@herbsjs/herbs')
 const { herbarium } = require('@herbsjs/herbarium')
 const { Item } = require('../entities/item')
 
