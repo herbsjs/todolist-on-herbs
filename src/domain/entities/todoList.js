@@ -1,4 +1,4 @@
-const { entity, field } = require('@herbsjs/herbs')
+const { entity, field, id } = require('@herbsjs/herbs')
 const { herbarium } = require('@herbsjs/herbarium')
 const { Item } = require('./item')
 

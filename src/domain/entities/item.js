@@ -1,9 +1,9 @@
 const { herbarium } = require('@herbsjs/herbarium')
-const { entity, field } = require('@herbsjs/herbs')
+const { entity, field, id } = require('@herbsjs/herbs')
 
 const Item =
   entity('Item', {
-    id: field(Number),
+    id: id(Number),
     description: field(String, {
       validation: { presence: true, length: { minimum: 3 } }
     }),
