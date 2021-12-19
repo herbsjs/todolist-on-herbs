@@ -22,7 +22,10 @@ const deleteItem = injection =>
             const item = ctx.item = ret
 
             if (item && item.length > 0) return Ok()
-            return Err(`Item ID ${ctx.req.id} does not exist`)
+            return Err.notFound({
+                message: `Item ID ${ctx.req.id} does not exist`,
+                payload: { entity: 'item' }
+            })
         }),
 
         'Delete the Item': step(async ctx => {

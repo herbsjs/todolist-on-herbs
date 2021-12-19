@@ -20,14 +20,22 @@ const updateList = injection =>
       const repo = new ctx.di.ListRepository(injection)
       const ret = await repo.find({ where: { id: [ctx.req.id] } })
       const list = (ctx.list = ret[0])
-      if (list === undefined) return Err(`List not found - ID: ${ctx.req.id}`)
+      if (list === undefined) return Err.notFound({
+        message: `List not found - ID: ${ctx.req.id}`,
+        payload: { entity: 'list' }
+      })
+
       return Ok(list)
     }),
 
     'Check if it is a valid List before update': step(ctx => {
       const list = ctx.list
       list.name = ctx.req.name
-      return list.isValid() ? Ok() : Err(list.errors)
+      return list.isValid() ? Ok() : Err.invalidEntity({
+        message: `List is invalid`,
+        payload: { entity: 'list' },
+        cause: list.errors
+      })
     }),
 
     'Update the List': step(async ctx => {

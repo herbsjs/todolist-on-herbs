@@ -66,6 +66,23 @@ describe('Create Item', () => {
 
   describe('Invalid Item', () => {
 
+    it('should not create invalid Item', async () => {
+      // Given
+      const injection = {}
+      const user = aUser({ hasAccess: true })
+      const req = { listId: 65676 }
+
+      // When
+      const uc = createItem(injection)
+      await uc.authorize(user)
+      const ret = await uc.run(req)
+
+      // Then
+      assert.ok(ret.isErr)
+      assert.deepStrictEqual(ret.err.message, 'Item is invalid')
+      assert.deepStrictEqual(ret.isInvalidEntityError, true)
+    })
+
     it('should not create Item if the List does not exist', async () => {
       // Given
       const injection = {
@@ -83,23 +100,9 @@ describe('Create Item', () => {
 
       // Then
       assert.ok(ret.isErr)
-      assert.strictEqual(ret.err, `List not found - ID: 65680`)
+      assert.strictEqual(ret.err.message, `List not found - ID: 65680`)
+      assert.strictEqual(ret.isNotFoundError, true)
     })
 
-    it('should not create invalid Item', async () => {
-      // Given
-      const injection = {}
-      const user = aUser({ hasAccess: true })
-      const req = { listId: 65676 }
-
-      // When
-      const uc = createItem(injection)
-      await uc.authorize(user)
-      const ret = await uc.run(req)
-
-      // Then
-      assert.ok(ret.isErr)
-      assert.deepStrictEqual(ret.err, { description: [{ cantBeEmpty: true }] })
-    })
   })
 })

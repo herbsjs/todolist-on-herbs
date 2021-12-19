@@ -173,7 +173,8 @@ describe('Update Item', () => {
 
       // Then
       assert.ok(ret.isErr)
-      assert.strictEqual(ret.err, `Item not found - ID: 11110`)
+      assert.strictEqual(ret.err.message, `Item not found - ID: 11110`)
+      assert.strictEqual(ret.isNotFoundError, true)
     })
 
     it('should not update invalid Item', async () => {
@@ -205,7 +206,8 @@ describe('Update Item', () => {
 
       // Then
       assert.ok(ret.isErr)
-      assert.deepStrictEqual(ret.err, { description: [{ cantBeEmpty: true }, { isTooShort: 3 }] })
+      assert.deepStrictEqual(ret.err.message, 'Item is invalid')
+      assert.strictEqual(ret.isInvalidEntityError, true)
     })
   })
 })

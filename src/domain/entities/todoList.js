@@ -4,7 +4,7 @@ const { Item } = require('./item')
 
 const TodoList =
     entity('To Do List', {
-        id: field(Number),
+        id: id(Number),
         name: field(String, {
             validation: { presence: true, length: { minimum: 3 } }
         }),

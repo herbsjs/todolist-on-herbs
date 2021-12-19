@@ -27,7 +27,10 @@ const updateItem = (injection) =>
       const ret = await repo.find({ where: { id: req.id } })
       const item = (ctx.item = ret[0])
 
-      if (item === undefined) return Err(`Item not found - ID: ${req.id}`)
+      if (item === undefined) return Err.notFound({
+        message: `Item not found - ID: ${req.id}`,
+        payload: { entity: 'item' }
+      })
 
       return Ok(item)
     }),
@@ -44,7 +47,11 @@ const updateItem = (injection) =>
       item.isDone = req.isDone
       item.position = req.position
 
-      return item.isValid() ? Ok() : Err(item.errors)
+      return item.isValid() ? Ok() : Err.invalidEntity({
+        message: `Item is invalid`,
+        payload: { entity: 'item' },
+        cause: item.errors
+      })
     }),
 
     'Check if is necessary to update tasks positions': ifElse({

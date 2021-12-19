@@ -20,7 +20,10 @@ const deleteList = injection =>
       const repo = new ctx.di.ListRepository(injection)
       const ret = await repo.find({ where: { id: [ctx.req.id] } })
       const list = ctx.list = ret[0]
-      if (list === undefined) return Err(`List ID ${ctx.req.id} does not exist`)
+      if (list === undefined) return Err.notFound({
+        message: `List ID ${ctx.req.id} does not exist`,
+        payload: { entity: 'list' }
+      })
       return Ok()
     }),
 

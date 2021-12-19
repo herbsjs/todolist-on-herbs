@@ -21,7 +21,12 @@ const createList = injection =>
       list.id = Math.floor(Math.random() * 100000)
       list.name = ctx.req.name
 
-      if (!list.isValid()) return Err(list.errors)
+      if (!list.isValid()) return Err.invalidEntity({
+        message: `List is invalid`,
+        payload: { entity: 'list' },
+        cause: list.errors
+      })
+
       return Ok()
     }),
 

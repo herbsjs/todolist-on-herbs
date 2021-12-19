@@ -25,7 +25,12 @@ const createItem = (injection) =>
       item.isDone = req.isDone
       item.listId = req.listId
 
-      if (!item.isValid()) return Err(item.errors)
+      if (!item.isValid()) return Err.invalidEntity({
+        message: `Item is invalid`,
+        payload: { entity: 'item' },
+        cause: item.errors
+      })
+
       return Ok()
     }),
 
@@ -35,7 +40,12 @@ const createItem = (injection) =>
       const ret = await repo.find({ where: { id: [req.listId] } })
       const list = (ctx.list = ret[0])
 
-      if (list === undefined) return Err(`List not found - ID: ${req.listId}`)
+      if (list === undefined)
+        return Err.notFound({
+          message: `List not found - ID: ${req.listId}`,
+          payload: { entity: 'list' }
+        })
+
       return Ok()
     }),
 
