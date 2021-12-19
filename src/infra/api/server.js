@@ -1,15 +1,18 @@
 const Config = require('../config/config')
 
+// Herbarium
+const { herbarium } = require('@herbsjs/herbarium')
+herbarium.requireAll()
+
 // Express
-var express = require('express')
-var cors = require('cors')
+const express = require('express')
+const cors = require('cors')
 
 // Shelf
-const usecases = require('../../domain/usecases/_uclist')
 const renderShelfHTML = require('@herbsjs/herbsshelf')
 
 // GraphQL
-var { ApolloServer } = require('apollo-server-express')
+const { ApolloServer } = require('apollo-server-express')
 const [typeDefs, resolvers] = require('./graphql/index')
 
 // REST
@@ -62,11 +65,14 @@ class ServerAPI {
         })
         await server.start()
         server.applyMiddleware({ app: this.app, path: '/graphql' })
+
+        // eslint-disable-next-line no-console
+        console.info(`\n🖧 GraphQL endpoint - /graphql`)
     }
 
     banner() {
         // eslint-disable-next-line no-console
-        console.log(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
+        console.info(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
     }
 
     init() {
@@ -74,12 +80,20 @@ class ServerAPI {
     }
 
     herbsShelf() {
+        const usecases = Array.from(herbarium.usecases.all).map(([_, item]) =>
+            ({ usecase: item.usecase(), id: item.id, tags: { group: item.group } }))
+
         this.app.get('/herbsshelf', (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
-            const shelf = renderShelfHTML('TODO List', usecases())
+
+            const shelf = renderShelfHTML('TODO List', usecases)
             res.write(shelf)
             res.end()
         })
+
+        // eslint-disable-next-line no-console
+        console.info(`\n📚 Herbs Shelf endpoint - /herbsshelf`)
+
     }
 }
 

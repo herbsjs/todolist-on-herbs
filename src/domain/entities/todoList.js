@@ -1,7 +1,8 @@
-const { entity, field,id } = require('@herbsjs/herbs')
+const { entity, field, id } = require('@herbsjs/herbs')
+const { herbarium } = require('@herbsjs/herbarium')
 const { Item } = require('./item')
 
-module.exports.TodoList =
+const TodoList =
     entity('To Do List', {
         id: id(Number),
         name: field(String, {
@@ -21,3 +22,8 @@ module.exports.TodoList =
         }
 
     })
+
+module.exports.TodoList =
+    herbarium.entities
+        .add(TodoList, 'TodoList')
+        .entity

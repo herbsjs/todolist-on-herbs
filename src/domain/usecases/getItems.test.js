@@ -1,7 +1,6 @@
-const { getItems } = require('./getItems')
-const { Ok } = require('@herbsjs/herbs')
 const assert = require('assert')
-
+const { Ok } = require('@herbsjs/herbs')
+const { getItems } = require('./getItems')
 
 describe('Get Items', () => {
 

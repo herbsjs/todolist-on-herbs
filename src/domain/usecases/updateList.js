@@ -1,11 +1,12 @@
 const { Ok, Err, usecase, step } = require('@herbsjs/herbs')
+const { herbarium } = require('@herbsjs/herbarium')
 const { TodoList } = require('../../domain/entities/todoList')
 
 const dependency = {
   ListRepository: require('../../infra/repositories/pg/listRepository'),
 }
 
-module.exports.updateList = injection =>
+const updateList = injection =>
   usecase('Update List', {
     request: { id: Number, name: String },
 
@@ -42,3 +43,9 @@ module.exports.updateList = injection =>
       return (ctx.ret = await repo.update(ctx.list))
     }),
   })
+
+module.exports.updateList =
+  herbarium.usecases
+    .add(updateList, 'UpdateList')
+    .metadata({ group: 'Lists', operation: herbarium.crud.update, entity: TodoList })
+    .usecase

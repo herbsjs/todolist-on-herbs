@@ -29,6 +29,12 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        }
+        },
+        {
+            "command": "npm run repl",
+            "name": "REPL",
+            "request": "launch",
+            "type": "node-terminal"
+        },
     ]
 }

@@ -1,8 +1,6 @@
-const { deleteList } = require('./deleteList')
-const { Ok, Err } = require('@herbsjs/herbs')
 const assert = require('assert')
+const { deleteList } = require('./deleteList')
 const { TodoList } = require('../entities/todoList')
-
 
 describe('Delete Todo Lists', () => {
 
