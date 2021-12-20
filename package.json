@@ -1,6 +1,6 @@
 {
   "name": "todolist-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs)",
   "main": "",
   "scripts": {
@@ -27,7 +27,7 @@
     "@herbsjs/herbs2knex": "^1.1.2",
     "@herbsjs/herbs2repl": "^1.0.0",
     "@herbsjs/herbs2rest": "^2.0.0",
-    "@herbsjs/herbsshelf": "^2.0.0",
+    "@herbsjs/herbsshelf": "^2.1.0",
     "apollo-env": "^0.10.1",
     "apollo-server-express": "^3.5.0",
     "dotenv": "^10.0.0",
