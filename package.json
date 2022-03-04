@@ -23,7 +23,7 @@
   "dependencies": {
     "@herbsjs/herbarium": "^1.2.0",
     "@herbsjs/herbs": "^1.4.2",
-    "@herbsjs/herbs2gql": "^2.0.1",
+    "@herbsjs/herbs2gql": "^2.1.0",
     "@herbsjs/herbs2knex": "^1.4.1",
     "@herbsjs/herbs2repl": "^1.0.0",
     "@herbsjs/herbs2rest": "^2.0.1",
