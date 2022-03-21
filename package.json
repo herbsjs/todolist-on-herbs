@@ -29,7 +29,7 @@
     "@herbsjs/herbs2rest": "^2.0.1",
     "@herbsjs/herbsshelf": "^2.1.4",
     "apollo-env": "^0.10.1",
-    "apollo-server-express": "^3.6.3",
+    "apollo-server-express": "^3.6.5",
     "dotenv": "^12.0.4",
     "express": "^4.17.3",
     "graphql": "^15.7.2",
