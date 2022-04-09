@@ -28,7 +28,7 @@ const createItem = (injection) =>
       if (!item.isValid()) return Err.invalidEntity({
         message: `Item is invalid`,
         payload: { entity: 'item' },
-        cause: item.errors
+        cause: JSON.stringify(item.errors)
       })
 
       return Ok()

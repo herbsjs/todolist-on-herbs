@@ -50,7 +50,7 @@ const updateItem = (injection) =>
       return item.isValid() ? Ok() : Err.invalidEntity({
         message: `Item is invalid`,
         payload: { entity: 'item' },
-        cause: item.errors
+        cause: JSON.stringify(item.errors)
       })
     }),
 

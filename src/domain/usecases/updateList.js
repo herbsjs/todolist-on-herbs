@@ -34,7 +34,7 @@ const updateList = injection =>
       return list.isValid() ? Ok() : Err.invalidEntity({
         message: `List is invalid`,
         payload: { entity: 'list' },
-        cause: list.errors
+        cause: JSON.stringify(list.errors)
       })
     }),
 
