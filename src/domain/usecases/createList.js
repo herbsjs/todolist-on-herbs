@@ -24,7 +24,7 @@ const createList = injection =>
       if (!list.isValid()) return Err.invalidEntity({
         message: `List is invalid`,
         payload: { entity: 'list' },
-        cause: list.errors
+        cause: JSON.stringify(list.errors)
       })
 
       return Ok()
