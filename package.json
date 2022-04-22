@@ -22,10 +22,10 @@
   "license": "MIT",
   "dependencies": {
     "@herbsjs/herbarium": "^1.2.0",
-    "@herbsjs/herbs": "^1.4.3",
+    "@herbsjs/herbs": "^1.4.4",
     "@herbsjs/herbs2gql": "^2.1.0",
-    "@herbsjs/herbs2knex": "^1.4.2",
-    "@herbsjs/herbs2repl": "^1.0.0",
+    "@herbsjs/herbs2knex": "^1.4.6",
+    "@herbsjs/herbs2repl": "^1.0.3",
     "@herbsjs/herbs2rest": "^2.0.1",
     "@herbsjs/herbsshelf": "^2.1.4",
     "apollo-env": "^0.10.1",
@@ -36,7 +36,7 @@
     "graphql-resolvers": "^0.4.2",
     "graphql-scalars": "^1.17.0",
     "graphql-upload": "^13.0.0",
-    "knex": "^1.0.5",
+    "knex": "^2.0.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
