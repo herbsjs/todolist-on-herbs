@@ -73,6 +73,45 @@ Default is `dev`. Also check for `HERBS_EXCEPTION` env variable.
 
 Edit `/backend/infra/config/{environment}.json` files if necessary.
 
+### Diagram
+```
+classDiagram
+    class Item {
+        Number id
+        String description
+        Boolean isDone
+        Number position
+    }
+    class ToDoList{
+        Number id
+        String name
+        Item[] items
+        isEmpty()
+        lastPosition()
+    }
+
+    ToDoList "1" --> "*" Item
+```
+
+```mermaid
+classDiagram
+    class Item {
+        Number id
+        String description
+        Boolean isDone
+        Number position
+    }
+    class ToDoList{
+        Number id
+        String name
+        Item[] items
+        isEmpty()
+        lastPosition()
+    }
+
+    ToDoList "1" --> "*" Item
+```
+
 ## How to contribute
 
 If you would like to help contribute to this repository, please see [CONTRIBUTING](https://github.com/herbsjs/todolist-on-herbs/blob/master/.github/CONTRIBUTING.md)
@@ -80,65 +119,3 @@ If you would like to help contribute to this repository, please see [CONTRIBUTIN
 ### License
 
 - [MIT License](https://github.com/herbsjs/todolist-on-herbs/blob/master/LICENSE)
-
-
-
-```
-classDiagram
-    class User {
-        Number ID
-        String firstName
-        String lastName
-        Number age
-        User_Account[] accounts
-    }
-    class User_Account{
-        Number ID
-        Date expirationDate
-        isExpired()
-    }
-    class Project{
-        Number ID
-        String name
-        User_Account user
-        Task[] tasks
-    }
-    class Task{
-        Number ID
-        String name
-        Date dueDate
-    }
-    User "1" --> "*" User_Account
-    Project "1" --> "1" User_Account
-    Project "1" --> "*" Task
-```
-
-```mermaid
-classDiagram
-    class User {
-        Number ID
-        String firstName
-        String lastName
-        Number age
-        User_Account[] accounts
-    }
-    class User_Account{
-        Number ID
-        Date expirationDate
-        isExpired()
-    }
-    class Project{
-        Number ID
-        String name
-        User_Account user
-        Task[] tasks
-    }
-    class Task{
-        Number ID
-        String name
-        Date dueDate
-    }
-    User "1" --> "*" User_Account
-    Project "1" --> "1" User_Account
-    Project "1" --> "*" Task
-```
