@@ -73,6 +73,45 @@ Default is `dev`. Also check for `HERBS_EXCEPTION` env variable.
 
 Edit `/backend/infra/config/{environment}.json` files if necessary.
 
+### Diagram
+```
+classDiagram
+    class Item {
+        Number id
+        String description
+        Boolean isDone
+        Number position
+    }
+    class ToDoList{
+        Number id
+        String name
+        Item[] items
+        isEmpty()
+        lastPosition()
+    }
+
+    ToDoList "1" --> "*" Item
+```
+
+```mermaid
+classDiagram
+    class Item {
+        Number id
+        String description
+        Boolean isDone
+        Number position
+    }
+    class ToDoList{
+        Number id
+        String name
+        Item[] items
+        isEmpty()
+        lastPosition()
+    }
+
+    ToDoList "1" --> "*" Item
+```
+
 ## How to contribute
 
 If you would like to help contribute to this repository, please see [CONTRIBUTING](https://github.com/herbsjs/todolist-on-herbs/blob/master/.github/CONTRIBUTING.md)
