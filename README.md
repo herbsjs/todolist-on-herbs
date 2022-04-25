@@ -74,25 +74,6 @@ Default is `dev`. Also check for `HERBS_EXCEPTION` env variable.
 Edit `/backend/infra/config/{environment}.json` files if necessary.
 
 ### Diagram
-```
-classDiagram
-    class Item {
-        Number id
-        String description
-        Boolean isDone
-        Number position
-    }
-    class ToDoList{
-        Number id
-        String name
-        Item[] items
-        isEmpty()
-        lastPosition()
-    }
-
-    ToDoList "1" --> "*" Item
-```
-
 ```mermaid
 classDiagram
     class Item {
