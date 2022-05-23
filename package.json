@@ -37,7 +37,8 @@
     "graphql-scalars": "^1.17.0",
     "graphql-upload": "^13.0.0",
     "knex": "^2.0.0",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "serverless": "^3.18.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
