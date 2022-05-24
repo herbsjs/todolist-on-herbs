@@ -7,71 +7,79 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: sa-east-1
-  role: 
+  role:
   timeout: 100
   memorySize: 1024
 functions:
-  crateItem:
-    name: crate_item
-    handler: index.crateItem
+  herbsshelf:
+    name: herbsShelf
+    handler: index.herbsshelf
     events:
       - http:
-          path: item
-          method: post
-          cors: true
-  createList:
-    name: create_list
-    handler: index.get
-    events:
-      - http:
-          path: list
-          method: post
-          cors: true
-  deleteItem:
-    name: delete_item
-    handler: index.deleteItem
-    events:
-      - http:
-          path: item
-          method: delete
-          cors: true
-  deleteList:
-    name: delete_list
-    handler: index.deleteList
-    events:
-      - http:
-          path: list
-          method: delete
-          cors: true
-  getItems:
-    name: get_items
-    handler: index.getItems
-    events:
-      - http:
-          path: item
+          path: herbsshelf
           method: get
           cors: true
-  getLists:
-    name: get_lists
-    handler: index.getLists
-    events:
-      - http:
-          path: list
-          method: get
-          cors: true
-  updateItem:
-    name: update_item
-    handler: index.updateItem
-    events:
-      - http:
-          path: item
-          method: get
-          cors: true
-  updateList:
-    name: update_list
-    handler: index.updateList
-    events:
-      - http:
-          path: list
-          method: get
-          cors: true
+  # crateItem:
+  #   name: crate_item
+  #   handler: index.crateItem
+  #   events:
+  #     - http:
+  #         path: item
+  #         method: post
+  #         cors: true
+  # createList:
+  #   name: create_list
+  #   handler: index.get
+  #   events:
+  #     - http:
+  #         path: list
+  #         method: post
+  #         cors: true
+  # deleteItem:
+  #   name: delete_item
+  #   handler: index.deleteItem
+  #   events:
+  #     - http:
+  #         path: item
+  #         method: delete
+  #         cors: true
+  # deleteList:
+  #   name: delete_list
+  #   handler: index.deleteList
+  #   events:
+  #     - http:
+  #         path: list
+  #         method: delete
+  #         cors: true
+  # getItems:
+  #   name: get_items
+  #   handler: index.getItems
+  #   events:
+  #     - http:
+  #         path: item
+  #         method: get
+  #         cors: true
+  # getLists:
+  #   name: get_lists
+  #   handler: index.getLists
+  #   events:
+  #     - http:
+  #         path: list
+  #         method: get
+  #         cors: true
+  # updateItem:
+  #   name: update_item
+  #   handler: index.updateItem
+  #   events:
+  #     - http:
+  #         path: item
+  #         method: get
+  #         cors: true
+  # updateList:
+  #   name: update_list
+  #   handler: index.updateList
+  #   events:
+  #     - http:
+  #         path: list
+  #         method: get
+  #         cors: true
