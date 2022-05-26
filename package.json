@@ -36,7 +36,7 @@
     "graphql-resolvers": "^0.4.2",
     "graphql-scalars": "^1.17.0",
     "graphql-upload": "^13.0.0",
-    "knex": "^2.0.0",
+    "knex": "^2.1.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
