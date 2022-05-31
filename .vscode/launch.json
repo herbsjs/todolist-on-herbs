@@ -5,36 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "HTTP Server",
+            "type": "node",
             "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "start"
+            "name": "Debug Mocha Tests",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+              "--timeout",
+              "999999",
+              "--colors",
+              "--recursive",
+              "${workspaceFolder}/src/**/*.test.js"
             ],
-            "runtimeExecutable": "npm",
+            "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },        
-        {
-            "name": "Backend Tests",
+              "${workspaceFolder}/node_modules/**/*.js",
+              "<node_internals>/**/*.js"
+            ]
+          },
+          {
+            "name": "Debug Serveless Offline",
+            "type": "node",
             "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "test"
-            ],
+            "cwd": "${workspaceRoot}",
             "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },
-        {
-            "command": "npm run repl",
-            "name": "REPL",
-            "request": "launch",
-            "type": "node-terminal"
-        },
+            "runtimeArgs": ["run-script", "debug"],
+            "port": 5858
+          }
     ]
 }
