@@ -6,8 +6,8 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
-  region: sa-east-1
-  role:
+  region: us-east-1
+  role: 
   timeout: 100
   memorySize: 1024
 functions:
