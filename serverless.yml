@@ -1,4 +1,4 @@
-service: todolist-on-herbs-serverless
+service: todolists-on-herbs-serverless
 
 plugins:
   - serverless-offline
@@ -11,6 +11,26 @@ provider:
   timeout: 100
   memorySize: 1024
 functions:
+  rest:
+    name: restAPI
+    handler: index.express
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+  graphql:
+    name: graphql
+    handler: index.apollo
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true
+
   herbsshelf:
     name: herbsShelf
     handler: index.herbsshelf
@@ -20,19 +40,19 @@ functions:
           method: get
           cors: true
   crateItem:
-    name: crate_item
-    handler: index.crateItem
+    name: create_item
+    handler: index.createItem
     events:
       - http:
-          path: item
+          path: items
           method: post
           cors: true
-  createList:
-    name: create_list
-    handler: index.crateList
+  createLists:
+    name: create_lists
+    handler: index.createList
     events:
       - http:
-          path: list
+          path: lists
           method: post
           cors: true
   deleteItem:
@@ -40,31 +60,39 @@ functions:
     handler: index.deleteItem
     events:
       - http:
-          path: item
+          path: items/{id}
           method: delete
           cors: true
-  deleteList:
-    name: delete_list
+          request:
+            parameters:
+              paths:
+                id: true
+  deleteLists:
+    name: delete_lists
     handler: index.deleteList
     events:
       - http:
-          path: list
+          path: lists/{id}
           method: delete
           cors: true
+          request:
+            parameters:
+              paths:
+                id: true
   getItems:
     name: get_items
     handler: index.getItems
     events:
       - http:
-          path: item
+          path: items
           method: get
           cors: true
   getLists:
-    name: get_lists
+    name: get_listss
     handler: index.getLists
     events:
       - http:
-          path: list
+          path: lists
           method: get
           cors: true
   updateItem:
@@ -72,14 +100,25 @@ functions:
     handler: index.updateItem
     events:
       - http:
-          path: item
+          path: items/{id}
           method: put
           cors: true
-  updateList:
-    name: update_list
-    handler: index.updateList
+          request:
+            parameters:
+              paths:
+                id: true
+  updateLists:
+    name: update_lists
+    handler: index.updateLists
     events:
       - http:
-          path: list
+          path: lists/{id}
           method: put
           cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true

@@ -1,4 +1,6 @@
 module.exports = {
+  express: require('./express'),
+  apollo: require('./apollo'),
   herbsshelf: require('./herbsshelf'),
   createItem: require('./createItem'),
   createList: require('./createList'),
