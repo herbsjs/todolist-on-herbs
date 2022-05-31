@@ -28,7 +28,7 @@
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": "npm",
-            "runtimeArgs": ["run-script", "debug"],
+            "runtimeArgs": ["run-script", "start"],
             "port": 5858
           }
     ]

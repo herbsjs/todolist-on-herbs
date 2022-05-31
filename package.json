@@ -7,7 +7,7 @@
     "test": "mocha --timeout 999999 --colors --recursive src/**/*.test.js",
     "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
     "start": "serverless offline",
-    "debug": "serverless offline",
+    "deploy": "serverless deploy --stage=production verbose",
     "knex:make": "npx knex --knexfile knexfile.js migrate:make",
     "knex:migrate": "npx knex --knexfile knexfile.js migrate:latest",
     "knex:rollback": "npx knex --knexfile knexfile.js migrate:rollback",
@@ -51,6 +51,7 @@
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
     "prettier": "^2.6.2",
+    "serverless-dotenv-plugin": "^3.12.0",
     "serverless-offline": "^8.8.0",
     "ws": ">=8.5.0"
   },
