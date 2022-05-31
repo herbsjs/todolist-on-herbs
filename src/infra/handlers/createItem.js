@@ -1,24 +1,19 @@
 const httpsCode = require('../config/statusCode')
-
-const dependency = {
-  createItem: require('../../domain/usecases/createItem'),
-  user: require('../config/user'),
-}
+const { createItem } = require('../../domain/usecases/createItem')
+const user = require('../config/user')
 
 module.exports = async (event, context, callback) => {
-  const di = { ...dependency, ...context }
-
   try {
     const args = JSON.parse(event.body)
 
     const parameters = {
       listId: Number(args.listId),
       description: args.description,
-      isDone: args.isDone,
+      isDone: args.isDone === 'true',
     }
 
-    const ucCreateItem = di.createItem(di)
-    await ucCreateItem.authorize(di.user)
+    const ucCreateItem = createItem()
+    await ucCreateItem.authorize(user)
     const ucResult = await ucCreateItem.run(parameters)
 
     if (ucResult.isOk)
@@ -43,7 +38,6 @@ module.exports = async (event, context, callback) => {
       }),
     }
   } catch (error) {
-    logger.error(error)
     return {
       statusCode: 500,
       body: JSON.stringify({

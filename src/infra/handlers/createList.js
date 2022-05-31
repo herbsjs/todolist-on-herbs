@@ -1,13 +1,8 @@
 const httpsCode = require('../config/statusCode')
-
-const dependency = {
-  createList: require('../../domain/usecases/createList'),
-  user: require('../config/user'),
-}
+const { createList } = require('../../domain/usecases/createList')
+const user = require('../config/user')
 
 module.exports = async (event, context, callback) => {
-  const di = { ...dependency, ...context }
-
   try {
     const args = JSON.parse(event.body)
 
@@ -15,8 +10,8 @@ module.exports = async (event, context, callback) => {
       name: args.name,
     }
 
-    const ucCreateList = di.createList(di)
-    await ucCreateList.authorize(di.user)
+    const ucCreateList = createList()
+    await ucCreateList.authorize(user)
     const ucResult = await ucCreateList.run(parameters)
 
     if (ucResult.isOk)
@@ -41,7 +36,6 @@ module.exports = async (event, context, callback) => {
       }),
     }
   } catch (error) {
-    logger.error(error)
     return {
       statusCode: 500,
       body: JSON.stringify({

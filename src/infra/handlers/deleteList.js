@@ -1,22 +1,15 @@
 const httpsCode = require('../config/statusCode')
-
-const dependency = {
-  deleteList: require('../../domain/usecases/deleteList'),
-  user: require('../config/user'),
-}
+const { deleteList } = require('../../domain/usecases/deleteList')
+const user = require('../config/user')
 
 module.exports = async (event, context, callback) => {
-  const di = { ...dependency, ...context }
-
   try {
-    const args = JSON.parse(event.body)
-
     const parameters = {
-      id: Number(args.id),
+      id: Number(event.pathParameters.id),
     }
 
-    const ucDeleteList = di.deleteList(di)
-    await ucDeleteList.authorize(di.user)
+    const ucDeleteList = deleteList()
+    await ucDeleteList.authorize(user)
     const ucResult = await ucDeleteList.run(parameters)
 
     if (ucResult.isOk)
@@ -41,7 +34,6 @@ module.exports = async (event, context, callback) => {
       }),
     }
   } catch (error) {
-    logger.error(error)
     return {
       statusCode: 500,
       body: JSON.stringify({

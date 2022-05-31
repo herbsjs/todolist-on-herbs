@@ -1,22 +1,18 @@
 const httpsCode = require('../config/statusCode')
-
-const dependency = {
-  getLists: require('../../domain/usecases/getLists'),
-  user: require('../config/user'),
-}
+const { getLists } = require('../../domain/usecases/getLists')
+const user = require('../config/user')
 
 module.exports = async (event, context, callback) => {
-  const di = { ...dependency, ...context }
-
   try {
-    const args = JSON.parse(event.body)
-
     const parameters = {
-      ids: Array.isArray(args.ids) ? args.ids.map((id) => Number(id)) : ids,
+      ids:
+        event.multiValueQueryStringParameters?.ids.map((id) => Number(id)) ||
+        (event.queryStringParameters?.ids &&
+          Number(event.queryStringParameters.ids)),
     }
 
-    const ucGetLists = di.getLists(di)
-    await ucGetLists.authorize(di.user)
+    const ucGetLists = getLists()
+    await ucGetLists.authorize(user)
     const ucResult = await ucGetLists.run(parameters)
 
     if (ucResult.isOk)
@@ -41,7 +37,6 @@ module.exports = async (event, context, callback) => {
       }),
     }
   } catch (error) {
-    logger.error(error)
     return {
       statusCode: 500,
       body: JSON.stringify({

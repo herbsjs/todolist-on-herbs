@@ -1,23 +1,18 @@
 const httpsCode = require('../config/statusCode')
-
-const dependency = {
-  updateList: require('../../domain/usecases/updateList'),
-  user: require('../config/user'),
-}
+const { updateList } = require('../../domain/usecases/updateList')
+const user = require('../config/user')
 
 module.exports = async (event, context, callback) => {
-  const di = { ...dependency, ...context }
-
   try {
     const args = JSON.parse(event.body)
 
     const parameters = {
-      id: Number(args.id),
+      id: Number(event.pathParameters.id),
       name: args.name,
     }
 
-    const ucUpdateList = di.updateList(di)
-    await ucUpdateList.authorize(di.user)
+    const ucUpdateList = updateList()
+    await ucUpdateList.authorize(user)
     const ucResult = await ucUpdateList.run(parameters)
 
     if (ucResult.isOk)
@@ -42,7 +37,6 @@ module.exports = async (event, context, callback) => {
       }),
     }
   } catch (error) {
-    logger.error(error)
     return {
       statusCode: 500,
       body: JSON.stringify({
