@@ -15,24 +15,6 @@ provider:
       NODE_ENV: ${env:NODE_ENV}
       HERBS_EXCEPTION: ${env:HERBS_EXCEPTION}
 functions:
-  rest:
-    name: restAPI
-    handler: index.express
-    events:
-      - http: ANY /
-  graphql:
-    name: graphql
-    handler: index.apollo
-    events:
-      - http:
-          path: graphql
-          method: post
-          cors: true
-      - http:
-          path: graphql
-          method: get
-          cors: true
-
   herbsshelf:
     name: herbsShelf
     handler: index.herbsshelf

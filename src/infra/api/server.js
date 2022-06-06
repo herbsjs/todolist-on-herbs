@@ -12,7 +12,7 @@ const cors = require('cors')
 const renderShelfHTML = require('@herbsjs/herbsshelf')
 
 // GraphQL
-const { ApolloServer }= require('apollo-server-lambda')
+const { ApolloServer } = require('apollo-server-express')
 const [typeDefs, resolvers] = require('./graphql/index')
 
 // REST
