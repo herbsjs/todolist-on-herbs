@@ -6,10 +6,10 @@
   "database": {
     "client": "pg",
     "connection": {
-      "host": "to-do-list.cj8mkeohtwzs.us-east-1.rds.amazonaws.com",
+      "host": "127.0.0.1",
       "user": "postgres",
-      "password": "mega_D3V",
-      "database": "postgres"
+      "password": "postgres",
+      "database": "todolist_on_herbs_db"
     }
   }
 }
