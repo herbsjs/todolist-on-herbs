@@ -1,17 +1,9 @@
-const config = {
-  environment: 'development',
-  web: {
-    httpPort: 4000,
-  },
-  database: {
-    client: 'pg',
-    connection: {
-      host: 'to-do-list.cj8mkeohtwzs.us-east-1.rds.amazonaws.com',
-      user: 'postgres',
-      password: 'mega_D3V',
-      database: 'postgres',
-    },
-  },
-}
+const dotenv = require('dotenv')
+dotenv.config({ silent: true })
+
+const environment = process.env.NODE_ENV || 'dev'
+// eslint-disable-next-line no-console
+console.info(`♻️ Enviroment: ${environment}`)
+const config = require('./' + [environment] + '.json')
 
 module.exports = config
