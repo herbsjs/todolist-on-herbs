@@ -6,8 +6,9 @@
   "scripts": {
     "test": "mocha --timeout 999999 --colors --recursive src/**/*.test.js",
     "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
-    "start": "node src/infra/api/server.js",
-    "serverless": "cross-env NODE_ENV=prod serverless offline",
+    "start": "cross-env NODE_ENV=production node src/infra/api/server.js",
+    "dev": "cross-env NODE_ENV=stage node src/infra/api/server.js",
+    "serverless": "serverless offline --stage=stage",
     "knex:make": "npx knex --knexfile knexfile.js migrate:make",
     "knex:migrate": "npx knex --knexfile knexfile.js migrate:latest",
     "knex:rollback": "npx knex --knexfile knexfile.js migrate:rollback",

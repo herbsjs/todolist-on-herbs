@@ -1,6 +1,0 @@
-{
-  "environment": "staging",
-  "web": {
-    "httpPort": 80
-  }
-}

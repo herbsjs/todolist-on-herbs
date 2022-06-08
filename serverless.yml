@@ -1,4 +1,4 @@
-service: todolists-on-herbs-serverless
+service: todolists-on-herbs
 
 plugins:
   - serverless-offline
@@ -8,15 +8,19 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-1
-  role: 
+  role:
   timeout: 100
   memorySize: 1024
   environment:
-      NODE_ENV: ${env:NODE_ENV}
-      HERBS_EXCEPTION: ${env:HERBS_EXCEPTION}
+    HERBS_EXCEPTION: ${env:HERBS_EXCEPTION}
+    DATABASE_CLIENT: ${env:DATABASE_CLIENT}
+    DATABASE_HOST: ${env:DATABASE_HOST}
+    DATABASE_USER: ${env:DATABASE_USER}
+    DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
+    DATABASE_NAME: ${env:DATABASE_NAME}
 functions:
   herbsshelf:
-    name: herbsShelf
+    name: HerbsShelf
     handler: index.herbsshelf
     events:
       - http:
@@ -24,7 +28,7 @@ functions:
           method: get
           cors: true
   crateItem:
-    name: create_item
+    name: CreateItem
     handler: index.createItem
     events:
       - http:
@@ -32,7 +36,7 @@ functions:
           method: post
           cors: true
   createLists:
-    name: create_lists
+    name: CreateLists
     handler: index.createList
     events:
       - http:
@@ -40,7 +44,7 @@ functions:
           method: post
           cors: true
   deleteItem:
-    name: delete_item
+    name: DeleteItem
     handler: index.deleteItem
     events:
       - http:
@@ -52,7 +56,7 @@ functions:
               paths:
                 id: true
   deleteLists:
-    name: delete_lists
+    name: DeleteLists
     handler: index.deleteList
     events:
       - http:
@@ -64,7 +68,7 @@ functions:
               paths:
                 id: true
   getItems:
-    name: get_items
+    name: GetItems
     handler: index.getItems
     events:
       - http:
@@ -72,7 +76,7 @@ functions:
           method: get
           cors: true
   getLists:
-    name: get_lists
+    name: GetLists
     handler: index.getLists
     events:
       - http:
@@ -80,7 +84,7 @@ functions:
           method: get
           cors: true
   updateItem:
-    name: update_item
+    name: UpdateItem
     handler: index.updateItem
     events:
       - http:
@@ -92,7 +96,7 @@ functions:
               paths:
                 id: true
   updateLists:
-    name: update_lists
+    name: UpdateLists
     handler: index.updateLists
     events:
       - http:
