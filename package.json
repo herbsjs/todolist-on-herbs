@@ -27,7 +27,7 @@
     "@herbsjs/herbs2knex": "^1.5.1",
     "@herbsjs/herbs2repl": "^1.0.3",
     "@herbsjs/herbs2rest": "^2.0.2",
-    "@herbsjs/herbsshelf": "^2.2.0",
+    "@herbsjs/herbsshelf": "^2.2.1",
     "apollo-env": "^0.10.2",
     "apollo-server-express": "^3.8.2",
     "dotenv": "^16.0.1",
