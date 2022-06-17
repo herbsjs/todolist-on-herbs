@@ -9,7 +9,7 @@ const express = require('express')
 const cors = require('cors')
 
 // Shelf
-const renderShelfHTML = require('@herbsjs/herbsshelf')
+const { renderShelfHTML } = require('@herbsjs/herbsshelf')
 
 // GraphQL
 const { ApolloServer } = require('apollo-server-express')
