@@ -27,7 +27,7 @@
     "@herbsjs/herbarium": "^1.4.0",
     "@herbsjs/herbs": "1.6.1",
     "@herbsjs/herbs2gql": "2.2.0",
-    "@herbsjs/herbs2knex": "1.5.3",
+    "@herbsjs/herbs2knex": "1.5.4",
     "@herbsjs/herbs2repl": "^1.0.4",
     "@herbsjs/herbs2rest": "^3.0.2",
     "@herbsjs/herbsshelf": "^4.0.0",
