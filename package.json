@@ -17,6 +17,9 @@
     "commit": "cz",
     "repl": "node src/infra/repl/"
   },
+  "engines": {
+    "node": ">= 14.x"
+  },
   "keywords": [],
   "author": "David Lojudice Sb",
   "license": "MIT",

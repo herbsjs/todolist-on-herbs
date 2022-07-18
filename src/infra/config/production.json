@@ -1,7 +1,7 @@
 {
   "environment": "production",
   "web": {
-    "httpPort": 443
+    "httpPort": 4000
   },
   "database": {
     "client": "sqlite3",
