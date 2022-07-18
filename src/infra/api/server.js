@@ -72,11 +72,11 @@ class ServerAPI {
 
     banner() {
         // eslint-disable-next-line no-console
-        console.info(`\n🚀 Server UP and Running in port: ${Config.web.httpPort}`)
+        console.info(`\n🚀 Server UP and Running in port: ${ process.env.PORT || Config.web.httpPort}`)
     }
 
     init() {
-        return this.app.listen({ port: Config.web.httpPort }, this.banner)
+        return this.app.listen({ port: process.env.PORT ||  Config.web.httpPort }, this.banner)
     }
 
     herbsShelf() {
