@@ -32,7 +32,8 @@ const createList = injection =>
 
     'Save the List': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await repo.insert(ctx.list))
+      ctx.ret = await repo.insert(ctx.list)
+      return ctx.ret
     }),
   })
 

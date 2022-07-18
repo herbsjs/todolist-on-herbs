@@ -1,6 +1,6 @@
 {
   "name": "todolist-api",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs)",
   "main": "",
   "scripts": {
@@ -17,39 +17,43 @@
     "commit": "cz",
     "repl": "node src/infra/repl/"
   },
+  "engines": {
+    "node": ">= 14.x"
+  },
   "keywords": [],
   "author": "David Lojudice Sb",
   "license": "MIT",
   "dependencies": {
     "@herbsjs/herbarium": "^1.4.0",
-    "@herbsjs/herbs": "^1.5.0",
-    "@herbsjs/herbs2gql": "2.1.7",
-    "@herbsjs/herbs2knex": "^1.5.2",
-    "@herbsjs/herbs2repl": "^1.0.3",
-    "@herbsjs/herbs2rest": "^2.0.2",
-    "@herbsjs/herbsshelf": "^3.0.0",
+    "@herbsjs/herbs": "1.6.1",
+    "@herbsjs/herbs2gql": "2.2.0",
+    "@herbsjs/herbs2knex": "1.5.3",
+    "@herbsjs/herbs2repl": "^1.0.4",
+    "@herbsjs/herbs2rest": "^3.0.2",
+    "@herbsjs/herbsshelf": "^4.0.0",
     "apollo-env": "^0.10.2",
-    "apollo-server-express": "^3.9.0",
+    "apollo-server-express": "^3.10.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "graphql": "^16.5.0",
     "graphql-resolvers": "^0.4.2",
     "graphql-scalars": "^1.17.0",
-    "graphql-upload": "^15.0.1",
-    "knex": "^2.1.0",
-    "pg": "^8.7.3"
+    "graphql-upload": "^15.0.2",
+    "knex": "2.1.0",
+    "pg": "^8.7.3",
+    "sqlite3": "^5.0.9"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.18.0",
+    "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
-    "ws": ">=8.8.0"
+    "ws": ">=8.8.1"
   },
   "config": {
     "commitizen": {
