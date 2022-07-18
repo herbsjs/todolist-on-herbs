@@ -23,16 +23,17 @@ function findUsecases(entity) {
 const entities = findEntitiesAndGroups()
 
 const controllers = entities.map(entity => {
-    const ucList = findUsecases(entity.id)
-    return {
-        name: entity.group,
-        getAll: { usecase: ucList.getAll },
-        getById: { usecase: ucList.getById, id: 'ids' },
-        post: { usecase: ucList.post },
-        put: { usecase: ucList.put },
-        delete: { usecase: ucList.del }
-    }
+    const usecases = findUsecases(entity.id)
+    const controllers = { name: entity.group, entity: entity.id }
+    if (usecases.getAll) controllers.getAll = { usecase: usecases.getAll }
+    if (usecases.getById) controllers.getById = { usecase: usecases.getById, id: 'ids' }
+    if (usecases.post) controllers.post = { usecase: usecases.post }
+    if (usecases.put) controllers.put = { usecase: usecases.put }
+    if (usecases.del) controllers.delete = { usecase: usecases.del }
+
+    return controllers
 })
+
 
 // add custon controllers
 // controllers.push(...)

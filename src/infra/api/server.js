@@ -9,7 +9,7 @@ const express = require('express')
 const cors = require('cors')
 
 // Shelf
-const { renderShelfHTML } = require('@herbsjs/herbsshelf')
+const { renderShelfHTML, herbsshelf  } = require('@herbsjs/herbsshelf')
 
 // GraphQL
 const { ApolloServer } = require('apollo-server-express')
@@ -80,13 +80,10 @@ class ServerAPI {
     }
 
     herbsShelf() {
-        const usecases = Array.from(herbarium.usecases.all).map(([_, item]) =>
-            ({ usecase: item.usecase(), id: item.id, tags: { group: item.group } }))
-
         this.app.get('/herbsshelf', (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
 
-            const shelf = renderShelfHTML('TODO List', usecases)
+            const shelf = herbsshelf ( {project: 'TODO List', herbarium})
             res.write(shelf)
             res.end()
         })
