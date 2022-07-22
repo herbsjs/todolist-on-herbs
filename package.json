@@ -41,7 +41,7 @@
     "graphql-upload": "^15.0.2",
     "knex": "2.1.0",
     "pg": "^8.7.3",
-    "sqlite3": "^5.0.9"
+    "sqlite3": "^5.0.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
