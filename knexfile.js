@@ -26,7 +26,7 @@ module.exports = {
 
   production: {
     client: 'sqlite3',
-    connection: { filename: "file::memory:?cache=shared" },
+    connection: { filename: "file.sqlite:memDb1?mode=memory&cache=shared" },
     useNullAsDefault: true,
     pool: {
       min: 2,
