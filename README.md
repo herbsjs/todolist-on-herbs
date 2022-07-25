@@ -15,6 +15,8 @@ Within this repository, you will find a front-end application, made in react con
 
 This is a example on how to build a backend application using [Herbs](https://github.com/herbsjs).
 
+Live example [Herbs Shelf](https://vast-dawn-10467.herokuapp.com/herbsshelf)
+
 ### Using
 
     $ npm install
