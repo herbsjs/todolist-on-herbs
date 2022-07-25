@@ -80,7 +80,7 @@ class ServerAPI {
     }
 
     herbsShelf() {
-        this.app.get('/herbsshelf', (req, res, next) => {
+        this.app.get(['/', '/herbsshelf'], (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
 
             const shelf = herbsshelf ( {project: 'TODO List', herbarium})
@@ -89,7 +89,7 @@ class ServerAPI {
         })
 
         // eslint-disable-next-line no-console
-        console.info(`\n📚 Herbs Shelf endpoint - /herbsshelf`)
+        console.info(`\n📚 Herbs Shelf endpoint - /`)
 
     }
 }
