@@ -89,7 +89,7 @@ class ServerAPI {
         })
 
         // eslint-disable-next-line no-console
-        console.info(`\n📚 Herbs Shelf endpoint - /`)
+        console.info(`\n📚 Herbs Shelf endpoint - /herbsshelf`)
 
     }
 }
