@@ -1,5 +1,5 @@
 const { generateRoutes } = require('@herbsjs/herbs2rest')
-const Config = require('../../config')
+const Config = require('../../config/config')
 const { herbarium } = require('@herbsjs/herbarium')
 
 function findEntitiesAndGroups() {

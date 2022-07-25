@@ -1,4 +1,4 @@
-const Config = require('../config')
+const Config = require('../config/config')
 
 // Herbarium
 const { herbarium } = require('@herbsjs/herbarium')
@@ -72,16 +72,11 @@ class ServerAPI {
 
     banner() {
         // eslint-disable-next-line no-console
-        console.info(`\n🚀 Server UP and Running in port: ${ process.env.PORT || Config.httpPort}`)
+        console.info(`\n🚀 Server UP and Running in port: ${ process.env.PORT || Config.web.httpPort}`)
     }
 
     init() {
-
-        this.app.get("/", (req, res) => {
-            res.send("Hello Geeks, please visit https://herbsjs.org/docs/ for more information");
-        });
-
-        return this.app.listen({ port: process.env.PORT ||  Config.httpPort }, this.banner)
+        return this.app.listen({ port: process.env.PORT ||  Config.web.httpPort }, this.banner)
     }
 
     herbsShelf() {
