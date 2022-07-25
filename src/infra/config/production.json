@@ -9,3 +9,4 @@
     "connection": { "filename": "file.sqlite:memDb1?mode=memory&cache=shared" }
   }
 }
+

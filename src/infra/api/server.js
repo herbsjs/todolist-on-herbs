@@ -80,7 +80,7 @@ class ServerAPI {
     }
 
     herbsShelf() {
-        this.app.get('/herbsshelf', (req, res, next) => {
+        this.app.get(['/', '/herbsshelf'], (req, res, next) => {
             res.setHeader('Content-Type', 'text/html')
 
             const shelf = herbsshelf ( {project: 'TODO List', herbarium})
