@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@herbsjs/herbarium": "^1.4.0",
-    "@herbsjs/herbs": "1.6.1",
+    "@herbsjs/herbs": "1.6.2",
     "@herbsjs/herbs2gql": "2.2.0",
     "@herbsjs/herbs2knex": "1.5.5",
     "@herbsjs/herbs2repl": "^1.0.5",
