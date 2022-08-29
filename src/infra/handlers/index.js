@@ -1,11 +1,11 @@
-module.exports = {
-  herbsshelf: require('./herbsshelf'),
-  createItem: require('./createItem'),
-  createList: require('./createList'),
-  deleteItem: require('./deleteItem'),
-  deleteList: require('./deleteList'),
-  getItems: require('./getItems'),
-  getLists: require('./getLists'),
-  updateItem: require('./updateItem'),
-  updateLists: require('./updateLists'),
+const fs = require('fs')
+const files = fs.readdirSync(require('path').join(__dirname, './'))
+
+const handlers = {}
+for (file of files) {
+  const handlerName = file.split('.')[0]
+  if (['index', 'defaultHandler'].includes(handlerName)) continue
+  handlers[handlerName] = require('./' + file)
 }
+
+module.exports = handlers
