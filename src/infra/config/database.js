@@ -1,6 +1,6 @@
 module.exports = {
+  client: process.env.DATABASE_CLIENT,
   database: {
-    client: process.env.DATABASE_CLIENT,
     connection: {
       host: process.env.DATABASE_HOST,
       user: process.env.DATABASE_USER,
