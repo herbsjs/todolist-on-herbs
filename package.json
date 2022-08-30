@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha --timeout 999999 --colors --recursive src/**/*.test.js",
     "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
-    "start": "cross-env NODE_ENV=production node src/infra/api/server.js",
-    "dev": "cross-env NODE_ENV=stage node src/infra/api/server.js",
+    "start": "cross-env NODE_ENV='production' && node src/infra/api/server.js",
+    "dev": "cross-env NODE_ENV='stage' && node src/infra/api/server.js",
     "serverless": "serverless offline --stage=stage",
     "knex:make": "npx knex --knexfile knexfile.js migrate:make",
     "knex:migrate": "npx knex --knexfile knexfile.js migrate:latest",
@@ -35,6 +35,7 @@
     "@herbsjs/herbsshelf": "^4.0.1",
     "apollo-env": "^0.10.2",
     "apollo-server-express": "^3.10.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "graphql": "^16.5.0",
