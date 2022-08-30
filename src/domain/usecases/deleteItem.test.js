@@ -17,7 +17,7 @@ describe('Delete Items', () => {
             }
         }
 
-        const user = { canDeleteItem: true }
+        const user = { can: { delete: { item: true } } }
         const req = { id: 1 }
 
         // When
@@ -38,7 +38,7 @@ describe('Delete Items', () => {
                 async delete(ids) { return true }
             }
         }
-        const user = { canDeleteItem: true }
+        const user = { can: { delete: { item: true } } }
         const req = { id: 2 }
 
         // When

@@ -14,7 +14,7 @@ const deleteItem = injection =>
 
         setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-        authorize: async user => (user.canDeleteItem ? Ok() : Err()),
+        authorize: async user => (user.can.delete.item ? Ok() : Err()),
 
         'Check if the Item exist': step(async ctx => {
             const repo = new ctx.di.ItemRepository(injection)

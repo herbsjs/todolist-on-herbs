@@ -14,7 +14,7 @@ const deleteList = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async user => (user.canDeleteList ? Ok() : Err()),
+    authorize: async user => (user.can.delete.list ? Ok() : Err()),
 
     'Check if the List exist': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)

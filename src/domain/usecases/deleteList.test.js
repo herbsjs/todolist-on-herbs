@@ -13,7 +13,7 @@ describe('Delete Todo Lists', () => {
             }
         }
 
-        const user = { canDeleteList: true }
+        const user = { can: { delete: { list: true } } }
         const req = { id: 1 }
 
         // When
@@ -32,7 +32,7 @@ describe('Delete Todo Lists', () => {
                 async find(where) { return [] }
             }
         }
-        const user = { canDeleteList: true }
+        const user = { can: { delete: { list: true } } }
         const req = { id: 2 }
 
         // When

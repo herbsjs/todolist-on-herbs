@@ -4,7 +4,7 @@ const { createList } = require('./createList')
 describe('Create List', () => {
 
     function aUser({ hasAccess }) {
-        return { canCreateList: hasAccess }
+        return { can: { create: { list: hasAccess } } }
     }
 
     describe('Valid List', () => {

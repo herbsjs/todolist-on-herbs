@@ -4,20 +4,27 @@ const { TodoList } = require('../entities/todoList')
 
 describe('Create Item', () => {
   function aUser({ hasAccess }) {
-    return { canCreateItem: hasAccess }
+    return { can: { create: { item: hasAccess } } }
   }
 
   describe('Valid Item', () => {
-
     it('should add Item on empty List ', async () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) { return ([TodoList.fromJSON({ name: `Great achievements`, id: 65676 })]) }
+          async find(where) {
+            return [
+              TodoList.fromJSON({ name: `Great achievements`, id: 65676 }),
+            ]
+          }
         },
         ItemRepository: class {
-          async insert(item) { return (item) }
-          async find(where) { return [] }
+          async insert(item) {
+            return item
+          }
+          async find(where) {
+            return []
+          }
         },
       }
       const user = aUser({ hasAccess: true })
@@ -37,10 +44,14 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) { return [TodoList.fromJSON({ name: `Great goals`, id: 65676 })] }
+          async find(where) {
+            return [TodoList.fromJSON({ name: `Great goals`, id: 65676 })]
+          }
         },
         ItemRepository: class {
-          async insert(item) { return item }
+          async insert(item) {
+            return item
+          }
           async find(where) {
             return [
               { id: 11111, position: 1 },
@@ -65,7 +76,6 @@ describe('Create Item', () => {
   })
 
   describe('Invalid Item', () => {
-
     it('should not create invalid Item', async () => {
       // Given
       const injection = {}
@@ -87,8 +97,10 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) { return [] }
-        }
+          async find(where) {
+            return []
+          }
+        },
       }
       const user = aUser({ hasAccess: true })
       const req = { description: `You can do it!`, listId: 65680 }
@@ -103,6 +115,5 @@ describe('Create Item', () => {
       assert.strictEqual(ret.err.message, `List not found - ID: 65680`)
       assert.strictEqual(ret.isNotFoundError, true)
     })
-
   })
 })

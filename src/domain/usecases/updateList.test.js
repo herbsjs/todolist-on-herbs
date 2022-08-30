@@ -12,7 +12,7 @@ describe('Update Lists', () => {
         async update(list) { return list }
       }
     }
-    const user = { canUpdateList: true }
+    const user = { can: { update: { list: true } } }
     const req = { id: 1, name: `Things I must learn` }
 
     // When
@@ -32,7 +32,7 @@ describe('Update Lists', () => {
         async find(where) { return [] }
       }
     }
-    const user = { canUpdateList: true }
+    const user =  { can: { update: { list: true } } }
     const req = { id: 1, name: `Should make this year` }
 
     // When
@@ -53,7 +53,7 @@ describe('Update Lists', () => {
         async find(where) { return [TodoList.fromJSON({ id: 1, name: `Must have` })] }
       }
     }
-    const user = { canUpdateList: true }
+    const user =  { can: { update: { list: true } } }
     const req = { id: 1, name: 'Li' }
 
     // When

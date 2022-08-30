@@ -1,10 +1,20 @@
 module.exports = {
-  canCreateList: true,
-  canGetLists: true,
-  canGetItems: true,
-  canUpdateList: true,
-  canDeleteList: true,
-  canDeleteItem: true,
-  canCreateItem: true,
-  canUpdateItem: true,
+  can: {
+    create: {
+      list: true,
+      item: true,
+    },
+    delete: {
+      list: true,
+      item: true,
+    },
+    update: {
+      list: true,
+      item: true,
+    },
+    get: {
+      list: true,
+      item: true,
+    },
+  },
 }
