@@ -3,7 +3,7 @@ const { herbarium } = require('@herbsjs/herbarium')
 const { Item } = require('../entities/item')
 
 const dependency = {
-  ItemRepository: require('../../infra/repositories/pg/itemRepository'),
+  ItemRepository: require('../../infra/repositories/db/itemRepository'),
 }
 
 const updateItem = (injection) =>

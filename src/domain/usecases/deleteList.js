@@ -3,7 +3,7 @@ const { herbarium } = require('@herbsjs/herbarium')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {
-  ListRepository: require('../../infra/repositories/pg/listRepository'),
+  ListRepository: require('../../infra/repositories/db/listRepository'),
 }
 
 const deleteList = injection =>

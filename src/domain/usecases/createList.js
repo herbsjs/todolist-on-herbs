@@ -3,7 +3,7 @@ const { herbarium } = require('@herbsjs/herbarium')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {
-  ListRepository: require('../../infra/repositories/pg/listRepository'),
+  ListRepository: require('../../infra/repositories/db/listRepository'),
 }
 
 const createList = injection =>
@@ -32,7 +32,8 @@ const createList = injection =>
 
     'Save the List': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)
-      return (ctx.ret = await repo.insert(ctx.list))
+      ctx.ret = await repo.insert(ctx.list)
+      return ctx.ret
     }),
   })
 
