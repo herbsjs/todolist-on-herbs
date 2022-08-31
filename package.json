@@ -39,7 +39,7 @@
     "graphql-resolvers": "^0.4.2",
     "graphql-scalars": "^1.17.0",
     "graphql-upload": "^15.0.2",
-    "knex": "2.2.0",
+    "knex": "2.3.0",
     "pg": "^8.7.3",
     "sqlite3": "^5.0.11"
   },
