@@ -1,30 +1,36 @@
-const httpsCode = require('../config/statusCode')
-
 async function apiGateway(usecase, parameters, authContext) {
   try {
     const usecaseInstace = usecase()
-    await usecaseInstace.authorize(authContext)
-    const ucResult = await usecaseInstace.run(parameters)
+    const hasAccess = await usecaseInstace.authorize(authContext)
+    const response = await usecaseInstace.run(parameters)
 
-    if (ucResult.isOk)
+    if (hasAccess === false)
+      return {
+        statusCode: 401,
+        body: JSON.stringify({
+          message: response.err,
+        }),
+      }
+
+    if (response.isOk)
       return {
         statusCode: 200,
         body: JSON.stringify(ucResult.ok),
       }
 
-    if (ucResult.err === 'Not Authorized')
-      return {
-        statusCode: 401,
-        body: JSON.stringify({
-          message: ucResult.err,
-        }),
-      }
+    let statusCode = 400
+    if (response.isInvalidArgumentsError) statusCode = 400
+    if (response.isPermissionDeniedError) statusCode = 403
+    if (response.isNotFoundError) statusCode = 404
+    if (response.isAlreadyExistsError) statusCode = 409
+    if (response.isInvalidEntityError) statusCode = 422
+    if (response.isUnknownError) statusCode = 500
 
     return {
-      statusCode: httpsCode[ucResult.err.code],
+      statusCode,
       body: JSON.stringify({
-        message: ucResult.err.message,
-        stack: ucResult.err.cause,
+        message: response.err,
+        stack: response.err,
       }),
     }
   } catch (error) {
