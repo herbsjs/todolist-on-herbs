@@ -1,6 +1,6 @@
 const { getLists } = require('../../domain/usecases/getLists')
 const { apiGateway } = require('./defaultHandler')
-const user = require('../config/user')
+const { user } = require('../config')
 
 module.exports = async (event, context, callback) => {
   const args = JSON.parse(event.body)

@@ -1,6 +1,6 @@
 const { apiGateway } = require('./defaultHandler')
 const { updateItem } = require('../../domain/usecases/updateItem')
-const user = require('../config/user')
+const { user } = require('../config')
 
 module.exports = async (event, context, callback) => {
   const args = JSON.parse(event.body)

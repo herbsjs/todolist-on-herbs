@@ -1,6 +1,6 @@
 const { deleteList } = require('../../domain/usecases/deleteList')
 const { apiGateway } = require('./defaultHandler')
-const user = require('../config/user')
+const { user } = require('../config')
 
 module.exports = async (event, context, callback) => {
   const parameters = {
