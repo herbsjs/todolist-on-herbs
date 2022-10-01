@@ -3,7 +3,8 @@ const { herbarium } = require('@herbsjs/herbarium')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {
-  ListRepository: require('../../infra/repositories/db/listRepository'),
+  ListRepository: require('../../infra/repositories/pg/listRepository'),
+  ItemRepository: require('../../infra/repositories/pg/itemRepository')
 }
 
 const getLists = injection =>
@@ -28,11 +29,18 @@ const getLists = injection =>
       }),
 
       'Else return all': step(async (ctx) => {
-        const repo = new ctx.di.ListRepository(injection)
-        const lists = await repo.findAll()
-        return Ok((ctx.ret = lists))
-      }),
-    }),
+        const listRepo = new ctx.di.ListRepository(injection)
+        const itemRepo = new ctx.di.ItemRepository(injection)
+        const lists = await listRepo.findAll()
+        const listWithItens = []
+        for (let index = 0; index < lists.length; index++) {
+          const list = lists[index]
+          list.items = (await itemRepo.find({ where: {list_id: list.id} }))
+          listWithItens.push(list)
+        }
+        return Ok(ctx.ret = listWithItens)
+      })
+    })
   })
 
 module.exports.getLists = herbarium.usecases
