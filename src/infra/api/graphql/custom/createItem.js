@@ -1,4 +1,4 @@
-const { UserInputError }= require('apollo-server-express')
+const { UserInputError } = require('apollo-server-express')
 
 const dependency = {
   createItem: require('../../../../domain/usecases/createItem').createItem

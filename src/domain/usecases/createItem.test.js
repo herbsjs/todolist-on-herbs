@@ -13,18 +13,11 @@ describe('Create Item', () => {
       const injection = {
         ListRepository: class {
           async find(where) {
-            return [
-              TodoList.fromJSON({ name: `Great achievements`, id: 65676 }),
-            ]
-          }
+            return [ TodoList.fromJSON({ name: `Great achievements`, id: 65676 })]}
         },
         ItemRepository: class {
-          async insert(item) {
-            return item
-          }
-          async find(where) {
-            return []
-          }
+          async insert(item) { return item }
+          async find(where) { return [] }
         },
       }
       const user = aUser({ hasAccess: true })
@@ -44,14 +37,10 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) {
-            return [TodoList.fromJSON({ name: `Great goals`, id: 65676 })]
-          }
+          async find(where) { return [TodoList.fromJSON({ name: `Great goals`, id: 65676 })] }
         },
         ItemRepository: class {
-          async insert(item) {
-            return item
-          }
+          async insert(item) { return item }
           async find(where) {
             return [
               { id: 11111, position: 1 },
@@ -97,9 +86,7 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) {
-            return []
-          }
+          async find(where) { return [] }
         },
       }
       const user = aUser({ hasAccess: true })

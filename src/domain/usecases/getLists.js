@@ -6,13 +6,13 @@ const dependency = {
   ListRepository: require('../../infra/repositories/db/listRepository'),
 }
 
-const getLists = (injection) =>
+const getLists = injection =>
   usecase('Get Lists', {
     request: { ids: [Number] },
 
     response: [TodoList],
 
-    setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
+    setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
     authorize: async (user) => (user.can.get.list ? Ok() : Err()),
 
