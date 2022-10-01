@@ -12,8 +12,7 @@ describe('Create Item', () => {
       // Given
       const injection = {
         ListRepository: class {
-          async find(where) {
-            return [ TodoList.fromJSON({ name: `Great achievements`, id: 65676 })]}
+          async find(where) { return [ TodoList.fromJSON({ name: `Great achievements`, id: 65676 })]}
         },
         ItemRepository: class {
           async insert(item) { return item }
