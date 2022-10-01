@@ -14,6 +14,7 @@ const defaultSchema = [`
 
 let types = [defaultSchema]
 types = types.concat(entities.map(entity => [entity2type(entity)]))
+
 /* Custom Types */
 types.push(require('./custom/date'))
 
