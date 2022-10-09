@@ -4,7 +4,7 @@ const { updateItem } = require('./updateItem')
 
 describe('Update Item', () => {
   function aUser({ hasAccess }) {
-    return { canUpdateItem: hasAccess }
+    return { can: { update: { item: hasAccess } } }
   }
 
   describe('Valid Item', () => {

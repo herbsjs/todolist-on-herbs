@@ -15,7 +15,7 @@ const getItems = (injection) =>
 
         setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-        authorize: async (user) => (user.canGetItems ? Ok() : Err()),
+        authorize: async (user) => (user.can.get.item ? Ok() : Err()),
 
         'Get Item by ID or All': ifElse({
             'If one or more IDs were provided': step(async (ctx) => {

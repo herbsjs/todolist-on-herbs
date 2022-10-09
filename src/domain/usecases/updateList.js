@@ -14,7 +14,7 @@ const updateList = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async user => (user.canUpdateList ? Ok() : Err()),
+    authorize: async user => (user.can.update.list ? Ok() : Err()),
 
     'Retrieve the List': step(async ctx => {
       const repo = new ctx.di.ListRepository(injection)

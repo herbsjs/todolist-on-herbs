@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha --timeout 999999 --colors --recursive src/**/*.test.js",
     "coverage": "nyc --reporter=html mocha src/**/*.test.js npm test",
-    "start": "node src/infra/api/server.js",
+    "start": "cross-env NODE_ENV='production' && node src/infra/api/server.js",
+    "dev": "cross-env NODE_ENV='stage' && node src/infra/api/server.js",
+    "serverless": "serverless offline --stage=stage",
     "knex:make": "npx knex --knexfile knexfile.js migrate:make",
     "knex:migrate": "npx knex --knexfile knexfile.js migrate:latest",
     "knex:rollback": "npx knex --knexfile knexfile.js migrate:rollback",
@@ -33,15 +35,18 @@
     "@herbsjs/herbsshelf": "^4.0.1",
     "apollo-env": "^0.10.2",
     "apollo-server-express": "^3.10.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "graphql": "^16.5.0",
     "graphql-resolvers": "^0.4.2",
     "graphql-scalars": "^1.17.0",
     "graphql-upload": "^15.0.2",
-    "knex": "2.3.0",
+    "knex": "2.2.0",
     "pg": "^8.8.0",
-    "sqlite3": "^5.1.1"
+    "serverless": "^3.18.1",
+    "serverless-http": "^3.0.1",
+    "sqlite3": "^5.0.11"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
@@ -53,6 +58,8 @@
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
+    "serverless-dotenv-plugin": "^3.12.0",
+    "serverless-offline": "^8.8.0",
     "ws": ">=8.8.1"
   },
   "config": {

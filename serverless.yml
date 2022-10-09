@@ -1,0 +1,113 @@
+service: todolists-on-herbs
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+  role:
+  timeout: 100
+  memorySize: 1024
+  environment:
+    HERBS_EXCEPTION: ${env:HERBS_EXCEPTION}
+    DATABASE_CLIENT: ${env:DATABASE_CLIENT}
+    DATABASE_CONNECTION: ${env:DATABASE_CONNECTION}
+    DATABASE_HOST: ${env:DATABASE_HOST}
+    DATABASE_USER: ${env:DATABASE_USER}
+    DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
+    DATABASE_NAME: ${env:DATABASE_NAME}
+functions:
+  herbsshelf:
+    name: HerbsShelf
+    handler: index.herbsshelf
+    events:
+      - http:
+          path: herbsshelf
+          method: get
+          cors: true
+  crateItem:
+    name: CreateItem
+    handler: index.createItem
+    events:
+      - http:
+          path: items
+          method: post
+          cors: true
+  createLists:
+    name: CreateLists
+    handler: index.createList
+    events:
+      - http:
+          path: lists
+          method: post
+          cors: true
+  deleteItem:
+    name: DeleteItem
+    handler: index.deleteItem
+    events:
+      - http:
+          path: items/{id}
+          method: delete
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+  deleteLists:
+    name: DeleteLists
+    handler: index.deleteList
+    events:
+      - http:
+          path: lists/{id}
+          method: delete
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+  getItems:
+    name: GetItems
+    handler: index.getItems
+    events:
+      - http:
+          path: items
+          method: get
+          cors: true
+  getLists:
+    name: GetLists
+    handler: index.getLists
+    events:
+      - http:
+          path: lists
+          method: get
+          cors: true
+  updateItem:
+    name: UpdateItem
+    handler: index.updateItem
+    events:
+      - http:
+          path: items/{id}
+          method: put
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+  updateLists:
+    name: UpdateLists
+    handler: index.updateLists
+    events:
+      - http:
+          path: lists/{id}
+          method: put
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true

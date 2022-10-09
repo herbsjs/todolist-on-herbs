@@ -14,7 +14,7 @@ const createList = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async user => (user.canCreateList ? Ok() : Err()),
+    authorize: async user => (user.can.create.list ? Ok() : Err()),
 
     'Check if the List is valid': step(ctx => {
       const list = ctx.list = new TodoList()

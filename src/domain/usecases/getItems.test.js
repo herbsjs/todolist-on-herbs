@@ -11,7 +11,7 @@ describe('Get Items', () => {
                 async findAll(ids) { return Ok([]) }
             }
         }
-        const user = { canGetItems: true }
+        const user = { can: { get: { item: true } } }
         const req = { ids: [] }
 
         // When
@@ -30,7 +30,7 @@ describe('Get Items', () => {
                 async find(where) { return Ok([{ id: 1 }]) }
             }
         }
-        const user = { canGetItems: true }
+        const user = { can: { get: { item: true } } }
         const req = { ids: [1, 2] }
 
         // When
@@ -50,7 +50,7 @@ describe('Get Items', () => {
                 async find(where) { return Ok([]) }
             }
         }
-        const user = { canGetItems: true }
+        const user = { can: { get: { item: true } } }
         const req = { ids: [1, 2] }
 
         // When

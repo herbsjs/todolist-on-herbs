@@ -1,4 +1,4 @@
 const knex = require('knex')
-const config = require('../../config/config')
+const config = require('../../config')
 
 module.exports = knex(config.database)

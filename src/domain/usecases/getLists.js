@@ -15,10 +15,9 @@ const getLists = injection =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async user => (user.canGetLists ? Ok() : Err()),
+    authorize: async (user) => (user.can.get.list ? Ok() : Err()),
 
     'Get List by ID or All': ifElse({
-
       'If it is was informed one or more IDs': step(async (ctx) => {
         return Ok(ctx.req.ids !== undefined && ctx.req.ids.length > 0)
       }),
@@ -26,7 +25,7 @@ const getLists = injection =>
       'Then return the all on the list': step(async (ctx) => {
         const repo = new ctx.di.ListRepository(injection)
         const list = await repo.find({ where: { id: ctx.req.ids } })
-        return Ok(ctx.ret = list)
+        return Ok((ctx.ret = list))
       }),
 
       'Else return all': step(async (ctx) => {
@@ -44,8 +43,7 @@ const getLists = injection =>
     })
   })
 
-
-module.exports.getLists =
+  module.exports.getLists =
   herbarium.usecases
     .add(getLists, 'GetLists')
     .metadata({ group: 'Lists', operation: herbarium.crud.read, entity: TodoList })

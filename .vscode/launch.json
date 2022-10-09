@@ -36,5 +36,13 @@
             "request": "launch",
             "type": "node-terminal"
         },
+        {
+          "name": "Serveless",
+          "type": "node",
+          "request": "launch",
+          "cwd": "${workspaceRoot}",
+          "runtimeExecutable": "npm",
+          "runtimeArgs": ["run-script", "serverless"]
+        }
     ]
 }

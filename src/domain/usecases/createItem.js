@@ -15,7 +15,7 @@ const createItem = (injection) =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async (user) => (user.canCreateItem ? Ok() : Err()),
+    authorize: async (user) => (user.can.create.item ? Ok() : Err()),
 
     'Check if the Item is valid': step((ctx) => {
       const req = ctx.req

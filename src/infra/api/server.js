@@ -1,4 +1,4 @@
-const Config = require('../config/config')
+const Config = require('../config')
 
 // Herbarium
 const { herbarium } = require('@herbsjs/herbarium')
@@ -18,16 +18,7 @@ const [typeDefs, resolvers] = require('./graphql/index')
 // REST
 const generateRoutes = require('./rest/routes')
 
-const user = {
-    canCreateList: true,
-    canGetLists: true,
-    canGetItems: true,
-    canUpdateList: true,
-    canDeleteList: true,
-    canDeleteItem: true,
-    canCreateItem: true,
-    canUpdateItem: true
-}
+const { user } = require('../config/index')
 
 class ServerAPI {
     constructor(app) {

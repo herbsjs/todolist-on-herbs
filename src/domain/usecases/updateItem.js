@@ -19,7 +19,7 @@ const updateItem = (injection) =>
 
     setup: ctx => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: async (user) => (user.canUpdateItem ? Ok() : Err()),
+    authorize: async (user) => (user.can.update.item ? Ok() : Err()),
 
     'Retrieve the previous Item from the repository': step(async (ctx) => {
       const req = ctx.req
