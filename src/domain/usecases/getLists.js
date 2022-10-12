@@ -3,8 +3,8 @@ const { herbarium } = require('@herbsjs/herbarium')
 const { TodoList } = require('../entities/todoList')
 
 const dependency = {
-  ListRepository: require('../../infra/repositories/pg/listRepository'),
-  ItemRepository: require('../../infra/repositories/pg/itemRepository')
+  ListRepository: require('../../infra/repositories/db/listRepository'),
+  ItemRepository: require('../../infra/repositories/db/itemRepository')
 }
 
 const getLists = injection =>
@@ -45,8 +45,17 @@ const getLists = injection =>
   })
 
 
-module.exports.getLists =
+module.exports.getLists = AddHerbarium()
+
+function AddHerbarium() {
+
   herbarium.usecases
     .add(getLists, 'GetLists')
+    .metadata({ group: 'Lists', operation: herbarium.crud.readAll, entity: TodoList })
+    .usecase
+
+  return herbarium.usecases
+    .add(getLists, 'GetList')
     .metadata({ group: 'Lists', operation: herbarium.crud.read, entity: TodoList })
     .usecase
+}
