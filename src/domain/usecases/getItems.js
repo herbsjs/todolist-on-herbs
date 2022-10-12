@@ -39,8 +39,17 @@ const getItems = (injection) =>
 
     })
 
-module.exports.getItems =
+module.exports.getItems = AddHerbarium()
+
+function AddHerbarium() {
+
     herbarium.usecases
-        .add(getItems, 'GetItems')
+        .add(getItems, 'GetItem')
         .metadata({ group: 'Items', operation: herbarium.crud.read, entity: Item })
         .usecase
+
+    return herbarium.usecases
+        .add(getItems, 'GetItems')
+        .metadata({ group: 'Items', operation: herbarium.crud.readAll, entity: Item })
+        .usecase
+}                
