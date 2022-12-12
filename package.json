@@ -39,7 +39,7 @@
     "graphql-scalars": "^1.17.0",
     "knex": "2.3.0",
     "pg": "^8.8.0",
-    "sqlite3": "^5.1.1"
+    "sqlite3": "^5.1.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
